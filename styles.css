@@ -649,21 +649,19 @@ body.light-theme .control-btn:hover {
     top: 0;
     width: 50%;
     height: 100%;
-    background: #0a0a0a;
+    background: #000000;
     will-change: transform;
     z-index: 1;
     overflow: hidden;
-    transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+    transition: transform 0.95s cubic-bezier(0.76, 0, 0.24, 1);
 }
 .pl-curtain--left  { left: 0; }
 .pl-curtain--right { right: 0; }
 
 /*
- * The hero image is rendered via ::before on each panel.
- * Both use the SAME background-image at viewport size,
- * but each panel's ::before is positioned so the full image
- * spans from left:0 of the left panel to right:0 of the right panel.
- * Because each panel is overflow:hidden, you only see its half.
+ * The hero logo is rendered via ::before on each panel.
+ * Uses transparent just_a_tech_logo.png without background.
+ * Scaled significantly larger for desktop screens.
  */
 .pl-curtain::before {
     content: '';
@@ -671,11 +669,25 @@ body.light-theme .control-btn:hover {
     top: 0;
     width: 200%;          /* double the panel = full viewport width */
     height: 100%;
-    background-image: url('just_a_tech_logo.jpg');
-    background-size: min(880px, 92vw) auto;
-    background-position: center 46%;
+    background-image: url('just_a_tech_logo.png');
+    background-size: min(1300px, 92vw) auto;
+    background-position: center 48%;
     background-repeat: no-repeat;
     z-index: 1;
+    filter: drop-shadow(0 0 35px rgba(220, 38, 38, 0.4));
+    transition: filter 0.5s ease;
+}
+
+@media (min-width: 1400px) {
+    .pl-curtain::before {
+        background-size: 1450px auto;
+    }
+}
+
+@media (min-width: 1800px) {
+    .pl-curtain::before {
+        background-size: 1650px auto;
+    }
 }
 
 /* Left panel: ::before starts at left:0 — shows the left half naturally */
@@ -688,19 +700,25 @@ body.light-theme .control-btn:hover {
     left: -100%;
 }
 
-/* Dark overlay on top of the image */
+/* Ambient glow on top of the panels */
 .pl-curtain::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.15) 0%, transparent 70%);
     z-index: 2;
-    transition: background 0.5s ease;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity 0.6s ease;
 }
 
 /* Brighten slightly right before the tear */
 #preloader.pl-ready .pl-curtain::after {
-    background: rgba(0, 0, 0, 0.15);
+    opacity: 1;
+}
+
+#preloader.pl-ready .pl-curtain::before {
+    filter: drop-shadow(0 0 50px rgba(220, 38, 38, 0.65));
 }
 
 /* Vertical loading line at the center seam */
