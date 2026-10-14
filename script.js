@@ -554,12 +554,8 @@ void main(){
     line = line + circle;
     lines += line * lineColor * r;
   }
-  vec4 bg1 = vec4(0.0, 0.0, 0.0, 0.0);
-  vec4 bg2 = vec4(0.02, 0.01, 0.05, 0.0);
-  vec4 fragColor = mix(bg1, bg2, uv.x);
-  fragColor *= vf;
-  fragColor += lines;
-  gl_FragColor = fragColor;
+  lines *= vf;
+  gl_FragColor = lines;
 }`;
 
     function mk(type, src) {
@@ -593,16 +589,18 @@ void main(){
     gl.enableVertexAttribArray(p);
     gl.vertexAttribPointer(p, 2, gl.FLOAT, false, 0, 0);
 
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
     const uRes = gl.getUniformLocation(prog, 'iResolution');
     const uTime = gl.getUniformLocation(prog, 'iTime');
     const startTime = Date.now();
 
     function resize() {
-        const pEl = canvas.parentElement || document.body;
-        const w = pEl.offsetWidth || window.innerWidth;
-        const h = pEl.offsetHeight || 600;
-        canvas.width = Math.min(w, 1400);
-        canvas.height = Math.min(h, 700);
+        const w = window.innerWidth;
+        const h = canvas.offsetHeight || 540;
+        canvas.width = Math.min(w, 1600);
+        canvas.height = h;
         gl.viewport(0, 0, canvas.width, canvas.height);
     }
     resize();
@@ -619,6 +617,8 @@ void main(){
     function render() {
         if (_pageVisible && isVisible) {
             const t = (Date.now() - startTime) / 1000;
+            gl.clearColor(0, 0, 0, 0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
             gl.useProgram(prog);
             gl.uniform2f(uRes, canvas.width, canvas.height);
             gl.uniform1f(uTime, t);

@@ -268,7 +268,6 @@
 
     <!-- ═══ 7. FEATURED PROJECTS (SCRIPT-KITTENS LUXURY CARD SYSTEM) ═══ -->
     <section id="projects" class="products-section">
-        <canvas id="pricing-shader-canvas" class="plasma-wave-canvas"></canvas>
         <div class="section-container" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px;">
             <div class="section-header" style="text-align: center; margin-bottom: 56px;">
                 <p class="hero-label">FEATURED WORK</p>
@@ -280,7 +279,10 @@
                 </p>
             </div>
 
-            <div class="products-grid-new" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px;">
+            <!-- Cards wrapper with centered plasma wave canvas on top (above) in the middle -->
+            <div class="products-grid-wrapper" style="position: relative; overflow: visible;">
+                <canvas id="pricing-shader-canvas" class="plasma-wave-canvas"></canvas>
+                <div class="products-grid-new" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; position: relative; z-index: 1;">
                 
                 <!-- Project 1: Restaurant AI Agent -->
                 <div class="product-card-new">
@@ -434,10 +436,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- ═══ 8. SKILLS SECTION ═══ -->
     <section id="skills" class="free-cheats-section">

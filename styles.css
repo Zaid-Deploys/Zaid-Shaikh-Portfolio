@@ -5321,20 +5321,24 @@ img.discord-avatar {
     overflow: hidden;
 }
 
-/* Plasma shader canvas — undulating wave lines behind cards */
+/* Plasma shader canvas — undulating wave lines floating ABOVE the cards in the middle */
 #pricing-shader-canvas,
 .plasma-wave-canvas {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 540px;
     display: block;
-    z-index: 0;
-    opacity: 0.7;
+    z-index: 5;
+    opacity: 0.95;
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mix-blend-mode: screen;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
+                linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 /* Stars Background Canvas — shared across sections */
