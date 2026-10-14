@@ -72,7 +72,7 @@
     <header class="top-navbar" id="topNavbar">
         <div class="nav-inner">
             <!-- Logo -->
-            <a href="#about" class="nav-logo">
+            <a href="index.html" class="nav-logo">
                 <img src="just_a_tech_logo.png" alt="JUST A TECH" class="nav-logo-icon" style="width: 56px; height: 38px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(220,38,38,0.7));">
                 <span class="nav-logo-title" style="letter-spacing: 0.12em; font-family: 'Cinzel', serif; font-weight: 800;">JUST A TECH</span>
             </a>
@@ -80,18 +80,18 @@
             <!-- Nav Links (Centered with Tubelight Active Indicator) -->
             <div class="nav-right-group">
                 <nav class="nav-links">
-                    <a href="#about" class="nav-link active" data-section="about">About</a>
-                    <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-                    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
-                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="projects.html" class="nav-link">Projects</a>
+                    <a href="credentials.html" class="nav-link">Credentials</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
                 </nav>
 
                 <div class="nav-actions">
                     <a href="https://github.com/Zaid-Deploys" target="_blank" class="nav-btn-login" aria-label="GitHub">
                         <i class="fab fa-github" style="font-size: 17px; margin-right: 6px;"></i> GitHub
                     </a>
-                    <a href="mailto:zaidshaikh8726@gmail.com" class="nav-btn-cta">
-                        <i class="fas fa-paper-plane" style="font-size: 12px; margin-right: 6px;"></i> Get In Touch
+                    <a href="https://wa.me/919594427286" target="_blank" class="nav-btn-cta">
+                        <i class="fab fa-whatsapp" style="font-size: 13px; margin-right: 6px;"></i> WhatsApp
                     </a>
                 </div>
 
@@ -104,15 +104,17 @@
 
         <!-- Mobile Nav Drawer -->
         <div class="nav-mobile-menu" id="navMobileMenu">
-            <a href="#about" class="nav-mobile-link" data-section="about">About</a>
-            <a href="#projects" class="nav-mobile-link" data-section="projects">Projects</a>
-            <a href="#skills" class="nav-mobile-link" data-section="skills">Skills</a>
-            <a href="#contact" class="nav-mobile-link" data-section="contact">Contact</a>
+            <a href="index.html" class="nav-mobile-link active">Home</a>
+            <a href="projects.html" class="nav-mobile-link">Projects</a>
+            <a href="credentials.html" class="nav-mobile-link">Credentials</a>
+            <a href="contact.html" class="nav-mobile-link">Contact</a>
             <div class="nav-mobile-actions">
                 <a href="https://github.com/Zaid-Deploys" target="_blank" class="nav-mobile-login">
                     <i class="fab fa-github"></i> GitHub Profile
                 </a>
-                <a href="mailto:zaidshaikh8726@gmail.com" class="nav-mobile-cta">Get In Touch</a>
+                <a href="https://wa.me/919594427286" target="_blank" class="nav-mobile-cta">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
             </div>
         </div>
     </header>
@@ -132,21 +134,25 @@
 
                 <p class="hero-subtitle">
                     I'm Zaid Shaikh, the engineer behind JUST A TECH based in Mumbai, India.
-                    I focus on building resilient containerized environments, automating cloud infrastructure
-                    on AWS, and developing practical software with Python and Agentic AI.
-                    I love solving real-world problems with code that runs predictably in production.
+                    Currently pursuing B.Sc. in Information Technology at Mumbai University with Microsoft and Jio Institute AI accreditations.
+                    I focus on building private distributed streaming backends, automating cloud infrastructure on AWS,
+                    and developing practical software with Python, Kotlin, and Agentic AI.
                 </p>
 
                 <div class="hero-cta-group">
-                    <a href="#projects" class="hero-btn-primary">
-                        <span>View Projects</span>
+                    <a href="projects.html" class="hero-btn-primary">
+                        <span>View All Projects</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="https://github.com/Zaid-Deploys" target="_blank" class="hero-btn-discord">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
+                    <a href="credentials.html" class="hero-btn-discord">
+                        <i class="fas fa-certificate"></i>
+                        <span>Credentials</span>
                     </a>
-                    <a href="https://linkedin.com/in/zaid-shaikh-15b5362a3/" target="_blank" class="hero-btn-ghost">
+                    <a href="https://wa.me/919594427286" target="_blank" class="hero-btn-discord" style="border-color: rgba(37,211,102,0.4); color: #25d366;">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/zaid-shaikh-30201636a" target="_blank" class="hero-btn-ghost">
                         <i class="fab fa-linkedin"></i>
                         <span>LinkedIn</span>
                     </a>
@@ -353,6 +359,13 @@
                         </a>
                     </div>
                 </div>
+
+                <div style="text-align: center; margin-top: 48px; position: relative; z-index: 10;">
+                    <a href="projects.html" class="pfc-btn-primary" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; font-size: 14.5px;">
+                        <span>Explore All 4 Projects & Architectures (Including Melody)</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -381,10 +394,12 @@
                         Container isolation, deployment automation, and scalable cloud management.
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">AWS (EC2, S3, IAM)</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Docker</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Amazon Web Services (AWS)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">AWS EC2 & VPC</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Identity & Access Mgmt (IAM)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Docker & Containers</span>
                         <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Kubernetes</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">GitHub Actions CI/CD</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Git / GitHub CI/CD</span>
                         <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Linux (Ubuntu / Debian)</span>
                     </div>
                 </div>
@@ -399,11 +414,13 @@
                         Writing clean, maintainable backend code and asynchronous APIs.
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Python 3</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">FastAPI / Flask</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Java (Android)</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">PostgreSQL / Redis</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Git Version Control</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Python</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Kotlin & Jetpack Compose</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Node.js & TypeScript</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">C Programming</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">C++ (Algorithms & DP)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">HTML, CSS & JavaScript</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">RESTful APIs & Microservices</span>
                     </div>
                 </div>
 
@@ -412,15 +429,17 @@
                     <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
                         <i class="fas fa-brain" style="color: #a78bfa; font-size: 20px;"></i>
                     </div>
-                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">AI & Computer Vision</h3>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">AI, ML & Automation</h3>
                     <p style="font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 20px;">
                         Practical machine learning, edge model inference, and LLM integrations.
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Hermes 3 / OpenRouter</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">YOLOv8 Vision</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">OpenCV</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Tesseract OCR</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Large Language Models (LLM)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Generative & Agentic AI</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Tokenization & Finetuning</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">TensorFlow Lite (TFLite)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">YOLOv8 & OpenCV</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">ML Kit OCR</span>
                         <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">PyTorch</span>
                     </div>
                 </div>
@@ -430,19 +449,93 @@
                     <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
                         <i class="fas fa-network-wired" style="color: #f59e0b; font-size: 20px;"></i>
                     </div>
-                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">Networks & Systems</h3>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">Networks & Infrastructure</h3>
                     <p style="font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 20px;">
                         Network architecture, secure communications, and server administration.
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">TCP/IP & OSI Model</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">DNS / HTTPS / SSL</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Subnetting & Routing</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Reverse Proxy (NGINX)</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">SSH & Bash</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Computer Network Architecture</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">LAN / WAN Topologies</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">DNS Resolution & Routing</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">IPv4 & IPv6 Protocols</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Subnetting & Firewalls</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Reverse Proxy & SSL/TLS</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Bash Automation</span>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 8.5 CERTIFICATIONS & ACADEMIC CREDENTIALS PREVIEW ═══ -->
+    <section id="credentials-preview" class="pricing-section" style="padding: 70px 0 80px; background: #060609 !important; border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="section-container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+            <div class="section-header" style="text-align: center; margin-bottom: 48px;">
+                <p class="hero-label">VERIFIED QUALIFICATIONS</p>
+                <h2 style="font-family: 'Cinzel', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
+                    Accredited <span style="background: linear-gradient(135deg, #c4b5fd, #8b5cf6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Credentials</span>
+                </h2>
+                <p style="font-family: 'Inter', sans-serif; font-size: 15.5px; color: rgba(255, 255, 255, 0.5); max-width: 620px; margin: 14px auto 0;">
+                    Official certifications from Microsoft & Jio Institute, Mumbai University degree, and competitive LeetCode problem solving in C++.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px;">
+                <!-- Microsoft Cert Preview -->
+                <div class="cert-luxury-card microsoft-cert">
+                    <div class="cert-header">
+                        <div class="cert-logo-box ms"><i class="fab fa-microsoft"></i></div>
+                        <div class="cert-title-group">
+                            <h4>Microsoft Front-End Developer</h4>
+                            <span>Coursera Verified · June 2025</span>
+                        </div>
+                    </div>
+                    <div class="cert-id-badge">
+                        <span class="cert-id-label">VALIDATION NO:</span>
+                        <span class="cert-id-val">VCLNE3Y2RBBE1MG6</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+                        <span style="color: #60a5fa; font-weight: 700;">GRADE: A GRADE</span>
+                        <span style="color: #10b981;">● ID: SS5O0CPXDGQ3</span>
+                    </div>
+                </div>
+
+                <!-- Jio Institute AI Preview -->
+                <div class="cert-luxury-card jio-cert">
+                    <div class="cert-header">
+                        <div class="cert-logo-box jio"><i class="fas fa-brain"></i></div>
+                        <div class="cert-title-group">
+                            <h4>AI Classroom Foundation</h4>
+                            <span>Jio Institute (JioPC) · August 2026</span>
+                        </div>
+                    </div>
+                    <div class="cert-id-badge">
+                        <span class="cert-id-label">CERTIFICATE ID:</span>
+                        <span class="cert-id-val">t9TX6mk7QuZl</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+                        <span style="color: #c4b5fd; font-weight: 700;">AI FOUNDATION SEAL</span>
+                        <span style="color: #10b981;">● VERIFIED</span>
+                    </div>
+                </div>
+
+                <!-- Mumbai University Degree Preview -->
+                <div class="academic-card" style="margin: 0;">
+                    <span class="academic-year">2024 – 2026 // DEGREE</span>
+                    <h4 class="academic-degree">B.Sc. – Information Tech</h4>
+                    <p class="academic-institute" style="margin-bottom: 12px;">
+                        Rajiv Gandhi College · Mumbai University
+                    </p>
+                    <span class="academic-score">IN PROGRESS · TECH MAJOR</span>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="credentials.html" class="pfc-btn-secondary" style="padding: 14px 28px; font-size: 14.5px;">
+                    <span>View All Credentials, Academics & LeetCode Records</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -458,10 +551,14 @@
                 <div class="sk-footer__tagline" style="font-family: 'Inter', sans-serif; font-size: 15px; color: rgba(255, 255, 255, 0.5); margin-top: 10px;">
                     DevOps & Software Engineering · Founded by Zaid Shaikh · Mumbai, India
                 </div>
-                <div style="margin-top: 24px;">
-                    <a href="mailto:zaidshaikh8726@gmail.com" class="hero-btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                <div style="margin-top: 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                    <a href="https://wa.me/919594427286" target="_blank" class="hero-btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp: +91 9594427286</span>
+                    </a>
+                    <a href="mailto:zaidshaikh8726@gmail.com" class="hero-btn-discord" style="display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-envelope"></i>
                         <span>zaidshaikh8726@gmail.com</span>
-                        <i class="fas fa-paper-plane"></i>
                     </a>
                 </div>
             </div>
@@ -495,8 +592,11 @@
                     <a href="https://github.com/Zaid-Deploys" target="_blank" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'" aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://linkedin.com/in/zaid-shaikh-15b5362a3/" target="_blank" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#0a66c2'" onmouseout="this.style.color='rgba(255,255,255,0.5)'" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/zaid-shaikh-30201636a" target="_blank" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#0a66c2'" onmouseout="this.style.color='rgba(255,255,255,0.5)'" aria-label="LinkedIn">
                         <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/919594427286" target="_blank" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#25d366'" onmouseout="this.style.color='rgba(255,255,255,0.5)'" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="mailto:zaidshaikh8726@gmail.com" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#dc2626'" onmouseout="this.style.color='rgba(255,255,255,0.5)'" aria-label="Email">
                         <i class="fas fa-envelope"></i>
