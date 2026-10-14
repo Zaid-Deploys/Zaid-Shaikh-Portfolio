@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- ═══ PRIMARY SEO ═══ -->
+    <title>Zaid Shaikh | DevOps · Developer · Agentic AI</title>
+    <meta name="description" content="Portfolio of Zaid Shaikh — Aspiring DevOps engineer, software developer, and Agentic AI builder based in Mumbai, India.">
+    <meta name="keywords" content="Zaid Shaikh, DevOps, Agentic AI, Python, Docker, Kubernetes, AWS, BlindAssist, Restaurant AI Agent">
+    <meta name="author" content="Zaid Shaikh">
+    <meta name="robots" content="index, follow">
+
+    <!-- ═══ OPEN GRAPH ═══ -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Zaid Shaikh Portfolio">
+    <meta property="og:title" content="Zaid Shaikh | DevOps · Developer · Agentic AI">
+    <meta property="og:description" content="Building infrastructure, writing software, and teaching machines to do actual work.">
+    <meta property="og:image" content="avatar.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="avatar.jpg">
+    <link rel="apple-touch-icon" href="avatar.jpg">
+
+    <!-- Typography Fonts: Cinzel, Syne, Outfit, Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Libraries: GSAP, ScrollTrigger, Lenis -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script defer src="https://unpkg.com/lenis@1.1.1/dist/lenis.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+
+    <!-- ═══ 1. FULLSCREEN HERO TEAR PRELOADER ═══ -->
+    <div id="preloader">
+        <div class="pl-curtain pl-curtain--left"></div>
+        <div class="pl-curtain pl-curtain--right"></div>
+        <div class="pl-seam-line">
+            <div class="pl-seam-fill"></div>
+        </div>
+        <div class="pl-badge">
+            <div class="pl-badge-text">ZAID SHAIKH</div>
+            <div class="pl-badge-sub">INITIALIZING DEVOPS // AI MESH</div>
+        </div>
+    </div>
+
+    <!-- ═══ 2. PRECISION CUSTOM SPARKLE CURSOR ═══ -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- ═══ 3. BACKGROUND AMBIENCE & MESH ═══ -->
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-effects">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+    </div>
+    <div class="fantasy-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <!-- ═══ 4. TOP FLOATING NAVBAR WITH TUBELIGHT ACTIVE ═══ -->
+    <header class="top-navbar" id="topNavbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">
+                <img src="avatar.jpg" alt="Zaid Shaikh" class="nav-avatar-icon">
+                <span class="nav-logo-text">Zaid Shaikh<span class="nav-logo-tag">.dev</span></span>
+            </a>
+
+            <!-- Centered Tubelight Nav Links -->
+            <nav class="nav-links">
+                <a href="#hero" class="nav-link active" data-section="hero">Home</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="mailto:zaidshaikh8726@gmail.com" class="nav-btn-contact">
+                    <i class="fas fa-paper-plane"></i> Get In Touch
+                </a>
+                <div class="nav-hamburger" id="navHamburger" aria-label="Toggle Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div class="nav-mobile-menu" id="navMobileMenu">
+            <a href="#hero" class="nav-mobile-link" data-section="hero">Home</a>
+            <a href="#projects" class="nav-mobile-link" data-section="projects">Projects</a>
+            <a href="#skills" class="nav-mobile-link" data-section="skills">Skills</a>
+            <a href="#about" class="nav-mobile-link" data-section="about">About</a>
+            <a href="#contact" class="nav-mobile-link" data-section="contact">Contact</a>
+            <a href="mailto:zaidshaikh8726@gmail.com" class="nav-mobile-link" style="color:var(--r);font-weight:700;">Email Me →</a>
+        </div>
+    </header>
+
+    <!-- ═══ 5. HERO SECTION ═══ -->
+    <section class="hero-section" id="hero">
+        <div class="hero-grid">
+            
+            <!-- Left Info Column -->
+            <div class="hero-left">
+                <div class="hero-badge-row">
+                    <span class="hero-tag hero-tag-red"><i class="fas fa-bolt"></i> DEVOPS & AGENTIC AI</span>
+                    <span class="hero-tag hero-tag-gray"><i class="fas fa-map-marker-alt"></i> MUMBAI · 2026</span>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="hero-title-line1">ZAID SHAIKH</span>
+                    <span class="hero-title-line2">AGENTIC AI & CLOUD</span>
+                </h1>
+
+                <div class="hero-subtitle">
+                    <i class="fas fa-terminal"></i> DevOps · Developer · Agentic AI
+                </div>
+
+                <p class="hero-desc">
+                    Building infrastructure, writing software, and teaching machines to do actual work. DevOps by training. Developer by choice. Agentic AI by obsession.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="#projects" class="btn-primary">
+                        <i class="fas fa-eye"></i> EXPLORE PROJECTS ❯
+                    </a>
+                    <a href="mailto:zaidshaikh8726@gmail.com" class="btn-outline">
+                        <i class="fas fa-envelope"></i> GET IN TOUCH
+                    </a>
+                </div>
+
+                <!-- Telemetry Counters -->
+                <div class="hero-telemetry">
+                    <div class="tele-stat">
+                        <div class="tele-num"><span class="counter" data-target="3">0</span><span class="highlight">+</span></div>
+                        <div class="tele-label">Flagship Repos</div>
+                    </div>
+                    <div class="tele-stat">
+                        <div class="tele-num"><span class="counter" data-target="100">0</span><span class="highlight">%</span></div>
+                        <div class="tele-label">On-Device AI</div>
+                    </div>
+                    <div class="tele-stat">
+                        <div class="tele-num"><span class="counter" data-target="8">0</span><span class="highlight">ms</span></div>
+                        <div class="tele-label">Bot Latency</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive 3D Command Center Terminal -->
+            <div class="hero-3d-section">
+                <div class="command-center" id="commandCenter">
+                    
+                    <!-- Console Header -->
+                    <div class="cc-header">
+                        <div class="cc-dots">
+                            <span class="cc-dot red"></span>
+                            <span class="cc-dot yellow"></span>
+                            <span class="cc-dot green"></span>
+                        </div>
+                        <div class="cc-title">zaid@production-mesh:~ (hermes-agent)</div>
+                        <div class="cc-badge">
+                            <span class="pulse-dot"></span> TELEMETRY
+                        </div>
+                    </div>
+
+                    <!-- Console Tabs -->
+                    <div class="cc-tabs">
+                        <div class="cc-tab active" data-tab="terminal"><i class="fas fa-terminal"></i> Terminal</div>
+                        <div class="cc-tab" data-tab="metrics"><i class="fas fa-chart-line"></i> Metrics</div>
+                        <div class="cc-tab" data-tab="logs"><i class="fas fa-list-ul"></i> System Logs</div>
+                    </div>
+
+                    <!-- Terminal Tab Panel -->
+                    <div class="cc-tab-panel active" data-panel="terminal">
+                        <div class="terminal-body" id="terminalBody">
+                            <div class="cc-line cc-line--ascii" style="color:var(--r);font-size:10px;line-height:1.2;margin-bottom:10px;">
+                                [ SYSTEM READY // ARCHITECTURE: LINUX x86_64 // MESH: ACTIVE ]
+                            </div>
+                            <div class="cc-line">
+                                <span class="cc-prompt">❯</span> <span class="cc-cmd">systeminfo</span>
+                            </div>
+                            <div class="cc-line cc-line--success">
+                                <i class="fas fa-check-circle"></i> Zaid Shaikh // DevOps & Agentic AI Specialist loaded.
+                            </div>
+                            <div class="cc-line">
+                                <span class="cc-prompt">❯</span> <span class="cc-cmd">cluster</span> <span class="cc-flag">--status</span>
+                            </div>
+                            <div class="cc-line cc-line--info">
+                                <i class="fas fa-network-wired"></i> AWS ap-south-1 nodes synchronized. Telegram hooks listening.
+                            </div>
+                            <div class="cc-line cc-line--typing" id="typingLine">
+                                <span class="cc-prompt">❯</span> <span class="cc-cursor">|</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Tab Panel -->
+                    <div class="cc-tab-panel" data-panel="metrics">
+                        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.7);">
+                            <div style="margin-bottom:14px;">
+                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                                    <span>AWS Cluster Memory (ap-south-1)</span>
+                                    <span style="color:#34d399;">1.2 GB / 4.0 GB</span>
+                                </div>
+                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                                    <div style="width:30%;height:100%;background:linear-gradient(90deg, #34d399, var(--r));"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom:14px;">
+                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                                    <span>Hermes Agent OpenRouter Throughput</span>
+                                    <span style="color:var(--r);">142 tokens/sec</span>
+                                </div>
+                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                                    <div style="width:78%;height:100%;background:linear-gradient(90deg, var(--r), #ef4444);"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom:14px;">
+                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                                    <span>BlindAssist On-Device Inference</span>
+                                    <span style="color:#60a5fa;">0.00ms Cloud Lag (Edge)</span>
+                                </div>
+                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                                    <div style="width:95%;height:100%;background:#60a5fa;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                                    <span>Docker Containers Health</span>
+                                    <span style="color:#34d399;">4/4 Healthy (100%)</span>
+                                </div>
+                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                                    <div style="width:100%;height:100%;background:#34d399;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logs Tab Panel -->
+                    <div class="cc-tab-panel" data-panel="logs">
+                        <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.6);line-height:1.7;">
+                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:12]</span> <span style="color:#34d399;">[INFO]</span> Telegram Webhook received table query.</div>
+                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:13]</span> <span style="color:#60a5fa;">[ROUTER]</span> Hermes AI agent generated booking confirmation.</div>
+                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:13]</span> <span style="color:#34d399;">[SYNC]</span> Google Sheets row appended successfully (row #418).</div>
+                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:14]</span> <span style="color:#fbbf24;">[EDGE]</span> BlindAssist currency classifier confidence: 99.4%.</div>
+                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:15]</span> <span style="color:#34d399;">[HEALTH]</span> Keepalive heartbeat OK across all 4 nodes.</div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Quick Action Buttons -->
+                    <div class="cc-actions-bar">
+                        <span class="cc-action-label">EXECUTE:</span>
+                        <button class="cc-action-btn" data-cmd="agent --status">status</button>
+                        <button class="cc-action-btn" data-cmd="agent --deploy restaurant-bot">deploy</button>
+                        <button class="cc-action-btn" data-cmd="cluster --health">health</button>
+                        <button class="cc-action-btn" data-cmd="k8s --scan-mesh">scan</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Laser Line Separator -->
+    <div class="section-separator"></div>
+
+    <!-- ═══ 6. FEATURED PROJECTS SECTION ═══ -->
+    <section class="section-wrap" id="projects">
+        <div class="section-header">
+            <span class="section-tag">SELECTED WORKS // 2026</span>
+            <h2 class="section-title">FEATURED PROJECTS</h2>
+            <p class="section-subtitle">
+                Autonomous AI agents, production pipelines, and edge-native neural networks built to solve real-world problems.
+            </p>
+        </div>
+
+        <div class="projects-grid">
+            
+            <!-- Project 1: Restaurant AI Agent -->
+            <div class="project-card">
+                <div class="project-top">
+                    <span class="project-status status-prod"><i class="fas fa-circle-dot"></i> TELEGRAM BOT</span>
+                    <span class="project-year">2026</span>
+                </div>
+                <h3 class="project-name">Restaurant AI Agent</h3>
+                <p class="project-summary">
+                    Telegram-integrated AI agent for Mumbai restaurants. Takes reservations, answers queries, and logs everything to Google Sheets — runs on Hermes framework with OpenRouter LLMs.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Hermes</span>
+                    <span class="project-tag">OpenRouter</span>
+                    <span class="project-tag">Telegram API</span>
+                    <span class="project-tag">Google Sheets</span>
+                    <span class="project-tag">Python</span>
+                </div>
+                <a href="https://github.com/Zaid-Deploys/restaurant-ai-agent" target="_blank" class="project-btn">
+                    <span>View Repository</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Project 2: BlindAssist -->
+            <div class="project-card">
+                <div class="project-top">
+                    <span class="project-status status-active"><i class="fas fa-circle-dot"></i> ON-DEVICE AI</span>
+                    <span class="project-year">2026</span>
+                </div>
+                <h3 class="project-name">BlindAssist</h3>
+                <p class="project-summary">
+                    Offline Android app that narrates the world in real time for visually impaired users — obstacle detection, text reading, and Indian currency identification, running entirely on-device with zero cloud lag.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Android</span>
+                    <span class="project-tag">Kotlin</span>
+                    <span class="project-tag">Edge AI</span>
+                    <span class="project-tag">YOLO Depth</span>
+                    <span class="project-tag">Offline CV</span>
+                </div>
+                <a href="https://app.zaiddev.me" target="_blank" class="project-btn">
+                    <span>Launch Project</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Project 3: Indian Currency Classifier -->
+            <div class="project-card">
+                <div class="project-top">
+                    <span class="project-status status-prod"><i class="fas fa-circle-dot"></i> COMPUTER VISION</span>
+                    <span class="project-year">2026</span>
+                </div>
+                <h3 class="project-name">Indian Currency Classifier</h3>
+                <p class="project-summary">
+                    Computer vision model trained to identify Indian currency notes and coins, integrated into BlindAssist for real-time offline currency recognition with 99%+ accuracy.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Computer Vision</span>
+                    <span class="project-tag">Deep Learning</span>
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">PyTorch</span>
+                    <span class="project-tag">MobileNet</span>
+                </div>
+                <a href="https://github.com/Zaid-Deploys/indian-currency-classifier" target="_blank" class="project-btn">
+                    <span>View Repository</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Laser Line Separator -->
+    <div class="section-separator"></div>
+
+    <!-- ═══ 7. TECHNICAL CAPABILITIES BENTO GRID ═══ -->
+    <section class="section-wrap" id="skills">
+        <div class="section-header">
+            <span class="section-tag">CAPABILITIES // TECH STACK</span>
+            <h2 class="section-title">ENGINEERED FOR SCALE</h2>
+            <p class="section-subtitle">
+                A robust stack spanning cloud-native infrastructure, low-latency code, and modern Agentic AI workflows.
+            </p>
+        </div>
+
+        <div class="bento-grid">
+            
+            <!-- Bento 1: Cloud & Infra -->
+            <div class="bento-card">
+                <div class="bento-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3 class="bento-title">Cloud & Infrastructure</h3>
+                <p class="bento-desc">
+                    Containerizing microservices, managing cloud deployments, and running highly resilient distributed workloads.
+                </p>
+                <div class="bento-skills">
+                    <span class="bento-skill-pill"><i class="fab fa-aws"></i> AWS</span>
+                    <span class="bento-skill-pill"><i class="fab fa-docker"></i> Docker</span>
+                    <span class="bento-skill-pill"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
+                    <span class="bento-skill-pill"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="bento-skill-pill"><i class="fas fa-network-wired"></i> Computer Networks</span>
+                </div>
+            </div>
+
+            <!-- Bento 2: Code & Foundations -->
+            <div class="bento-card">
+                <div class="bento-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="bento-title">Software Engineering</h3>
+                <p class="bento-desc">
+                    Clean, performant backend pipelines, API integrations, and robust version-controlled systems.
+                </p>
+                <div class="bento-skills">
+                    <span class="bento-skill-pill"><i class="fab fa-python"></i> Python</span>
+                    <span class="bento-skill-pill"><i class="fab fa-git-alt"></i> Git / GitHub</span>
+                    <span class="bento-skill-pill"><i class="fas fa-server"></i> REST APIs</span>
+                    <span class="bento-skill-pill"><i class="fas fa-terminal"></i> Bash / Shell</span>
+                    <span class="bento-skill-pill"><i class="fab fa-js"></i> JavaScript</span>
+                </div>
+            </div>
+
+            <!-- Bento 3: Agentic AI -->
+            <div class="bento-card">
+                <div class="bento-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="bento-title">Agentic AI & Vision</h3>
+                <p class="bento-desc">
+                    Building autonomous LLM agents that connect to real-world external tools, alongside on-device vision models.
+                </p>
+                <div class="bento-skills">
+                    <span class="bento-skill-pill"><i class="fas fa-brain"></i> LLMs & AI Agents</span>
+                    <span class="bento-skill-pill"><i class="fas fa-eye"></i> Computer Vision</span>
+                    <span class="bento-skill-pill"><i class="fas fa-microchip"></i> On-Device AI</span>
+                    <span class="bento-skill-pill"><i class="fas fa-network-wired"></i> Hermes Framework</span>
+                    <span class="bento-skill-pill"><i class="fas fa-bolt"></i> OpenRouter</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Laser Line Separator -->
+    <div class="section-separator"></div>
+
+    <!-- ═══ 8. ABOUT & PHILOSOPHY SECTION ═══ -->
+    <section class="section-wrap" id="about">
+        <div class="section-header">
+            <span class="section-tag">DOSSIER // PROFILE</span>
+            <h2 class="section-title">ABOUT THE DEVELOPER</h2>
+            <p class="section-subtitle">
+                Turning technical curiosity into production-ready software and automated intelligence.
+            </p>
+        </div>
+
+        <div class="about-box">
+            <div class="about-avatar-wrap">
+                <img src="avatar.jpg" alt="Zaid Shaikh" class="about-avatar">
+            </div>
+            <div class="about-content">
+                <p class="about-lead">
+                    Aspiring DevOps engineer and software developer from Mumbai. I work with cloud infrastructure, containers, and Python — and lately I've been building AI agents that connect to real-world tools like Telegram and Google Sheets.
+                </p>
+                <div class="about-quote">
+                    “DevOps by training. Developer by choice. Agentic AI by obsession.”
+                </div>
+                <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.7;">
+                    Focused on reliable automation, low-latency execution, and resilient deployment architectures that move beyond hackathon demos into high-uptime reality.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Laser Line Separator -->
+    <div class="section-separator"></div>
+
+    <!-- ═══ 9. CONNECT & CONTACT SECTION ═══ -->
+    <section class="section-wrap" id="contact">
+        <div class="contact-container">
+            <span class="section-tag">COMMUNICATION // ENCRYPTED</span>
+            <h2 class="section-title">INITIATE CONTACT</h2>
+            <p class="section-subtitle">
+                Open to internships, freelance DevOps work, and building ambitious AI agent products together.
+            </p>
+
+            <div class="contact-links-grid">
+                <a href="mailto:zaidshaikh8726@gmail.com" class="contact-pill">
+                    <i class="fas fa-envelope" style="color:var(--r);"></i> zaidshaikh8726@gmail.com
+                </a>
+                <a href="https://github.com/Zaid-Deploys" target="_blank" class="contact-pill">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/zaid-shaikh-30201636a" target="_blank" class="contact-pill">
+                    <i class="fab fa-linkedin-in" style="color:#0a66c2;"></i> LinkedIn
+                </a>
+                <a href="https://instagram.com/sisyphvs._" target="_blank" class="contact-pill">
+                    <i class="fab fa-instagram" style="color:#e1306c;"></i> Instagram
+                </a>
+                <a href="https://leetcode.com/u/Zaid-Deploys/" target="_blank" class="contact-pill">
+                    <i class="fas fa-code" style="color:#ffa116;"></i> LeetCode
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 10. FOOTER ═══ -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-copy">
+                BUILT BY ZAID SHAIKH · MUMBAI, INDIA · 2026
+            </div>
+            <div class="footer-status">
+                <span class="pulse-dot"></span>
+                <span>SYSTEMS OPERATIONAL // ALL NODES HEALTHY</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
