@@ -346,9 +346,159 @@ function initCardTilt() {
     });
 }
 
-// === 8. BOOTSTRAP ===
+// === 8. HERO SMOKE SHADER (SCRIPT KITTENS 1:1 WEBGL2 FLUID ENGINE) ===
+function initHeroSmoke() {
+    const canvas = document.getElementById('hero-smoke-canvas');
+    if (!canvas) return;
+
+    const gl = canvas.getContext('webgl2', { alpha: true, antialias: false, powerPreference: 'high-performance' });
+    if (!gl) {
+        console.warn('WebGL2 not available for hero-smoke-canvas');
+        return;
+    }
+
+    const vSrc = `#version 300 es
+precision highp float;
+in vec4 position;
+void main() {
+    gl_Position = position;
+}`;
+
+    const fSrc = `#version 300 es
+precision highp float;
+out vec4 O;
+uniform float time;
+uniform vec2 resolution;
+uniform vec3 u_color;
+#define FC gl_FragCoord.xy
+#define R resolution
+#define T (time + 660.0)
+
+float rnd(vec2 p) {
+    p = fract(p * vec2(12.9898, 78.233));
+    p += dot(p, p + 34.56);
+    return fract(p.x * p.y);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(rnd(i), rnd(i + vec2(1.0, 0.0)), u.x), mix(rnd(i + vec2(0.0, 1.0)), rnd(i + 1.0), u.x), u.y);
+}
+
+float fbm(vec2 p) {
+    float t = 0.0, a = 1.0;
+    for (int i = 0; i < 4; i++) {
+        t += a * noise(p);
+        p *= mat2(1.0, -1.2, 0.2, 1.2) * 2.0;
+        a *= 0.5;
+    }
+    return t;
+}
+
+void main() {
+    vec2 uv = (FC - 0.5 * R) / R.y;
+    vec3 col = vec3(1.0);
+    uv.x += 0.25;
+    uv *= vec2(2.0, 1.0);
+    float n = fbm(uv * 0.28 - vec2(T * 0.008, 0.0));
+    n = noise(uv * 3.0 + n * 2.0);
+    col.r -= fbm(uv + vec2(0.0, T * 0.012) + n);
+    col.g -= fbm(uv * 1.003 + vec2(0.0, T * 0.012) + n + 0.003);
+    col.b -= fbm(uv * 1.006 + vec2(0.0, T * 0.012) + n + 0.006);
+    col = mix(col, u_color, dot(col, vec3(0.21, 0.71, 0.07)));
+    col = mix(vec3(0.0), col, min(time * 0.1, 1.0));
+    col = clamp(col, 0.0, 1.0);
+
+    vec2 ndc = FC / R;
+    float edgeL = 1.0 - smoothstep(0.0, 0.40, ndc.x);
+    float edgeR = smoothstep(0.60, 1.0, ndc.x);
+    float edgeT = smoothstep(0.65, 1.0, ndc.y);
+    float edgeB = 1.0 - smoothstep(0.0, 0.35, ndc.y);
+    float edgeMask = max(max(edgeL, edgeR), max(edgeT, edgeB));
+    float leftBoost = 1.0 - smoothstep(0.0, 0.55, ndc.x);
+    edgeMask = edgeMask * 0.75 + leftBoost * 0.45 + 0.18;
+    edgeMask = clamp(edgeMask, 0.0, 1.0);
+    col *= edgeMask;
+
+    O = vec4(col, 1.0);
+}`;
+
+    function compile(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+            console.error('Shader compilation error:', gl.getShaderInfoLog(s));
+            return null;
+        }
+        return s;
+    }
+
+    const vs = compile(gl.VERTEX_SHADER, vSrc);
+    const fs = compile(gl.FRAGMENT_SHADER, fSrc);
+    if (!vs || !fs) return;
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.error('Program link error:', gl.getProgramInfoLog(prog));
+        return;
+    }
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]), gl.STATIC_DRAW);
+    const posLoc = gl.getAttribLocation(prog, 'position');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const uTime = gl.getUniformLocation(prog, 'time');
+    const uRes  = gl.getUniformLocation(prog, 'resolution');
+    const uCol  = gl.getUniformLocation(prog, 'u_color');
+    const color = [0.863, 0.149, 0.149]; // Script-Kittens signature crimson
+
+    function resize() {
+        const hero = canvas.parentElement || document.body;
+        const w = hero.offsetWidth || window.innerWidth;
+        const h = hero.offsetHeight || window.innerHeight;
+        canvas.width  = Math.max(320, Math.floor(w * 0.5));
+        canvas.height = Math.max(240, Math.floor(h * 0.5));
+        gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    let isHeroVisible = true;
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            isHeroVisible = entries[0].isIntersecting;
+        }, { threshold: 0.05 });
+        obs.observe(canvas.parentElement || canvas);
+    }
+
+    function render(now) {
+        if (_pageVisible && isHeroVisible) {
+            gl.clearColor(0, 0, 0, 1);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.useProgram(prog);
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+            gl.uniform1f(uTime, now * 0.001);
+            gl.uniform3fv(uCol, color);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        }
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+}
+
+// === 9. BOOTSTRAP ===
 function boot() {
     initPreloader();
+    initHeroSmoke();
     initCursor();
     initNavbar();
     initLenis();
