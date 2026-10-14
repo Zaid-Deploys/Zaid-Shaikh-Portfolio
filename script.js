@@ -61,12 +61,13 @@ function initPreloader() {
         setTimeout(() => {
             preloader.classList.add('hidden');
             document.body.style.overflow = 'visible';
+            // Allow full 2.4s slow door slide to finish before removing from DOM
             setTimeout(() => {
                 if (preloader.parentNode) {
                     preloader.remove();
                 }
-            }, 1000);
-        }, 500);
+            }, 2500);
+        }, 400);
     }
 
     // Steady, smooth progression over ~2.4s to give time to view the emblem
@@ -86,7 +87,7 @@ function initPreloader() {
     }, 35);
 
     // Hard fallback guarantees reveal
-    setTimeout(dismiss, 3600);
+    setTimeout(dismiss, 4200);
 }
 
 // === 3. SCRIPT KITTENS GPU-ACCELERATED SPARKLE CURSOR ===
