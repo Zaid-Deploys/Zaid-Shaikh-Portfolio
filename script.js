@@ -495,10 +495,145 @@ void main() {
     requestAnimationFrame(render);
 }
 
-// === 9. BOOTSTRAP ===
+// === 9. MOVING PLASMA WAVE SHADER (SCRIPT KITTENS 1:1 HARMONIC THREADS) ===
+function initPricingShader() {
+    const canvas = document.getElementById('pricing-shader-canvas');
+    if (!canvas) return;
+
+    const gl = canvas.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'high-performance' });
+    if (!gl) return;
+
+    const vSrc = 'attribute vec4 aVertexPosition; void main(){ gl_Position = aVertexPosition; }';
+    const fSrc = `precision highp float;
+uniform vec2 iResolution;
+uniform float iTime;
+const float overallSpeed = 0.22;
+const float gridSmoothWidth = 0.015;
+const float scale = 5.0;
+const vec4 lineColor = vec4(0.48, 0.22, 0.88, 1.0); // Vibrant neon violet/purple from Script-Kittens
+const float minLineWidth = 0.01;
+const float maxLineWidth = 0.2;
+const float lineSpeed = 1.0 * overallSpeed;
+const float lineAmplitude = 1.0;
+const float lineFrequency = 0.2;
+const float warpSpeed = 0.2 * overallSpeed;
+const float warpFrequency = 0.5;
+const float warpAmplitude = 1.0;
+const float offsetFrequency = 0.5;
+const float offsetSpeed = 1.33 * overallSpeed;
+const float minOffsetSpread = 0.6;
+const float maxOffsetSpread = 2.0;
+
+#define drawSmoothLine(pos,halfWidth,t) smoothstep(halfWidth,0.0,abs(pos-(t)))
+#define drawCrispLine(pos,halfWidth,t) smoothstep(halfWidth+gridSmoothWidth,halfWidth,abs(pos-(t)))
+#define drawCircle(pos,radius,coord) smoothstep(radius+gridSmoothWidth,radius,length(coord-(pos)))
+
+float random(float t){ return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0; }
+float getPlasmaY(float x, float hf, float offset){ return random(x * lineFrequency + iTime * lineSpeed) * hf * lineAmplitude + offset; }
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / iResolution.xy;
+  vec2 space = (gl_FragCoord.xy - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
+  float hf = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
+  float vf = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
+  space.y += random(space.x * warpFrequency + iTime * warpSpeed) * warpAmplitude * (0.5 + hf);
+  space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * hf;
+  vec4 lines = vec4(0.0);
+  for(int l = 0; l < 16; l++){
+    float nli = float(l) / 16.0;
+    float ot = iTime * offsetSpeed;
+    float op = float(l) + space.x * offsetFrequency;
+    float r = random(op + ot) * 0.5 + 0.5;
+    float hw = mix(minLineWidth, maxLineWidth, r * hf) / 2.0;
+    float offset = random(op + ot * (1.0 + nli)) * mix(minOffsetSpread, maxOffsetSpread, hf);
+    float lp = getPlasmaY(space.x, hf, offset);
+    float line = drawSmoothLine(lp, hw, space.y) / 2.0 + drawCrispLine(lp, hw * 0.15, space.y);
+    float cx = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
+    vec2 cp = vec2(cx, getPlasmaY(cx, hf, offset));
+    float circle = drawCircle(cp, 0.01, space) * 4.0;
+    line = line + circle;
+    lines += line * lineColor * r;
+  }
+  vec4 bg1 = vec4(0.0, 0.0, 0.0, 0.0);
+  vec4 bg2 = vec4(0.02, 0.01, 0.05, 0.0);
+  vec4 fragColor = mix(bg1, bg2, uv.x);
+  fragColor *= vf;
+  fragColor += lines;
+  gl_FragColor = fragColor;
+}`;
+
+    function mk(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+            console.warn('Pricing shader compile error:', gl.getShaderInfoLog(s));
+            return null;
+        }
+        return s;
+    }
+
+    const vs = mk(gl.VERTEX_SHADER, vSrc);
+    const fs = mk(gl.FRAGMENT_SHADER, fSrc);
+    if (!vs || !fs) return;
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.warn('Pricing shader link error:', gl.getProgramInfoLog(prog));
+        return;
+    }
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const p = gl.getAttribLocation(prog, 'aVertexPosition');
+    gl.enableVertexAttribArray(p);
+    gl.vertexAttribPointer(p, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes = gl.getUniformLocation(prog, 'iResolution');
+    const uTime = gl.getUniformLocation(prog, 'iTime');
+    const startTime = Date.now();
+
+    function resize() {
+        const pEl = canvas.parentElement || document.body;
+        const w = pEl.offsetWidth || window.innerWidth;
+        const h = pEl.offsetHeight || 600;
+        canvas.width = Math.min(w, 1400);
+        canvas.height = Math.min(h, 700);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    let isVisible = true;
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+        }, { threshold: 0.05 });
+        obs.observe(canvas.parentElement || canvas);
+    }
+
+    function render() {
+        if (_pageVisible && isVisible) {
+            const t = (Date.now() - startTime) / 1000;
+            gl.useProgram(prog);
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+            gl.uniform1f(uTime, t);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        }
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+}
+
+// === 10. BOOTSTRAP ===
 function boot() {
     initPreloader();
     initHeroSmoke();
+    initPricingShader();
     initCursor();
     initNavbar();
     initLenis();
