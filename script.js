@@ -1,6 +1,6 @@
 /* ============================================================
    ZAID SHAIKH — PORTFOLIO ENGINE (V3.0 LUXURY ARCHITECTURE)
-   1:1 Engineered to match script-kittens.com Elite Design
+   Clean, authentic developer portfolio matching script-kittens.com
    DevOps · Developer · Agentic AI — Mumbai, India · 2026
    ============================================================ */
 
@@ -58,12 +58,11 @@ function initPreloader() {
         preloader.classList.add('hidden');
         document.body.style.overflow = 'visible';
         
-        // Remove from DOM so it can never block anything
         setTimeout(() => {
             if (preloader.parentNode) {
                 preloader.remove();
             }
-        }, 700);
+        }, 600);
     }
 
     const progressInterval = setInterval(() => {
@@ -72,12 +71,12 @@ function initPreloader() {
         if (seamFill) seamFill.style.height = progress + '%';
 
         if (progress >= 100) {
-            setTimeout(dismiss, 250);
+            setTimeout(dismiss, 200);
         }
-    }, 40);
+    }, 35);
 
-    // Hard fallback guarantees the page is revealed even if assets take time
-    setTimeout(dismiss, 1200);
+    // Hard fallback guarantees the page is revealed immediately
+    setTimeout(dismiss, 1000);
 }
 
 // === 3. SCRIPT KITTENS GPU-ACCELERATED SPARKLE CURSOR ===
@@ -161,7 +160,7 @@ function initCursor() {
     }, { passive: true });
 
     // Hover interactive scaling
-    const hoverElements = document.querySelectorAll('a, button, .product-card-new, .cc-tab, .cc-action-btn, .hero-proof-item');
+    const hoverElements = document.querySelectorAll('a, button, .product-card-new, .profile-luxury-card, .hero-proof-item');
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursorDot.classList.add('hover');
@@ -223,7 +222,7 @@ function initNavbar() {
     // ScrollSpy with Tubelight flicker indicator
     function updateActiveNav() {
         const scrollPos = window.scrollY + window.innerHeight * 0.35;
-        let currentId = 'home';
+        let currentId = 'about';
 
         sections.forEach(sec => {
             const top = sec.offsetTop;
@@ -313,175 +312,21 @@ function initCounters() {
     counters.forEach(c => observer.observe(c));
 }
 
-// === 7. 3D COMMAND CENTER TERMINAL ===
-function initCommandCenter() {
-    const ccEl = document.getElementById('commandCenter');
-    const terminalBody = document.getElementById('terminalBody');
-    const typingLine = document.getElementById('typingLine');
-    if (!ccEl) return;
-
-    // 3D Parallax Mouse Tilt
-    const heroRight = ccEl.closest('.hero-right-cc');
-    if (heroRight && _perfTier !== 'low') {
-        heroRight.addEventListener('mousemove', (e) => {
-            const rect = ccEl.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            ccEl.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
-        }, { passive: true });
-
-        heroRight.addEventListener('mouseleave', () => {
-            ccEl.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
-            ccEl.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-        });
-        heroRight.addEventListener('mouseenter', () => {
-            ccEl.style.transition = 'none';
-        });
-    }
-
-    // Tab Switching
-    const tabs = document.querySelectorAll('.cc-tab');
-    const panels = document.querySelectorAll('.cc-tab-panel');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = tab.dataset.tab;
-            tabs.forEach(t => t.classList.remove('active'));
-            panels.forEach(p => p.classList.remove('active'));
-            tab.classList.add('active');
-            const targetPanel = document.querySelector(`.cc-tab-panel[data-panel="${target}"]`);
-            if (targetPanel) targetPanel.classList.add('active');
-        });
-    });
-
-    // Auto-typing DevOps & AI stream
-    if (terminalBody && typingLine) {
-        const commands = [
-            {
-                cmd: 'agent --deploy restaurant-bot --target telegram',
-                flags: ['--deploy', '--target'],
-                response: { type: 'success', icon: 'fa-robot', text: 'Hermes 3 Agent live. Webhook active. Google Sheets synced.' }
-            },
-            {
-                cmd: 'k8s get pods -n ai-mesh -o wide',
-                flags: ['-n', '-o'],
-                response: { type: 'info', icon: 'fa-cubes', text: '3/3 Pods Ready: hermes-agent, deepgram-tts, sheet-logger [Healthy]' }
-            },
-            {
-                cmd: 'model --load blind-assist-core --mode on-device',
-                flags: ['--load', '--mode'],
-                response: { type: 'success', icon: 'fa-eye', text: 'YOLOv8 + Indian Currency CV model initialized. 0ms cloud lag.' }
-            },
-            {
-                cmd: 'docker ps --filter status=running',
-                flags: ['--filter'],
-                response: { type: 'info', icon: 'fa-server', text: '4 containers live: openrouter-proxy, telegram-webhook, redis, api' }
-            },
-            {
-                cmd: 'audit --verify-pipeline --strict',
-                flags: ['--verify-pipeline', '--strict'],
-                response: { type: 'success', icon: 'fa-shield-halved', text: 'Integrity hash-chain 100% valid. Zero drift across nodes.' }
-            }
-        ];
-
-        let cmdIndex = 0;
-        function typeNextCommand() {
-            if (!_pageVisible) {
-                setTimeout(typeNextCommand, 2000);
-                return;
-            }
-
-            const item = commands[cmdIndex % commands.length];
-            cmdIndex++;
-            let charIndex = 0;
-            typingLine.innerHTML = '<span class="cc-prompt">❯</span> <span class="cc-cursor">|</span>';
-
-            const interval = setInterval(() => {
-                if (charIndex < item.cmd.length) {
-                    let current = item.cmd.substring(0, charIndex + 1);
-                    item.flags.forEach(f => {
-                        current = current.replace(f, `<span class="cc-flag">${f}</span>`);
-                    });
-                    current = current.replace(/^(\S+)/, '<span class="cc-cmd">$1</span>');
-                    typingLine.innerHTML = `<span class="cc-prompt">❯</span> ${current} <span class="cc-cursor">|</span>`;
-                    charIndex++;
-                } else {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        let formattedCmd = item.cmd;
-                        item.flags.forEach(f => {
-                            formattedCmd = formattedCmd.replace(f, `<span class="cc-flag">${f}</span>`);
-                        });
-                        formattedCmd = formattedCmd.replace(/^(\S+)/, '<span class="cc-cmd">$1</span>');
-
-                        const lineCmd = document.createElement('div');
-                        lineCmd.className = 'cc-line';
-                        lineCmd.innerHTML = `<span class="cc-prompt">❯</span> ${formattedCmd}`;
-                        terminalBody.insertBefore(lineCmd, typingLine);
-
-                        const lineRes = document.createElement('div');
-                        lineRes.className = `cc-line cc-line--${item.response.type}`;
-                        lineRes.innerHTML = `<i class="fas ${item.response.icon}"></i> ${item.response.text}`;
-                        terminalBody.insertBefore(lineRes, typingLine);
-
-                        const allLines = terminalBody.querySelectorAll('.cc-line:not(.cc-line--typing):not(.cc-line--ascii)');
-                        if (allLines.length > 8) {
-                            allLines[0].remove();
-                            allLines[1].remove();
-                        }
-
-                        terminalBody.scrollTop = terminalBody.scrollHeight;
-                        typingLine.innerHTML = '<span class="cc-prompt">❯</span> <span class="cc-cursor">|</span>';
-
-                        setTimeout(typeNextCommand, 3000);
-                    }, 400);
-                }
-            }, 35 + Math.random() * 20);
-        }
-
-        setTimeout(typeNextCommand, 1800);
-    }
-
-    // Quick Action interactive buttons
-    document.querySelectorAll('.cc-action-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const cmd = btn.dataset.cmd;
-            if (!terminalBody || !typingLine) return;
-
-            const lineCmd = document.createElement('div');
-            lineCmd.className = 'cc-line';
-            lineCmd.innerHTML = `<span class="cc-prompt">❯</span> <span class="cc-cmd">${cmd}</span>`;
-            terminalBody.insertBefore(lineCmd, typingLine);
-
-            const lineRes = document.createElement('div');
-            lineRes.className = 'cc-line cc-line--success';
-            lineRes.innerHTML = `<i class="fas fa-check-circle"></i> Executed [${cmd}]: All services reporting operational.`;
-            terminalBody.insertBefore(lineRes, typingLine);
-
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-
-            tabs.forEach(t => t.classList.remove('active'));
-            panels.forEach(p => p.classList.remove('active'));
-            document.querySelector('.cc-tab[data-tab="terminal"]')?.classList.add('active');
-            document.querySelector('.cc-tab-panel[data-panel="terminal"]')?.classList.add('active');
-        });
-    });
-}
-
-// === 8. CARD 3D TILT ===
+// === 7. 3D CARD PERSPECTIVE TILT ===
 function initCardTilt() {
     if (_perfTier === 'low') return;
 
-    const cards = document.querySelectorAll('.product-card-new, .cheats-gateway-card');
+    const cards = document.querySelectorAll('.product-card-new, .profile-luxury-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
-            card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 6}deg) translateY(-6px)`;
+            card.style.transform = `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 6}deg) translateY(-6px)`;
         }, { passive: true });
 
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)';
+            card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0)';
             card.style.transition = 'transform 0.4s ease';
         });
         card.addEventListener('mouseenter', () => {
@@ -490,14 +335,13 @@ function initCardTilt() {
     });
 }
 
-// === 9. INITIALIZATION ===
+// === 8. BOOTSTRAP ===
 function boot() {
     initPreloader();
     initCursor();
     initNavbar();
     initLenis();
     initCounters();
-    initCommandCenter();
     initCardTilt();
 }
 
