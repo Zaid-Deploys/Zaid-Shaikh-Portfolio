@@ -597,10 +597,8 @@ void main(){
     const startTime = Date.now();
 
     function resize() {
-        const w = window.innerWidth;
-        const h = canvas.offsetHeight || 540;
-        canvas.width = Math.min(w, 1600);
-        canvas.height = h;
+        canvas.width  = canvas.offsetWidth  || window.innerWidth;
+        canvas.height = canvas.offsetHeight || 500;
         gl.viewport(0, 0, canvas.width, canvas.height);
     }
     resize();

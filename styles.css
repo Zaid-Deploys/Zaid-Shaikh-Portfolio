@@ -5321,24 +5321,41 @@ img.discord-avatar {
     overflow: hidden;
 }
 
-/* Plasma shader canvas — undulating wave lines floating ABOVE the cards in the middle */
+/* Plasma shader canvas — Script-Kittens 1:1 wave lines positioned above the projects */
 #pricing-shader-canvas,
 .plasma-wave-canvas {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 540px;
+    left: 0;
+    bottom: 20px;
+    width: 100%;
+    height: 70%;
     display: block;
-    z-index: 5;
-    opacity: 0.95;
+    z-index: 2; /* ABOVE the projects, not behind them */
+    opacity: 0.92;
     pointer-events: none;
     mix-blend-mode: screen;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
-                        linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
-                linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%),
+                        linear-gradient(to top, black 60%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%),
+                linear-gradient(to top, black 60%, transparent 100%);
+}
+
+.products-section .section-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Script-Kittens dark luxury glass for project cards */
+.products-section .product-card-new {
+    background: rgba(16, 9, 9, 0.6) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.products-section .product-card-new:nth-child(2) {
+    background: rgba(20, 10, 10, 0.65) !important;
+    border-color: rgba(220, 38, 38, 0.25) !important;
 }
 
 /* Stars Background Canvas — shared across sections */
