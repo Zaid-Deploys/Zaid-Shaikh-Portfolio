@@ -1,125 +1,167 @@
 /* ============================================================
-   ZAID SHAIKH — PORTFOLIO INTERACTIVITY SCRIPT
-   Matching script-kittens.com architecture & micro-interactions
+   ZAID SHAIKH — PORTFOLIO ENGINE (V3.0 LUXURY ARCHITECTURE)
+   1:1 Engineered to match script-kittens.com Elite Design
    DevOps · Developer · Agentic AI — Mumbai, India · 2026
-============================================================ */
+   ============================================================ */
 
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }
 window.scrollTo(0, 0);
 
-var _globalMouseX = window.innerWidth / 2;
-var _globalMouseY = window.innerHeight / 2;
-var _pageVisible = true;
-var _perfTier = 'high';
+// Global state
+let _globalMouseX = window.innerWidth / 2;
+let _globalMouseY = window.innerHeight / 2;
+let _pageVisible = true;
+let _perfTier = 'high';
 
 // === 1. PERFORMANCE TIER DETECTION ===
 (function detectPerformanceTier() {
-    var start = performance.now();
-    var sum = 0;
-    for (var i = 0; i < 50000; i++) { sum += Math.sin(i) * Math.cos(i); }
-    var elapsed = performance.now() - start;
+    try {
+        const start = performance.now();
+        let sum = 0;
+        for (let i = 0; i < 30000; i++) { sum += Math.sin(i) * Math.cos(i); }
+        const elapsed = performance.now() - start;
 
-    var cores = navigator.hardwareConcurrency || 4;
-    var memory = navigator.deviceMemory || 4;
-    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const cores = navigator.hardwareConcurrency || 4;
+        const memory = navigator.deviceMemory || 4;
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    var score = elapsed;
-    if (cores <= 2) score += 20;
-    if (memory <= 2) score += 20;
-    if (isMobile) score += 15;
+        let score = elapsed;
+        if (cores <= 2) score += 20;
+        if (memory <= 2) score += 20;
+        if (isMobile) score += 15;
 
-    if (score > 35 || cores < 4) _perfTier = 'low';
-    else if (score > 15 || cores < 8) _perfTier = 'medium';
-    else _perfTier = 'high';
-
-    console.log('[ZaidPortfolio] Performance tier:', _perfTier);
+        if (score > 35 || cores < 4) _perfTier = 'low';
+        else if (score > 15 || cores < 8) _perfTier = 'medium';
+        else _perfTier = 'high';
+    } catch (e) {
+        _perfTier = 'medium';
+    }
 })();
 
-document.addEventListener('DOMContentLoaded', () => {
-    window.scrollTo(0, 0);
-
-    document.addEventListener('visibilitychange', () => {
-        _pageVisible = !document.hidden;
-    });
-
-    // Throttled mouse tracking
-    let mouseThrottle = false;
-    document.addEventListener('mousemove', (e) => {
-        _globalMouseX = e.clientX;
-        _globalMouseY = e.clientY;
-        if (!mouseThrottle) {
-            mouseThrottle = true;
-            setTimeout(() => { mouseThrottle = false; }, 16);
-        }
-    }, { passive: true });
-
-    // Initialize all modules
-    initPreloader();
-    initCursor();
-    initNavbar();
-    initParticles();
-    initLenisScroll();
-    initCommandCenter();
-    initCounters();
-    initCardTilt();
-});
-
-/* ============================================================
-   2. PRELOADER — CURTAIN HERO TEAR
-   ============================================================ */
+// === 2. IMMEDIATE & BULLETPROOF PRELOADER ===
 function initPreloader() {
     const preloader = document.getElementById('preloader');
-    const seamFill = document.querySelector('.pl-seam-fill');
-    if (!preloader || !seamFill) return;
+    if (!preloader) return;
 
+    const seamFill = document.querySelector('.pl-seam-fill');
     let progress = 0;
+    let dismissed = false;
+
+    function dismiss() {
+        if (dismissed) return;
+        dismissed = true;
+        clearInterval(progressInterval);
+        
+        if (seamFill) seamFill.style.height = '100%';
+        preloader.classList.add('hidden');
+        document.body.style.overflow = 'visible';
+        
+        // Remove from DOM so it can never block anything
+        setTimeout(() => {
+            if (preloader.parentNode) {
+                preloader.remove();
+            }
+        }, 700);
+    }
+
     const progressInterval = setInterval(() => {
-        progress += Math.floor(Math.random() * 15) + 10;
+        progress += Math.floor(Math.random() * 20) + 15;
         if (progress > 100) progress = 100;
-        seamFill.style.height = progress + '%';
+        if (seamFill) seamFill.style.height = progress + '%';
 
         if (progress >= 100) {
-            clearInterval(progressInterval);
-            setTimeout(() => {
-                preloader.classList.add('hidden');
-                document.body.style.overflow = 'visible';
-            }, 300);
+            setTimeout(dismiss, 250);
         }
-    }, 60);
+    }, 40);
+
+    // Hard fallback guarantees the page is revealed even if assets take time
+    setTimeout(dismiss, 1200);
 }
 
-/* ============================================================
-   3. PRECISION SPARKLE STAR CURSOR
-   ============================================================ */
+// === 3. SCRIPT KITTENS GPU-ACCELERATED SPARKLE CURSOR ===
 function initCursor() {
-    // Disable on touch screens
     if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
 
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
     if (!cursorDot || !cursorOutline) return;
 
+    let mouseX = _globalMouseX, mouseY = _globalMouseY;
     let dotX = _globalMouseX, dotY = _globalMouseY;
     let outlineX = _globalMouseX, outlineY = _globalMouseY;
+    let lastSparkleTime = 0;
 
-    function renderCursor() {
+    const glitterColors = ['#ffffff', '#dc2626', '#ef4444', '#f87171', '#ECDFCC', '#d4d4d4'];
+    const glitterSymbols = ['✦', '✧', '★', '✴', '❋', '✶'];
+
+    // Object pool for glitter particles
+    const POOL_SIZE = 25;
+    const pool = [];
+    const poolContainer = document.createElement('div');
+    poolContainer.className = 'cursor-glitter';
+    poolContainer.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;pointer-events:none;z-index:99997;';
+    document.body.appendChild(poolContainer);
+
+    for (let i = 0; i < POOL_SIZE; i++) {
+        const el = document.createElement('div');
+        el.className = 'sparkle';
+        el.style.display = 'none';
+        poolContainer.appendChild(el);
+        pool.push({ el, active: false });
+    }
+
+    function spawnGlitter(x, y) {
+        if (_perfTier === 'low') return;
+        const p = pool.find(item => !item.active);
+        if (!p) return;
+
+        p.active = true;
+        const el = p.el;
+        el.textContent = glitterSymbols[Math.floor(Math.random() * glitterSymbols.length)];
+        el.style.color = glitterColors[Math.floor(Math.random() * glitterColors.length)];
+        el.style.left = (x + (Math.random() * 14 - 7)) + 'px';
+        el.style.top = (y + (Math.random() * 14 - 7)) + 'px';
+        el.style.display = 'block';
+        el.style.animation = 'sparkleAnim 0.7s ease-out forwards';
+
+        setTimeout(() => {
+            el.style.display = 'none';
+            p.active = false;
+        }, 700);
+    }
+
+    // Render loop
+    function render() {
         if (_pageVisible) {
-            dotX += (_globalMouseX - dotX) * 0.9;
-            dotY += (_globalMouseY - dotY) * 0.9;
-            outlineX += (_globalMouseX - outlineX) * 0.2;
-            outlineY += (_globalMouseY - outlineY) * 0.2;
+            dotX += (mouseX - dotX) * 0.7;
+            dotY += (mouseY - dotY) * 0.7;
+            outlineX += (mouseX - outlineX) * 0.22;
+            outlineY += (mouseY - outlineY) * 0.22;
 
             cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`;
-            cursorOutline.style.transform = `translate3d(${outlineX - 19}px, ${outlineY - 19}px, 0)`;
+            cursorOutline.style.transform = `translate3d(${outlineX - 21}px, ${outlineY - 21}px, 0)`;
         }
-        requestAnimationFrame(renderCursor);
+        requestAnimationFrame(render);
     }
-    requestAnimationFrame(renderCursor);
+    requestAnimationFrame(render);
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        _globalMouseX = mouseX;
+        _globalMouseY = mouseY;
+
+        const now = performance.now();
+        if (now - lastSparkleTime > 70) {
+            lastSparkleTime = now;
+            spawnGlitter(mouseX, mouseY);
+        }
+    }, { passive: true });
 
     // Hover interactive scaling
-    const hoverElements = document.querySelectorAll('a, button, .project-card, .bento-card, .cc-tab, .cc-action-btn');
+    const hoverElements = document.querySelectorAll('a, button, .product-card-new, .cc-tab, .cc-action-btn, .hero-proof-item');
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursorDot.classList.add('hover');
@@ -131,66 +173,32 @@ function initCursor() {
         });
     });
 
-    // Click burst particles
+    // Click burst
     document.addEventListener('click', (e) => {
-        createClickBurst(e.clientX, e.clientY);
-    });
-
-    // Sparkle trail
-    let lastSparkle = 0;
-    document.addEventListener('mousemove', (e) => {
-        const now = Date.now();
-        if (now - lastSparkle > 80 && _perfTier !== 'low') {
-            lastSparkle = now;
-            createSparkle(e.clientX, e.clientY);
-        }
-    }, { passive: true });
-}
-
-function createSparkle(x, y) {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.textContent = '✦';
-    sparkle.style.left = (x + (Math.random() * 16 - 8)) + 'px';
-    sparkle.style.top = (y + (Math.random() * 16 - 8)) + 'px';
-    sparkle.style.color = Math.random() > 0.5 ? '#dc2626' : '#ffffff';
-    document.body.appendChild(sparkle);
-    setTimeout(() => sparkle.remove(), 750);
-}
-
-function createClickBurst(x, y) {
-    for (let i = 0; i < 6; i++) {
-        const p = document.createElement('div');
-        p.className = 'sparkle';
-        p.textContent = '✦';
-        p.style.left = x + 'px';
-        p.style.top = y + 'px';
-        p.style.color = '#dc2626';
-        p.style.transform = `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-${Math.random() * 30 + 15}px)`;
-        p.style.transition = 'all 0.5s ease-out';
-        p.style.opacity = '1';
-        document.body.appendChild(p);
-
+        cursorDot.classList.add('active');
+        cursorOutline.classList.add('active');
         setTimeout(() => {
-            p.style.opacity = '0';
-        }, 50);
-        setTimeout(() => p.remove(), 550);
-    }
+            cursorDot.classList.remove('active');
+            cursorOutline.classList.remove('active');
+        }, 200);
+
+        for (let i = 0; i < 5; i++) {
+            spawnGlitter(e.clientX, e.clientY);
+        }
+    });
 }
 
-/* ============================================================
-   4. TOP NAVBAR & TUBELIGHT SCROLLSPY
-   ============================================================ */
+// === 4. NAVBAR & TUBELIGHT ACTIVE SCROLLSPY ===
 function initNavbar() {
-    const navbar = document.querySelector('.top-navbar');
-    const hamburger = document.querySelector('.nav-hamburger');
-    const mobileMenu = document.querySelector('.nav-mobile-menu');
-    const navLinks = document.querySelectorAll('.nav-link[data-section], .nav-mobile-link[data-section]');
+    const navbar = document.getElementById('topNavbar');
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('navMobileMenu');
+    const navLinks = document.querySelectorAll('.nav-link[data-section]');
     const sections = document.querySelectorAll('section[id]');
 
-    // Navbar glass fade on scroll
+    // Navbar glass blur on scroll
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 40) {
+        if (window.scrollY > 30) {
             navbar?.classList.add('scrolled');
         } else {
             navbar?.classList.remove('scrolled');
@@ -198,28 +206,35 @@ function initNavbar() {
     }, { passive: true });
 
     // Mobile Hamburger
-    if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
+    if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+            mobileBtn.classList.toggle('open');
             mobileMenu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileBtn.classList.remove('open');
+                mobileMenu.classList.remove('open');
+            });
         });
     }
 
-    // ScrollSpy logic
+    // ScrollSpy with Tubelight flicker indicator
     function updateActiveNav() {
         const scrollPos = window.scrollY + window.innerHeight * 0.35;
-        let currentSection = '';
+        let currentId = 'home';
 
         sections.forEach(sec => {
             const top = sec.offsetTop;
             const height = sec.offsetHeight;
             if (scrollPos >= top && scrollPos < top + height) {
-                currentSection = sec.getAttribute('id');
+                currentId = sec.getAttribute('id');
             }
         });
 
         navLinks.forEach(link => {
-            if (link.getAttribute('data-section') === currentSection) {
+            if (link.getAttribute('data-section') === currentId) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -229,60 +244,76 @@ function initNavbar() {
 
     window.addEventListener('scroll', updateActiveNav, { passive: true });
     updateActiveNav();
-
-    // Close mobile menu when nav link clicked
-    document.querySelectorAll('.nav-mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu?.classList.remove('open');
-            hamburger?.classList.remove('open');
-        });
-    });
 }
 
-/* ============================================================
-   5. LENIS SMOOTH SCROLLING
-   ============================================================ */
-function initLenisScroll() {
+// === 5. LENIS SMOOTH SCROLLING ===
+function initLenis() {
     if (typeof Lenis === 'undefined' || window.innerWidth <= 768) return;
 
-    const lenis = new Lenis({
-        duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smooth: true,
-        smoothTouch: false,
-    });
-
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
+    try {
+        const lenis = new Lenis({
+            duration: 1.15,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+            smoothTouch: false,
         });
-        gsap.ticker.lagSmoothing(0);
-    } else {
+
         function raf(time) {
             lenis.raf(time);
             requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
-    }
 
-    // Anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const target = document.querySelector(targetId);
-            if (target) {
-                e.preventDefault();
-                lenis.scrollTo(target, { offset: -90, duration: 1.2 });
-            }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (!targetId || targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    lenis.scrollTo(target, { offset: -70, duration: 1.2 });
+                }
+            });
         });
-    });
+    } catch (e) {
+        console.warn('Lenis scroll fallback', e);
+    }
 }
 
-/* ============================================================
-   6. 3D INTERACTIVE COMMAND CENTER TERMINAL
-   ============================================================ */
+// === 6. PROOF COUNTERS ANIMATION ===
+function initCounters() {
+    const counters = document.querySelectorAll('.hero-proof-value[data-count]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-count') || '0', 10);
+                let current = 0;
+                const duration = 1200;
+                const startTime = performance.now();
+
+                function update(time) {
+                    const elapsed = time - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    current = Math.floor(progress * target);
+                    el.textContent = current;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        el.textContent = target;
+                    }
+                }
+                requestAnimationFrame(update);
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    counters.forEach(c => observer.observe(c));
+}
+
+// === 7. 3D COMMAND CENTER TERMINAL ===
 function initCommandCenter() {
     const ccEl = document.getElementById('commandCenter');
     const terminalBody = document.getElementById('terminalBody');
@@ -290,20 +321,20 @@ function initCommandCenter() {
     if (!ccEl) return;
 
     // 3D Parallax Mouse Tilt
-    const ccParent = ccEl.closest('.hero-3d-section');
-    if (ccParent && _perfTier !== 'low') {
-        ccParent.addEventListener('mousemove', (e) => {
-            const rect = ccParent.getBoundingClientRect();
+    const heroRight = ccEl.closest('.hero-right-cc');
+    if (heroRight && _perfTier !== 'low') {
+        heroRight.addEventListener('mousemove', (e) => {
+            const rect = ccEl.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
-            ccEl.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 8}deg) translateZ(10px)`;
+            ccEl.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
         }, { passive: true });
 
-        ccParent.addEventListener('mouseleave', () => {
+        heroRight.addEventListener('mouseleave', () => {
             ccEl.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
-            ccEl.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            ccEl.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
         });
-        ccParent.addEventListener('mouseenter', () => {
+        heroRight.addEventListener('mouseenter', () => {
             ccEl.style.transition = 'none';
         });
     }
@@ -322,13 +353,13 @@ function initCommandCenter() {
         });
     });
 
-    // Auto-typing DevOps & Agentic AI command stream
+    // Auto-typing DevOps & AI stream
     if (terminalBody && typingLine) {
         const commands = [
             {
                 cmd: 'agent --deploy restaurant-bot --target telegram',
                 flags: ['--deploy', '--target'],
-                response: { type: 'success', icon: 'fa-robot', text: 'Hermes Agent active. Telegram webhook verified. Latency: 8ms.' }
+                response: { type: 'success', icon: 'fa-robot', text: 'Hermes 3 Agent live. Webhook active. Google Sheets synced.' }
             },
             {
                 cmd: 'k8s get pods -n ai-mesh -o wide',
@@ -338,17 +369,17 @@ function initCommandCenter() {
             {
                 cmd: 'model --load blind-assist-core --mode on-device',
                 flags: ['--load', '--mode'],
-                response: { type: 'success', icon: 'fa-eye', text: 'YOLOv8 depth + Indian Currency CV model initialized. 0ms cloud lag.' }
+                response: { type: 'success', icon: 'fa-eye', text: 'YOLOv8 + Indian Currency CV model initialized. 0ms cloud lag.' }
             },
             {
                 cmd: 'docker ps --filter status=running',
                 flags: ['--filter'],
-                response: { type: 'info', icon: 'fa-server', text: '4 containers live: openrouter-proxy, telegram-webhook, redis, sheets-api' }
+                response: { type: 'info', icon: 'fa-server', text: '4 containers live: openrouter-proxy, telegram-webhook, redis, api' }
             },
             {
                 cmd: 'audit --verify-pipeline --strict',
                 flags: ['--verify-pipeline', '--strict'],
-                response: { type: 'success', icon: 'fa-shield-halved', text: 'Integrity hash-chain 100% valid. Zero drift detected across nodes.' }
+                response: { type: 'success', icon: 'fa-shield-halved', text: 'Integrity hash-chain 100% valid. Zero drift across nodes.' }
             }
         ];
 
@@ -376,7 +407,6 @@ function initCommandCenter() {
                 } else {
                     clearInterval(interval);
                     setTimeout(() => {
-                        // Print executed line
                         let formattedCmd = item.cmd;
                         item.flags.forEach(f => {
                             formattedCmd = formattedCmd.replace(f, `<span class="cc-flag">${f}</span>`);
@@ -388,15 +418,13 @@ function initCommandCenter() {
                         lineCmd.innerHTML = `<span class="cc-prompt">❯</span> ${formattedCmd}`;
                         terminalBody.insertBefore(lineCmd, typingLine);
 
-                        // Print response
                         const lineRes = document.createElement('div');
                         lineRes.className = `cc-line cc-line--${item.response.type}`;
                         lineRes.innerHTML = `<i class="fas ${item.response.icon}"></i> ${item.response.text}`;
                         terminalBody.insertBefore(lineRes, typingLine);
 
-                        // Clean old lines if list is too long
                         const allLines = terminalBody.querySelectorAll('.cc-line:not(.cc-line--typing):not(.cc-line--ascii)');
-                        if (allLines.length > 10) {
+                        if (allLines.length > 8) {
                             allLines[0].remove();
                             allLines[1].remove();
                         }
@@ -404,16 +432,16 @@ function initCommandCenter() {
                         terminalBody.scrollTop = terminalBody.scrollHeight;
                         typingLine.innerHTML = '<span class="cc-prompt">❯</span> <span class="cc-cursor">|</span>';
 
-                        setTimeout(typeNextCommand, 2800);
+                        setTimeout(typeNextCommand, 3000);
                     }, 400);
                 }
-            }, 40 + Math.random() * 20);
+            }, 35 + Math.random() * 20);
         }
 
-        setTimeout(typeNextCommand, 2000);
+        setTimeout(typeNextCommand, 1800);
     }
 
-    // Quick-action interactive buttons
+    // Quick Action interactive buttons
     document.querySelectorAll('.cc-action-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const cmd = btn.dataset.cmd;
@@ -431,7 +459,6 @@ function initCommandCenter() {
 
             terminalBody.scrollTop = terminalBody.scrollHeight;
 
-            // Switch to terminal tab if not active
             tabs.forEach(t => t.classList.remove('active'));
             panels.forEach(p => p.classList.remove('active'));
             document.querySelector('.cc-tab[data-tab="terminal"]')?.classList.add('active');
@@ -440,40 +467,11 @@ function initCommandCenter() {
     });
 }
 
-/* ============================================================
-   7. ANIMATED NUMBER COUNTERS
-   ============================================================ */
-function initCounters() {
-    const counters = document.querySelectorAll('.counter');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = parseInt(entry.target.dataset.target || 0);
-                let count = 0;
-                const step = Math.ceil(target / 40);
-                const timer = setInterval(() => {
-                    count += step;
-                    if (count >= target) {
-                        count = target;
-                        clearInterval(timer);
-                    }
-                    entry.target.textContent = count;
-                }, 30);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    counters.forEach(c => observer.observe(c));
-}
-
-/* ============================================================
-   8. CARD HOVER 3D TILT
-   ============================================================ */
+// === 8. CARD 3D TILT ===
 function initCardTilt() {
     if (_perfTier === 'low') return;
 
-    const cards = document.querySelectorAll('.project-card, .bento-card');
+    const cards = document.querySelectorAll('.product-card-new, .cheats-gateway-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -492,62 +490,23 @@ function initCardTilt() {
     });
 }
 
-/* ============================================================
-   9. BACKGROUND PARTICLES CANVAS
-   ============================================================ */
-function initParticles() {
-    const canvas = document.getElementById('particles-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
-
-    const count = _perfTier === 'high' ? 45 : (_perfTier === 'medium' ? 25 : 12);
-    const particles = [];
-
-    for (let i = 0; i < count; i++) {
-        particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 1.5 + 0.5,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: -Math.random() * 0.4 - 0.1,
-            alpha: Math.random() * 0.5 + 0.1,
-            color: Math.random() > 0.4 ? '#dc2626' : '#ffffff'
-        });
-    }
-
-    function animateParticles() {
-        if (_pageVisible) {
-            ctx.clearRect(0, 0, width, height);
-
-            for (let i = 0; i < count; i++) {
-                const p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.y < 0) {
-                    p.y = height;
-                    p.x = Math.random() * width;
-                }
-                if (p.x < 0) p.x = width;
-                if (p.x > width) p.x = 0;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.globalAlpha = p.alpha;
-                ctx.fill();
-            }
-        }
-        requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
+// === 9. INITIALIZATION ===
+function boot() {
+    initPreloader();
+    initCursor();
+    initNavbar();
+    initLenis();
+    initCounters();
+    initCommandCenter();
+    initCardTilt();
 }
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+} else {
+    boot();
+}
+
+document.addEventListener('visibilitychange', () => {
+    _pageVisible = !document.hidden;
+});

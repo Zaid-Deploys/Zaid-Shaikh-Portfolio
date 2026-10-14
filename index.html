@@ -3,40 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
     <!-- ═══ PRIMARY SEO ═══ -->
     <title>Zaid Shaikh | DevOps · Developer · Agentic AI</title>
-    <meta name="description" content="Portfolio of Zaid Shaikh — Aspiring DevOps engineer, software developer, and Agentic AI builder based in Mumbai, India.">
-    <meta name="keywords" content="Zaid Shaikh, DevOps, Agentic AI, Python, Docker, Kubernetes, AWS, BlindAssist, Restaurant AI Agent">
+    <meta name="description" content="Portfolio of Zaid Shaikh — Aspiring DevOps engineer, software developer, and Agentic AI builder based in Mumbai, India. Building rock-solid infrastructure, reliable APIs, and intelligent autonomous agents.">
+    <meta name="keywords" content="Zaid Shaikh, DevOps, Agentic AI, Python, Docker, Kubernetes, AWS, BlindAssist, Restaurant AI Agent, Indian Currency Classifier">
     <meta name="author" content="Zaid Shaikh">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://zaiddev.me/">
 
     <!-- ═══ OPEN GRAPH ═══ -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Zaid Shaikh Portfolio">
     <meta property="og:title" content="Zaid Shaikh | DevOps · Developer · Agentic AI">
-    <meta property="og:description" content="Building infrastructure, writing software, and teaching machines to do actual work.">
+    <meta property="og:description" content="Building rock-solid cloud infrastructure, writing software, and teaching autonomous agents to do actual work.">
+    <meta property="og:url" content="https://zaiddev.me/">
     <meta property="og:image" content="avatar.jpg">
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="avatar.jpg">
     <link rel="apple-touch-icon" href="avatar.jpg">
 
-    <!-- Typography Fonts: Cinzel, Syne, Outfit, Inter, JetBrains Mono -->
+    <!-- ═══ TYPOGRAPHY ═══ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Stylesheet -->
+
+    <!-- Core Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Libraries: GSAP, ScrollTrigger, Lenis -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Libraries: Lenis -->
     <script defer src="https://unpkg.com/lenis@1.1.1/dist/lenis.min.js"></script>
     <script defer src="script.js"></script>
 </head>
@@ -50,18 +50,17 @@
         <div class="pl-seam-line">
             <div class="pl-seam-fill"></div>
         </div>
-        <div class="pl-badge">
-            <div class="pl-badge-text">ZAID SHAIKH</div>
-            <div class="pl-badge-sub">INITIALIZING DEVOPS // AI MESH</div>
+        <div class="pl-badge" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 4; pointer-events: none;">
+            <div style="font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 0.35em; color: #ffffff; text-transform: uppercase; margin-bottom: 8px; text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);">ZAID SHAIKH</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.22em; color: #dc2626; text-transform: uppercase;">INITIALIZING DEVOPS // AI MESH</div>
         </div>
     </div>
 
-    <!-- ═══ 2. PRECISION CUSTOM SPARKLE CURSOR ═══ -->
+    <!-- ═══ 2. SCRIPT KITTENS SPARKLE STAR CURSOR ═══ -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- ═══ 3. BACKGROUND AMBIENCE & MESH ═══ -->
-    <canvas id="particles-canvas"></canvas>
+    <!-- ═══ 3. BACKGROUND AMBIENCE & PARTICLES ═══ -->
     <div class="bg-effects">
         <div class="bg-gradient"></div>
         <div class="bg-grid"></div>
@@ -69,446 +68,610 @@
     <div class="fantasy-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
 
-    <!-- ═══ 4. TOP FLOATING NAVBAR WITH TUBELIGHT ACTIVE ═══ -->
+    <!-- ═══ 4. TOP FLOATING NAVBAR (LINEAR / SCRIPT-KITTENS STYLE) ═══ -->
     <header class="top-navbar" id="topNavbar">
         <div class="nav-inner">
-            <a href="#hero" class="nav-logo">
-                <img src="avatar.jpg" alt="Zaid Shaikh" class="nav-avatar-icon">
-                <span class="nav-logo-text">Zaid Shaikh<span class="nav-logo-tag">.dev</span></span>
+            <!-- Logo -->
+            <a href="#home" class="nav-logo">
+                <img src="avatar.jpg" alt="Zaid Shaikh" class="nav-logo-icon">
+                <span class="nav-logo-title">Zaid Shaikh<span style="color: #dc2626; font-size: 14px; margin-left: 2px;">.dev</span></span>
             </a>
 
-            <!-- Centered Tubelight Nav Links -->
-            <nav class="nav-links">
-                <a href="#hero" class="nav-link active" data-section="hero">Home</a>
-                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-                <a href="#skills" class="nav-link" data-section="skills">Skills</a>
-                <a href="#about" class="nav-link" data-section="about">About</a>
-                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-            </nav>
+            <!-- Nav Links (Centered with Tubelight Active Indicator) -->
+            <div class="nav-right-group">
+                <nav class="nav-links">
+                    <a href="#home" class="nav-link active" data-section="home">Home</a>
+                    <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                    <a href="#about" class="nav-link" data-section="about">About</a>
+                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                </nav>
 
-            <div class="nav-actions">
-                <a href="mailto:zaidshaikh8726@gmail.com" class="nav-btn-contact">
-                    <i class="fas fa-paper-plane"></i> Get In Touch
-                </a>
-                <div class="nav-hamburger" id="navHamburger" aria-label="Toggle Navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="nav-actions">
+                    <a href="https://github.com/Zaid-Deploys" target="_blank" class="nav-btn-login" aria-label="GitHub">
+                        <i class="fab fa-github" style="font-size: 17px; margin-right: 6px;"></i> GitHub
+                    </a>
+                    <a href="mailto:zaidshaikh8726@gmail.com" class="nav-btn-cta">
+                        <i class="fas fa-paper-plane" style="font-size: 12px; margin-right: 6px;"></i> Get In Touch
+                    </a>
                 </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button class="nav-hamburger" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
 
-        <!-- Mobile Drawer Menu -->
+        <!-- Mobile Nav Drawer -->
         <div class="nav-mobile-menu" id="navMobileMenu">
-            <a href="#hero" class="nav-mobile-link" data-section="hero">Home</a>
+            <a href="#home" class="nav-mobile-link" data-section="home">Home</a>
             <a href="#projects" class="nav-mobile-link" data-section="projects">Projects</a>
             <a href="#skills" class="nav-mobile-link" data-section="skills">Skills</a>
             <a href="#about" class="nav-mobile-link" data-section="about">About</a>
             <a href="#contact" class="nav-mobile-link" data-section="contact">Contact</a>
-            <a href="mailto:zaidshaikh8726@gmail.com" class="nav-mobile-link" style="color:var(--r);font-weight:700;">Email Me →</a>
+            <div class="nav-mobile-actions">
+                <a href="https://github.com/Zaid-Deploys" target="_blank" class="nav-mobile-login">
+                    <i class="fab fa-github"></i> GitHub Profile
+                </a>
+                <a href="mailto:zaidshaikh8726@gmail.com" class="nav-mobile-cta">Get In Touch</a>
+            </div>
         </div>
     </header>
 
     <!-- ═══ 5. HERO SECTION ═══ -->
-    <section class="hero-section" id="hero">
-        <div class="hero-grid">
-            
-            <!-- Left Info Column -->
+    <section id="home" class="hero">
+        <div class="hero-inner">
+            <!-- Left: Hero Text & CTAs -->
             <div class="hero-left">
-                <div class="hero-badge-row">
-                    <span class="hero-tag hero-tag-red"><i class="fas fa-bolt"></i> DEVOPS & AGENTIC AI</span>
-                    <span class="hero-tag hero-tag-gray"><i class="fas fa-map-marker-alt"></i> MUMBAI · 2026</span>
-                </div>
+                <p class="hero-label">DevOps · Full-Stack · Agentic AI</p>
 
                 <h1 class="hero-title">
-                    <span class="hero-title-line1">ZAID SHAIKH</span>
-                    <span class="hero-title-line2">AGENTIC AI & CLOUD</span>
+                    ZAID SHAIKH<br>
+                    <em class="hero-title-accent">Infrastructure , Code , Autonomous Agents.</em>
                 </h1>
 
-                <div class="hero-subtitle">
-                    <i class="fas fa-terminal"></i> DevOps · Developer · Agentic AI
-                </div>
-
-                <p class="hero-desc">
-                    Building infrastructure, writing software, and teaching machines to do actual work. DevOps by training. Developer by choice. Agentic AI by obsession.
+                <p class="hero-subtitle">
+                    Aspiring DevOps engineer and software developer based in Mumbai, India.
+                    Building rock-solid containerized architectures, automated CI/CD pipelines,
+                    and production-grade Agentic AI systems that do real, measurable work.
                 </p>
 
                 <div class="hero-cta-group">
-                    <a href="#projects" class="btn-primary">
-                        <i class="fas fa-eye"></i> EXPLORE PROJECTS ❯
+                    <a href="#projects" class="hero-btn-primary">
+                        <span>Explore Arsenal</span>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="mailto:zaidshaikh8726@gmail.com" class="btn-outline">
-                        <i class="fas fa-envelope"></i> GET IN TOUCH
+                    <a href="https://github.com/Zaid-Deploys" target="_blank" class="hero-btn-discord">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/zaid-shaikh-15b5362a3/" target="_blank" class="hero-btn-ghost">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
                     </a>
                 </div>
 
-                <!-- Telemetry Counters -->
-                <div class="hero-telemetry">
-                    <div class="tele-stat">
-                        <div class="tele-num"><span class="counter" data-target="3">0</span><span class="highlight">+</span></div>
-                        <div class="tele-label">Flagship Repos</div>
+                <div class="hero-proof">
+                    <div class="hero-proof-item">
+                        <span class="hero-proof-value" data-count="100">0</span><span class="hero-proof-suffix">%</span>
+                        <span class="hero-proof-label">Automation & CI/CD</span>
                     </div>
-                    <div class="tele-stat">
-                        <div class="tele-num"><span class="counter" data-target="100">0</span><span class="highlight">%</span></div>
-                        <div class="tele-label">On-Device AI</div>
+                    <div class="hero-proof-divider"></div>
+                    <div class="hero-proof-item">
+                        <span class="hero-proof-value" data-count="3">0</span><span class="hero-proof-suffix">+</span>
+                        <span class="hero-proof-label">Flagship Systems</span>
                     </div>
-                    <div class="tele-stat">
-                        <div class="tele-num"><span class="counter" data-target="8">0</span><span class="highlight">ms</span></div>
-                        <div class="tele-label">Bot Latency</div>
+                    <div class="hero-proof-divider"></div>
+                    <div class="hero-proof-item">
+                        <span class="hero-proof-value" data-count="99">0</span><span class="hero-proof-suffix">%</span>
+                        <span class="hero-proof-label">Model Precision</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Interactive 3D Command Center Terminal -->
-            <div class="hero-3d-section">
+            <!-- Right: 3D Perspective Command Center Terminal -->
+            <div class="hero-right-cc">
                 <div class="command-center" id="commandCenter">
-                    
-                    <!-- Console Header -->
                     <div class="cc-header">
-                        <div class="cc-dots">
-                            <span class="cc-dot red"></span>
-                            <span class="cc-dot yellow"></span>
-                            <span class="cc-dot green"></span>
+                        <div class="cc-traffic-lights">
+                            <span class="cc-dot cc-dot--red"></span>
+                            <span class="cc-dot cc-dot--yellow"></span>
+                            <span class="cc-dot cc-dot--green"></span>
                         </div>
-                        <div class="cc-title">zaid@production-mesh:~ (hermes-agent)</div>
-                        <div class="cc-badge">
-                            <span class="pulse-dot"></span> TELEMETRY
+                        <div class="cc-title-bar">
+                            <i class="fas fa-terminal" style="color: #dc2626;"></i>
+                            <span>zaid@mumbai-mesh: ~</span>
+                        </div>
+                        <div class="cc-status-live">
+                            <span class="live-indicator"></span>
+                            <span>NODE ONLINE</span>
                         </div>
                     </div>
 
-                    <!-- Console Tabs -->
                     <div class="cc-tabs">
-                        <div class="cc-tab active" data-tab="terminal"><i class="fas fa-terminal"></i> Terminal</div>
-                        <div class="cc-tab" data-tab="metrics"><i class="fas fa-chart-line"></i> Metrics</div>
-                        <div class="cc-tab" data-tab="logs"><i class="fas fa-list-ul"></i> System Logs</div>
+                        <button class="cc-tab active" data-tab="terminal">TERMINAL</button>
+                        <button class="cc-tab" data-tab="telemetry">TELEMETRY</button>
                     </div>
 
-                    <!-- Terminal Tab Panel -->
-                    <div class="cc-tab-panel active" data-panel="terminal">
-                        <div class="terminal-body" id="terminalBody">
-                            <div class="cc-line cc-line--ascii" style="color:var(--r);font-size:10px;line-height:1.2;margin-bottom:10px;">
-                                [ SYSTEM READY // ARCHITECTURE: LINUX x86_64 // MESH: ACTIVE ]
-                            </div>
-                            <div class="cc-line">
-                                <span class="cc-prompt">❯</span> <span class="cc-cmd">systeminfo</span>
-                            </div>
-                            <div class="cc-line cc-line--success">
-                                <i class="fas fa-check-circle"></i> Zaid Shaikh // DevOps & Agentic AI Specialist loaded.
-                            </div>
-                            <div class="cc-line">
-                                <span class="cc-prompt">❯</span> <span class="cc-cmd">cluster</span> <span class="cc-flag">--status</span>
-                            </div>
+                    <div class="cc-body" id="terminalBody">
+                        <div class="cc-tab-panel active" data-panel="terminal">
                             <div class="cc-line cc-line--info">
-                                <i class="fas fa-network-wired"></i> AWS ap-south-1 nodes synchronized. Telegram hooks listening.
+                                <i class="fas fa-check" style="color: #10b981;"></i> Cluster active [Ubuntu 24.04 LTS · K8s v1.31 · Docker Engine]
                             </div>
-                            <div class="cc-line cc-line--typing" id="typingLine">
+                            <div class="cc-line" id="typingLine">
                                 <span class="cc-prompt">❯</span> <span class="cc-cursor">|</span>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Metrics Tab Panel -->
-                    <div class="cc-tab-panel" data-panel="metrics">
-                        <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.7);">
-                            <div style="margin-bottom:14px;">
-                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                                    <span>AWS Cluster Memory (ap-south-1)</span>
-                                    <span style="color:#34d399;">1.2 GB / 4.0 GB</span>
+                        <div class="cc-tab-panel" data-panel="telemetry">
+                            <div class="cc-telemetry-grid">
+                                <div class="telemetry-node">
+                                    <div class="node-title">Cluster Health</div>
+                                    <div class="node-val node-val--green">100% OPERATIONAL</div>
                                 </div>
-                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
-                                    <div style="width:30%;height:100%;background:linear-gradient(90deg, #34d399, var(--r));"></div>
+                                <div class="telemetry-node">
+                                    <div class="node-title">Agentic Latency</div>
+                                    <div class="node-val node-val--green">8ms (Edge Cache)</div>
                                 </div>
-                            </div>
-
-                            <div style="margin-bottom:14px;">
-                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                                    <span>Hermes Agent OpenRouter Throughput</span>
-                                    <span style="color:var(--r);">142 tokens/sec</span>
+                                <div class="telemetry-node">
+                                    <div class="node-title">Inference Engine</div>
+                                    <div class="node-val">YOLOv8 On-Device</div>
                                 </div>
-                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
-                                    <div style="width:78%;height:100%;background:linear-gradient(90deg, var(--r), #ef4444);"></div>
-                                </div>
-                            </div>
-
-                            <div style="margin-bottom:14px;">
-                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                                    <span>BlindAssist On-Device Inference</span>
-                                    <span style="color:#60a5fa;">0.00ms Cloud Lag (Edge)</span>
-                                </div>
-                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
-                                    <div style="width:95%;height:100%;background:#60a5fa;"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                                    <span>Docker Containers Health</span>
-                                    <span style="color:#34d399;">4/4 Healthy (100%)</span>
-                                </div>
-                                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
-                                    <div style="width:100%;height:100%;background:#34d399;"></div>
+                                <div class="telemetry-node">
+                                    <div class="node-title">Location</div>
+                                    <div class="node-val">Mumbai, India</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Logs Tab Panel -->
-                    <div class="cc-tab-panel" data-panel="logs">
-                        <div style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.6);line-height:1.7;">
-                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:12]</span> <span style="color:#34d399;">[INFO]</span> Telegram Webhook received table query.</div>
-                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:13]</span> <span style="color:#60a5fa;">[ROUTER]</span> Hermes AI agent generated booking confirmation.</div>
-                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:13]</span> <span style="color:#34d399;">[SYNC]</span> Google Sheets row appended successfully (row #418).</div>
-                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:14]</span> <span style="color:#fbbf24;">[EDGE]</span> BlindAssist currency classifier confidence: 99.4%.</div>
-                            <div><span style="color:rgba(255,255,255,0.3);">[01:04:15]</span> <span style="color:#34d399;">[HEALTH]</span> Keepalive heartbeat OK across all 4 nodes.</div>
+                    <div class="cc-footer-actions">
+                        <button class="cc-action-btn" data-cmd="agent --health">HEALTH</button>
+                        <button class="cc-action-btn" data-cmd="k8s --status">PODS</button>
+                        <button class="cc-action-btn" data-cmd="docker --containers">DOCKER</button>
+                        <button class="cc-action-btn" data-cmd="mesh --scan">SCAN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 6. VELOCITY TECH STACK MARQUEE ═══ -->
+    <section class="logo-ticker">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <p class="hero-label" style="margin-bottom: 8px;">CORE INFRASTRUCTURE & TOOLS</p>
+            <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: #ffffff; letter-spacing: 0.15em; text-transform: uppercase;">
+                Technologies <span style="color: #dc2626;">Powering</span> The Stack
+            </h3>
+        </div>
+
+        <div class="velocity-scroll-section">
+            <!-- Row 1: Leftward -->
+            <div class="velocity-row">
+                <div class="velocity-track">
+                    <span>AWS CLOUD</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>DOCKER CONTAINERS</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>KUBERNETES</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>LINUX SYSTEMS</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>PYTHON 3</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>GIT & GITHUB ACTIONS</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>AGENTIC AI</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>HERMES 3</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>OPENROUTER</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>FASTAPI</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <!-- Seamless Loop Duplicate -->
+                    <span>AWS CLOUD</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>DOCKER CONTAINERS</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>KUBERNETES</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>LINUX SYSTEMS</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>PYTHON 3</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>GIT & GITHUB ACTIONS</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>AGENTIC AI</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>HERMES 3</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>OPENROUTER</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                    <span>FASTAPI</span><span style="color:#dc2626; margin:0 24px;">✦</span>
+                </div>
+            </div>
+
+            <!-- Row 2: Rightward -->
+            <div class="velocity-row velocity-row--reverse">
+                <div class="velocity-track">
+                    <span>YOLOV8 COMPUTER VISION</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>COMPUTER NETWORKS</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>TESSERACT OCR</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>POSTGRESQL</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>REDIS IN-MEMORY</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>BASH SCRIPTING</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>RESTFUL APIS</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>OFFLINE EDGE AI</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>CI/CD PIPELINES</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>TERRAFORM IAC</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <!-- Seamless Loop Duplicate -->
+                    <span>YOLOV8 COMPUTER VISION</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>COMPUTER NETWORKS</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>TESSERACT OCR</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>POSTGRESQL</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>REDIS IN-MEMORY</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>BASH SCRIPTING</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>RESTFUL APIS</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>OFFLINE EDGE AI</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>CI/CD PIPELINES</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                    <span>TERRAFORM IAC</span><span style="color:#ffffff; margin:0 24px;">★</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 7. FEATURED PROJECTS SHOWCASE (SCRIPT-KITTENS CARD GRID) ═══ -->
+    <section id="projects" class="products-section">
+        <div class="section-container" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px;">
+            <div class="section-header" style="text-align: center; margin-bottom: 56px;">
+                <p class="hero-label">PRODUCTION ARSENAL</p>
+                <h2 style="font-family: 'Cinzel', serif; font-size: clamp(34px, 4vw, 52px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
+                    Featured <span style="color: #dc2626;">Production</span> Systems
+                </h2>
+                <p style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(255, 255, 255, 0.45); max-width: 620px; margin: 16px auto 0; line-height: 1.7;">
+                    Battle-tested architectures engineered for resilience, on-device edge AI, and autonomous agentic workflows.
+                </p>
+            </div>
+
+            <div class="products-grid-new" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px;">
+                
+                <!-- Project 1: Restaurant AI Agent -->
+                <div class="product-card-new">
+                    <div class="card-glow-border"></div>
+                    <div class="card-inner">
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                            <div class="card-badge hot" style="background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); color: #ef4444; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em;">
+                                AGENTIC AI · PRODUCTION
+                            </div>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4);">v2.4</span>
+                        </div>
+                        <h3 class="card-title" style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 6px;">
+                            Restaurant AI Agent
+                        </h3>
+                        <span class="card-type" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #dc2626; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 16px;">
+                            TELEGRAM + HERMES 3 + SHEETS API
+                        </span>
+
+                        <p style="font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.6); line-height: 1.65; margin-bottom: 24px;">
+                            Autonomous Telegram conversational agent for Mumbai restaurants. Handles multi-turn table bookings, menu inquiries, and dietary customizations with real-time automated Google Sheets sync.
+                        </p>
+
+                        <div class="card-features" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-robot" style="color: #dc2626;"></i>
+                                <span>Hermes 3 70B LLM via OpenRouter proxy</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-table" style="color: #dc2626;"></i>
+                                <span>Zero-latency Google Sheets live order logging</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-bolt" style="color: #dc2626;"></i>
+                                <span>Webhook handler with automatic retry backoff</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-shield-alt" style="color: #dc2626;"></i>
+                                <span>Strict rate-limiting & schema validation</span>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <a href="https://github.com/Zaid-Deploys/Restaurant-AI-Agent" target="_blank" class="card-cta" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.4); padding: 10px 20px; border-radius: 8px; transition: all 0.25s ease;">
+                                <i class="fab fa-github"></i>
+                                <span>View Source</span>
+                                <i class="fas fa-arrow-right" style="font-size: 11px;"></i>
+                            </a>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #10b981;">● PRODUCTION READY</span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Bottom Quick Action Buttons -->
-                    <div class="cc-actions-bar">
-                        <span class="cc-action-label">EXECUTE:</span>
-                        <button class="cc-action-btn" data-cmd="agent --status">status</button>
-                        <button class="cc-action-btn" data-cmd="agent --deploy restaurant-bot">deploy</button>
-                        <button class="cc-action-btn" data-cmd="cluster --health">health</button>
-                        <button class="cc-action-btn" data-cmd="k8s --scan-mesh">scan</button>
+                <!-- Project 2: BlindAssist -->
+                <div class="product-card-new">
+                    <div class="card-glow-border"></div>
+                    <div class="card-inner">
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                            <div class="card-badge" style="background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.3); color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em;">
+                                EDGE AI · ACCESSIBILITY
+                            </div>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4);">Android OS</span>
+                        </div>
+                        <h3 class="card-title" style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 6px;">
+                            BlindAssist
+                        </h3>
+                        <span class="card-type" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 16px;">
+                            OFFLINE ANDROID + YOLO + OCR
+                        </span>
+
+                        <p style="font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.6); line-height: 1.65; margin-bottom: 24px;">
+                            All-in-one assistive application built for visually impaired users. Operates 100% offline with on-device computer vision for obstacle warnings, printed text reading, and instant currency classification.
+                        </p>
+
+                        <div class="card-features" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-eye" style="color: #ffffff;"></i>
+                                <span>Zero-cloud latency on-device YOLO inference</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-file-alt" style="color: #ffffff;"></i>
+                                <span>Tesseract OCR for reading documents & signs</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-money-bill-wave" style="color: #ffffff;"></i>
+                                <span>Real-time identification of all Indian currency</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-volume-up" style="color: #ffffff;"></i>
+                                <span>Immediate audio & haptic vibration alerts</span>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <a href="https://github.com/Zaid-Deploys/BlindAssist" target="_blank" class="card-cta" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #111; background: #ffffff; border: 1px solid #ffffff; padding: 10px 20px; border-radius: 8px; transition: all 0.25s ease;">
+                                <i class="fab fa-github"></i>
+                                <span>View Source</span>
+                                <i class="fas fa-arrow-right" style="font-size: 11px;"></i>
+                            </a>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #10b981;">● OFFLINE DEPLOYED</span>
+                        </div>
                     </div>
-
                 </div>
-            </div>
 
+                <!-- Project 3: Indian Currency Classifier -->
+                <div class="product-card-new">
+                    <div class="card-glow-border"></div>
+                    <div class="card-inner">
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                            <div class="card-badge" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em;">
+                                COMPUTER VISION · MODEL
+                            </div>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4);">PyTorch</span>
+                        </div>
+                        <h3 class="card-title" style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 6px;">
+                            Indian Currency Classifier
+                        </h3>
+                        <span class="card-type" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f59e0b; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 16px;">
+                            DEEP LEARNING CLASSIFIER
+                        </span>
+
+                        <p style="font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.6); line-height: 1.65; margin-bottom: 24px;">
+                            High-accuracy deep computer vision model trained to distinguish and classify all modern Indian banknotes (₹10, ₹20, ₹50, ₹100, ₹200, ₹500) under varied lighting, folding, and angles.
+                        </p>
+
+                        <div class="card-features" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;">
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-check-circle" style="color: #f59e0b;"></i>
+                                <span>99.2% classification accuracy across all denominations</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-mobile-alt" style="color: #f59e0b;"></i>
+                                <span>Exported & optimized for low-power mobile devices</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-adjust" style="color: #f59e0b;"></i>
+                                <span>Heavy augmentations for shadow & blur resistance</span>
+                            </div>
+                            <div class="feature-item" style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.75);">
+                                <i class="fas fa-microchip" style="color: #f59e0b;"></i>
+                                <span>Sub-15ms edge inference execution time</span>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <a href="https://github.com/Zaid-Deploys/Indian-Currency-Classifier" target="_blank" class="card-cta" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); padding: 10px 20px; border-radius: 8px; transition: all 0.25s ease;">
+                                <i class="fab fa-github"></i>
+                                <span>View Source</span>
+                                <i class="fas fa-arrow-right" style="font-size: 11px;"></i>
+                            </a>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #10b981;">● BENCHMARKED</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <!-- Laser Line Separator -->
-    <div class="section-separator"></div>
+    <!-- ═══ 8. SKILLS ARSENAL (BENTO GRID SYSTEM) ═══ -->
+    <section id="skills" class="free-cheats-section">
+        <div class="section-container" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px;">
+            <div class="section-header" style="text-align: center; margin-bottom: 56px;">
+                <p class="hero-label">TECHNICAL COMPETENCIES</p>
+                <h2 style="font-family: 'Cinzel', serif; font-size: clamp(34px, 4vw, 52px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
+                    Skills & <span style="color: #dc2626;">Architectural</span> Mastery
+                </h2>
+                <p style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(255, 255, 255, 0.45); max-width: 600px; margin: 16px auto 0;">
+                    From low-level Linux and cloud deployments to cutting-edge Agentic LLM chains.
+                </p>
+            </div>
 
-    <!-- ═══ 6. FEATURED PROJECTS SECTION ═══ -->
-    <section class="section-wrap" id="projects">
-        <div class="section-header">
-            <span class="section-tag">SELECTED WORKS // 2026</span>
-            <h2 class="section-title">FEATURED PROJECTS</h2>
-            <p class="section-subtitle">
-                Autonomous AI agents, production pipelines, and edge-native neural networks built to solve real-world problems.
-            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                <!-- Skill Card 1: Cloud & DevOps -->
+                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(220,38,38,0.12); border: 1px solid rgba(220,38,38,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-cloud" style="color: #dc2626; font-size: 20px;"></i>
+                    </div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">Cloud & DevOps</h3>
+                    <p style="font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 20px;">
+                        Containerization, automated build pipelines, and cloud infra management.
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">AWS (EC2, S3, IAM)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Docker</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Kubernetes</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">CI/CD Actions</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Linux / Bash</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2: AI & Agentic Systems -->
+                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-brain" style="color: #a78bfa; font-size: 20px;"></i>
+                    </div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">Agentic AI & Vision</h3>
+                    <p style="font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 20px;">
+                        LLM multi-turn orchestration, tool execution, and on-device computer vision.
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Hermes 3 / OpenRouter</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">LangChain</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">YOLOv8</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">OpenCV</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">PyTorch</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3: Software & Core Backend -->
+                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-code" style="color: #10b981; font-size: 20px;"></i>
+                    </div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">Core Software</h3>
+                    <p style="font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 20px;">
+                        High-performance asynchronous backends, APIs, and clean software architecture.
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Python 3</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">FastAPI / Flask</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Java (Android)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">PostgreSQL / Redis</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Git / GitHub</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 4: Networking & Systems -->
+                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-network-wired" style="color: #f59e0b; font-size: 20px;"></i>
+                    </div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px;">Networking & Systems</h3>
+                    <p style="font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 20px;">
+                        Deep understanding of network layers, protocols, routing, and system kernels.
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">TCP/IP & OSI</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">DNS / HTTPS / SSL</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Subnetting / CIDR</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">Reverse Proxy (NGINX)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; color: #fff;">SSH & Wireguard</span>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div class="projects-grid">
+    <!-- ═══ 9. ABOUT SECTION (SCRIPT-KITTENS ARCHITECT CARD) ═══ -->
+    <section id="about" class="team-section">
+        <div class="section-container" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px;">
+            <div class="team-header-v2" style="text-align: center; margin-bottom: 60px;">
+                <p class="hero-label">BACKGROUND & VISION</p>
+                <h2 class="team-headline-v2" style="font-family: 'Cinzel', serif; font-size: clamp(34px, 4vw, 52px); font-weight: 800; color: #fff; letter-spacing: -0.02em;">
+                    The <span style="color: #dc2626;">Architect</span> Behind The Infrastructure
+                </h2>
+                <p class="team-sub-v2" style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(255, 255, 255, 0.5); max-width: 660px; margin: 16px auto 0; line-height: 1.7;">
+                    Building bridges between robust cloud architectures, developer velocity, and autonomous AI systems.
+                </p>
+            </div>
+
+            <!-- Single Featured Architect Showcase Card -->
+            <div style="max-width: 900px; margin: 0 auto; background: linear-gradient(145deg, rgba(20, 10, 10, 0.95) 0%, rgba(10, 5, 5, 0.98) 100%); border: 1.5px solid rgba(220, 38, 38, 0.28); border-radius: 24px; padding: 48px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(220, 38, 38, 0.12); display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
+                
+                <div style="flex: 1; min-width: 220px; max-width: 280px; position: relative;">
+                    <div style="border-radius: 20px; overflow: hidden; border: 2px solid rgba(220, 38, 38, 0.4); box-shadow: 0 0 30px rgba(220, 38, 38, 0.3);">
+                        <img src="avatar.jpg" alt="Zaid Shaikh" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                    </div>
+                    <div style="position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); background: #000; border: 1px solid rgba(220, 38, 38, 0.6); padding: 4px 16px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #10b981; white-space: nowrap; box-shadow: 0 0 15px rgba(220,38,38,0.3);">
+                        ● ACTIVE IN MUMBAI
+                    </div>
+                </div>
+
+                <div style="flex: 2; min-width: 300px;">
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #dc2626; letter-spacing: 0.15em; text-transform: uppercase;">ENGINEER // BUILDER</span>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 800; color: #ffffff; margin: 6px 0 16px;">
+                        Zaid Shaikh
+                    </h3>
+                    <p style="font-family: 'Inter', sans-serif; font-size: 15px; color: rgba(255, 255, 255, 0.7); line-height: 1.75; margin-bottom: 24px;">
+                        I am an aspiring DevOps Engineer and Software Developer based in Mumbai, India.
+                        My engineering mindset centers around removing friction: automating deployment pipelines,
+                        enforcing container isolation, building bulletproof edge computer vision tools,
+                        and crafting multi-agent systems capable of performing autonomous end-to-end work.
+                    </p>
+
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="mailto:zaidshaikh8726@gmail.com" class="hero-btn-primary" style="padding: 12px 24px; border-radius: 8px;">
+                            <span>Initiate Contact</span>
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://github.com/Zaid-Deploys" target="_blank" class="hero-btn-discord" style="padding: 12px 24px;">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub Profile</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 10. LUXURY FOOTER (SCRIPT-KITTENS STYLE) ═══ -->
+    <footer class="sk-footer" id="contact">
+        <div class="sk-footer__inner" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px 40px;">
             
-            <!-- Project 1: Restaurant AI Agent -->
-            <div class="project-card">
-                <div class="project-top">
-                    <span class="project-status status-prod"><i class="fas fa-circle-dot"></i> TELEGRAM BOT</span>
-                    <span class="project-year">2026</span>
+            <div class="sk-footer__brand-center" style="text-align: center; margin-bottom: 48px;">
+                <div class="sk-footer__logo-text" style="font-family: 'Cinzel', serif; font-size: 28px; font-weight: 800; letter-spacing: 0.15em; color: #ffffff;">
+                    ZAID SHAIKH<span style="color: #dc2626;">.DEV</span>
                 </div>
-                <h3 class="project-name">Restaurant AI Agent</h3>
-                <p class="project-summary">
-                    Telegram-integrated AI agent for Mumbai restaurants. Takes reservations, answers queries, and logs everything to Google Sheets — runs on Hermes framework with OpenRouter LLMs.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">Hermes</span>
-                    <span class="project-tag">OpenRouter</span>
-                    <span class="project-tag">Telegram API</span>
-                    <span class="project-tag">Google Sheets</span>
-                    <span class="project-tag">Python</span>
-                </div>
-                <a href="https://github.com/Zaid-Deploys/restaurant-ai-agent" target="_blank" class="project-btn">
-                    <span>View Repository</span> <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-
-            <!-- Project 2: BlindAssist -->
-            <div class="project-card">
-                <div class="project-top">
-                    <span class="project-status status-active"><i class="fas fa-circle-dot"></i> ON-DEVICE AI</span>
-                    <span class="project-year">2026</span>
-                </div>
-                <h3 class="project-name">BlindAssist</h3>
-                <p class="project-summary">
-                    Offline Android app that narrates the world in real time for visually impaired users — obstacle detection, text reading, and Indian currency identification, running entirely on-device with zero cloud lag.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">Android</span>
-                    <span class="project-tag">Kotlin</span>
-                    <span class="project-tag">Edge AI</span>
-                    <span class="project-tag">YOLO Depth</span>
-                    <span class="project-tag">Offline CV</span>
-                </div>
-                <a href="https://app.zaiddev.me" target="_blank" class="project-btn">
-                    <span>Launch Project</span> <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-
-            <!-- Project 3: Indian Currency Classifier -->
-            <div class="project-card">
-                <div class="project-top">
-                    <span class="project-status status-prod"><i class="fas fa-circle-dot"></i> COMPUTER VISION</span>
-                    <span class="project-year">2026</span>
-                </div>
-                <h3 class="project-name">Indian Currency Classifier</h3>
-                <p class="project-summary">
-                    Computer vision model trained to identify Indian currency notes and coins, integrated into BlindAssist for real-time offline currency recognition with 99%+ accuracy.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">Computer Vision</span>
-                    <span class="project-tag">Deep Learning</span>
-                    <span class="project-tag">Python</span>
-                    <span class="project-tag">PyTorch</span>
-                    <span class="project-tag">MobileNet</span>
-                </div>
-                <a href="https://github.com/Zaid-Deploys/indian-currency-classifier" target="_blank" class="project-btn">
-                    <span>View Repository</span> <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Laser Line Separator -->
-    <div class="section-separator"></div>
-
-    <!-- ═══ 7. TECHNICAL CAPABILITIES BENTO GRID ═══ -->
-    <section class="section-wrap" id="skills">
-        <div class="section-header">
-            <span class="section-tag">CAPABILITIES // TECH STACK</span>
-            <h2 class="section-title">ENGINEERED FOR SCALE</h2>
-            <p class="section-subtitle">
-                A robust stack spanning cloud-native infrastructure, low-latency code, and modern Agentic AI workflows.
-            </p>
-        </div>
-
-        <div class="bento-grid">
-            
-            <!-- Bento 1: Cloud & Infra -->
-            <div class="bento-card">
-                <div class="bento-icon">
-                    <i class="fas fa-cloud"></i>
-                </div>
-                <h3 class="bento-title">Cloud & Infrastructure</h3>
-                <p class="bento-desc">
-                    Containerizing microservices, managing cloud deployments, and running highly resilient distributed workloads.
-                </p>
-                <div class="bento-skills">
-                    <span class="bento-skill-pill"><i class="fab fa-aws"></i> AWS</span>
-                    <span class="bento-skill-pill"><i class="fab fa-docker"></i> Docker</span>
-                    <span class="bento-skill-pill"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
-                    <span class="bento-skill-pill"><i class="fab fa-linux"></i> Linux</span>
-                    <span class="bento-skill-pill"><i class="fas fa-network-wired"></i> Computer Networks</span>
+                <div class="sk-footer__tagline" style="font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.4); margin-top: 8px;">
+                    DevOps · Developer · Agentic AI — Mumbai, India · 2026
                 </div>
             </div>
 
-            <!-- Bento 2: Code & Foundations -->
-            <div class="bento-card">
-                <div class="bento-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <h3 class="bento-title">Software Engineering</h3>
-                <p class="bento-desc">
-                    Clean, performant backend pipelines, API integrations, and robust version-controlled systems.
-                </p>
-                <div class="bento-skills">
-                    <span class="bento-skill-pill"><i class="fab fa-python"></i> Python</span>
-                    <span class="bento-skill-pill"><i class="fab fa-git-alt"></i> Git / GitHub</span>
-                    <span class="bento-skill-pill"><i class="fas fa-server"></i> REST APIs</span>
-                    <span class="bento-skill-pill"><i class="fas fa-terminal"></i> Bash / Shell</span>
-                    <span class="bento-skill-pill"><i class="fab fa-js"></i> JavaScript</span>
-                </div>
-            </div>
-
-            <!-- Bento 3: Agentic AI -->
-            <div class="bento-card">
-                <div class="bento-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <h3 class="bento-title">Agentic AI & Vision</h3>
-                <p class="bento-desc">
-                    Building autonomous LLM agents that connect to real-world external tools, alongside on-device vision models.
-                </p>
-                <div class="bento-skills">
-                    <span class="bento-skill-pill"><i class="fas fa-brain"></i> LLMs & AI Agents</span>
-                    <span class="bento-skill-pill"><i class="fas fa-eye"></i> Computer Vision</span>
-                    <span class="bento-skill-pill"><i class="fas fa-microchip"></i> On-Device AI</span>
-                    <span class="bento-skill-pill"><i class="fas fa-network-wired"></i> Hermes Framework</span>
-                    <span class="bento-skill-pill"><i class="fas fa-bolt"></i> OpenRouter</span>
+            <div class="sk-footer__marquee" style="margin-bottom: 48px; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 18px 0; overflow: hidden; white-space: nowrap;">
+                <div class="sk-footer__marquee-track" style="display: inline-block; animation: vel-scroll-left 25s linear infinite;">
+                    <span class="mq-white" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.2em; text-transform: uppercase;">ALWAYS DEPLOYING</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
+                    <span class="mq-red" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #dc2626; letter-spacing: 0.2em; text-transform: uppercase;">ZERO DRIFT</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
+                    <span class="mq-white" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.2em; text-transform: uppercase;">CONTAINER FIRST</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
+                    <span class="mq-red" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #dc2626; letter-spacing: 0.2em; text-transform: uppercase;">AUTONOMOUS AGENTS</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
+                    <span class="mq-white" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.2em; text-transform: uppercase;">ALWAYS DEPLOYING</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
+                    <span class="mq-red" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #dc2626; letter-spacing: 0.2em; text-transform: uppercase;">ZERO DRIFT</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
+                    <span class="mq-white" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.2em; text-transform: uppercase;">CONTAINER FIRST</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
+                    <span class="mq-red" style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #dc2626; letter-spacing: 0.2em; text-transform: uppercase;">AUTONOMOUS AGENTS</span>
+                    <span class="mq-sep" style="color: #dc2626; margin: 0 20px;">✦</span>
                 </div>
             </div>
 
-        </div>
-    </section>
-
-    <!-- Laser Line Separator -->
-    <div class="section-separator"></div>
-
-    <!-- ═══ 8. ABOUT & PHILOSOPHY SECTION ═══ -->
-    <section class="section-wrap" id="about">
-        <div class="section-header">
-            <span class="section-tag">DOSSIER // PROFILE</span>
-            <h2 class="section-title">ABOUT THE DEVELOPER</h2>
-            <p class="section-subtitle">
-                Turning technical curiosity into production-ready software and automated intelligence.
-            </p>
-        </div>
-
-        <div class="about-box">
-            <div class="about-avatar-wrap">
-                <img src="avatar.jpg" alt="Zaid Shaikh" class="about-avatar">
-            </div>
-            <div class="about-content">
-                <p class="about-lead">
-                    Aspiring DevOps engineer and software developer from Mumbai. I work with cloud infrastructure, containers, and Python — and lately I've been building AI agents that connect to real-world tools like Telegram and Google Sheets.
-                </p>
-                <div class="about-quote">
-                    “DevOps by training. Developer by choice. Agentic AI by obsession.”
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 32px;">
+                <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255, 255, 255, 0.4);">
+                    © 2026 Zaid Shaikh. All rights reserved.
                 </div>
-                <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.7;">
-                    Focused on reliable automation, low-latency execution, and resilient deployment architectures that move beyond hackathon demos into high-uptime reality.
-                </p>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <a href="https://github.com/Zaid-Deploys" target="_blank" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/zaid-shaikh-15b5362a3/" target="_blank" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#0a66c2'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:zaidshaikh8726@gmail.com" style="color: rgba(255,255,255,0.5); font-size: 18px; transition: color 0.2s;" onmouseover="this.style.color='#dc2626'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Laser Line Separator -->
-    <div class="section-separator"></div>
-
-    <!-- ═══ 9. CONNECT & CONTACT SECTION ═══ -->
-    <section class="section-wrap" id="contact">
-        <div class="contact-container">
-            <span class="section-tag">COMMUNICATION // ENCRYPTED</span>
-            <h2 class="section-title">INITIATE CONTACT</h2>
-            <p class="section-subtitle">
-                Open to internships, freelance DevOps work, and building ambitious AI agent products together.
-            </p>
-
-            <div class="contact-links-grid">
-                <a href="mailto:zaidshaikh8726@gmail.com" class="contact-pill">
-                    <i class="fas fa-envelope" style="color:var(--r);"></i> zaidshaikh8726@gmail.com
-                </a>
-                <a href="https://github.com/Zaid-Deploys" target="_blank" class="contact-pill">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-                <a href="https://www.linkedin.com/in/zaid-shaikh-30201636a" target="_blank" class="contact-pill">
-                    <i class="fab fa-linkedin-in" style="color:#0a66c2;"></i> LinkedIn
-                </a>
-                <a href="https://instagram.com/sisyphvs._" target="_blank" class="contact-pill">
-                    <i class="fab fa-instagram" style="color:#e1306c;"></i> Instagram
-                </a>
-                <a href="https://leetcode.com/u/Zaid-Deploys/" target="_blank" class="contact-pill">
-                    <i class="fas fa-code" style="color:#ffa116;"></i> LeetCode
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ 10. FOOTER ═══ -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-copy">
-                BUILT BY ZAID SHAIKH · MUMBAI, INDIA · 2026
-            </div>
-            <div class="footer-status">
-                <span class="pulse-dot"></span>
-                <span>SYSTEMS OPERATIONAL // ALL NODES HEALTHY</span>
-            </div>
         </div>
     </footer>
 
