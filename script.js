@@ -57,22 +57,22 @@ function initPreloader() {
         if (seamFill) seamFill.style.height = '100%';
         preloader.classList.add('pl-ready');
 
-        // Dramatic pause at 100% so the user sees the charged red seam line
+        // Brief pause at 100% so the user sees the charged seam line before tearing
         setTimeout(() => {
             preloader.classList.add('hidden');
             document.body.style.overflow = 'visible';
-            // Allow full 2.4s slow door slide to finish before removing from DOM
+            // Allow 1.5s door opening transition to complete before removing from DOM
             setTimeout(() => {
                 if (preloader.parentNode) {
                     preloader.remove();
                 }
-            }, 2500);
-        }, 400);
+            }, 1600);
+        }, 200);
     }
 
-    // Steady, smooth progression over ~2.4s to give time to view the emblem
+    // Steady, smooth progression over 1.5s to display the emblem
     const progressInterval = setInterval(() => {
-        progress += Math.random() * 1.8 + 1.2;
+        progress += Math.random() * 0.8 + 1.6; // ~2% every 30ms = ~1.5s to reach 100%
         if (progress > 100) progress = 100;
         if (seamFill) seamFill.style.height = progress + '%';
 
@@ -84,10 +84,10 @@ function initPreloader() {
             clearInterval(progressInterval);
             dismiss();
         }
-    }, 35);
+    }, 30);
 
     // Hard fallback guarantees reveal
-    setTimeout(dismiss, 4200);
+    setTimeout(dismiss, 2800);
 }
 
 // === 3. SCRIPT KITTENS GPU-ACCELERATED SPARKLE CURSOR ===
