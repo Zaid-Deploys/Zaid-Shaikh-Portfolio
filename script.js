@@ -327,7 +327,7 @@ function initCounters() {
 function initCardTilt() {
     if (_perfTier === 'low') return;
 
-    const cards = document.querySelectorAll('.product-card-new, .profile-luxury-card');
+    const cards = document.querySelectorAll('.pricing-card, .product-card-new, .profile-luxury-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -510,7 +510,7 @@ uniform float iTime;
 const float overallSpeed = 0.22;
 const float gridSmoothWidth = 0.015;
 const float scale = 5.0;
-const vec4 lineColor = vec4(0.48, 0.22, 0.88, 1.0); // Vibrant neon violet/purple from Script-Kittens
+const vec4 lineColor = vec4(0.52, 0.25, 0.96, 1.0); // Vibrant electric violet/purple from Script-Kittens
 const float minLineWidth = 0.01;
 const float maxLineWidth = 0.2;
 const float lineSpeed = 1.0 * overallSpeed;
@@ -552,7 +552,7 @@ void main(){
     vec2 cp = vec2(cx, getPlasmaY(cx, hf, offset));
     float circle = drawCircle(cp, 0.01, space) * 4.0;
     line = line + circle;
-    lines += line * lineColor * r;
+    lines += line * lineColor * r * 1.35;
   }
   lines *= vf;
   gl_FragColor = lines;
@@ -597,9 +597,18 @@ void main(){
     const startTime = Date.now();
 
     function resize() {
-        canvas.width  = canvas.offsetWidth  || window.innerWidth;
-        canvas.height = canvas.offsetHeight || 500;
+        canvas.width  = Math.min(canvas.offsetWidth  || 900, 1000);
+        canvas.height = Math.min(canvas.offsetHeight || 520, 520);
         gl.viewport(0, 0, canvas.width, canvas.height);
+
+        const grid = document.querySelector('.pricing-grid');
+        if (grid && canvas && canvas.parentElement) {
+            const gridRect = grid.getBoundingClientRect();
+            const parentRect = canvas.parentElement.getBoundingClientRect();
+            const targetY = (gridRect.top - parentRect.top) + (gridRect.height * 0.42);
+            canvas.style.top = (targetY - canvas.offsetHeight / 2) + 'px';
+            canvas.style.bottom = 'auto';
+        }
     }
     resize();
     window.addEventListener('resize', resize, { passive: true });
