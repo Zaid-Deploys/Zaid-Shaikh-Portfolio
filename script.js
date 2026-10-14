@@ -66,17 +66,18 @@ function initPreloader() {
     }
 
     const progressInterval = setInterval(() => {
-        progress += Math.floor(Math.random() * 20) + 15;
+        progress += Math.floor(Math.random() * 8) + 6;
         if (progress > 100) progress = 100;
         if (seamFill) seamFill.style.height = progress + '%';
 
         if (progress >= 100) {
-            setTimeout(dismiss, 200);
+            clearInterval(progressInterval);
+            setTimeout(dismiss, 300);
         }
-    }, 35);
+    }, 40);
 
-    // Hard fallback guarantees the page is revealed immediately
-    setTimeout(dismiss, 1000);
+    // Hard fallback guarantees the page is revealed
+    setTimeout(dismiss, 1600);
 }
 
 // === 3. SCRIPT KITTENS GPU-ACCELERATED SPARKLE CURSOR ===

@@ -671,9 +671,9 @@ body.light-theme .control-btn:hover {
     top: 0;
     width: 200%;          /* double the panel = full viewport width */
     height: 100%;
-    background-image: none;
-    background-size: cover;
-    background-position: center;
+    background-image: url('just_a_tech_logo.jpg');
+    background-size: min(880px, 92vw) auto;
+    background-position: center 46%;
     background-repeat: no-repeat;
     z-index: 1;
 }
