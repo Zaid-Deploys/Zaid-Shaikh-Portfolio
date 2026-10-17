@@ -1038,12 +1038,26 @@ function initParticleText() {
         offscreen.width  = canvas.width;
         offscreen.height = canvas.height;
 
-        let fontSize = Math.min(
-            canvas.width  / (word.length * 0.62),
-            canvas.height * 0.60
-        );
-        fontSize = Math.max(fontSize, 40);
+        // Safely fit text within 80% of canvas width and 52% of canvas height on mobile
+        const maxTextWidth = Math.max(canvas.width * 0.80, 160);
+        const maxTextHeight = canvas.height * 0.52;
 
+        let fontSize = Math.min(
+            canvas.width / (word.length * 0.70),
+            maxTextHeight
+        );
+
+        oc.font = 'bold ' + Math.round(fontSize) + 'px Cinzel, Georgia, serif';
+        let measured = oc.measureText(word).width;
+        if (measured > maxTextWidth && measured > 0) {
+            fontSize = fontSize * (maxTextWidth / measured);
+        }
+        if (fontSize > maxTextHeight) {
+            fontSize = maxTextHeight;
+        }
+        fontSize = Math.max(fontSize, 18);
+
+        oc.clearRect(0, 0, offscreen.width, offscreen.height);
         oc.fillStyle = 'white';
         oc.font = 'bold ' + Math.round(fontSize) + 'px Cinzel, Georgia, serif';
         oc.textAlign = 'center';
