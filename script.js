@@ -200,12 +200,12 @@ function initCursor() {
 }
 
 // === 4. NAVBAR & TUBELIGHT ACTIVE SCROLLSPY ===
+let _updateActiveNav = null;
+
 function initNavbar() {
     const navbar = document.getElementById('topNavbar');
     const mobileBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('navMobileMenu');
-    const navLinks = document.querySelectorAll('.nav-link[data-section]');
-    const sections = document.querySelectorAll('section[id], footer[id]');
 
     // Navbar glass blur on scroll
     window.addEventListener('scroll', () => {
@@ -232,29 +232,51 @@ function initNavbar() {
     }
 
     // ScrollSpy with Tubelight flicker indicator
-    function updateActiveNav() {
-        const scrollPos = window.scrollY + window.innerHeight * 0.35;
+    _updateActiveNav = function updateActiveNav() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const scrollHeight = document.documentElement.scrollHeight;
+
+        const aboutSec = document.getElementById('about');
+        const projectsSec = document.getElementById('projects');
+        const skillsSec = document.getElementById('skills');
+        const contactSec = document.getElementById('contact');
+
+        const projectsTop = projectsSec ? projectsSec.offsetTop : 1150;
+        const skillsTop = skillsSec ? skillsSec.offsetTop : 2250;
+        const contactTop = contactSec ? contactSec.offsetTop : 3630;
+
         let currentId = 'about';
 
-        sections.forEach(sec => {
-            const top = sec.offsetTop;
-            const height = sec.offsetHeight;
-            if (scrollPos >= top && scrollPos < top + height) {
-                currentId = sec.getAttribute('id');
-            }
-        });
+        // 1. Bottom of page or footer clearly visible -> Contact
+        if ((scrollY + windowHeight >= scrollHeight - 80) || (contactSec && scrollY + windowHeight >= contactTop + 140)) {
+            currentId = 'contact';
+        } else {
+            // Viewport focus line ~ 38% down the screen
+            const focusY = scrollY + windowHeight * 0.38;
 
-        navLinks.forEach(link => {
+            if (focusY >= skillsTop) {
+                currentId = 'skills';
+            } else if (focusY >= projectsTop) {
+                currentId = 'projects';
+            } else {
+                currentId = 'about';
+            }
+        }
+
+        const allNavLinks = document.querySelectorAll('.nav-link[data-section], .nav-mobile-link[data-section]');
+        allNavLinks.forEach(link => {
             if (link.getAttribute('data-section') === currentId) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
             }
         });
-    }
+    };
 
-    window.addEventListener('scroll', updateActiveNav, { passive: true });
-    updateActiveNav();
+    window.addEventListener('scroll', _updateActiveNav, { passive: true });
+    window.addEventListener('resize', _updateActiveNav, { passive: true });
+    _updateActiveNav();
 }
 
 // === 5. LENIS SMOOTH SCROLLING & UNIVERSAL ANCHOR NAVIGATION ===
@@ -268,6 +290,10 @@ function initLenis() {
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 smooth: true,
                 smoothTouch: false,
+            });
+
+            _lenisInstance.on('scroll', () => {
+                if (_updateActiveNav) _updateActiveNav();
             });
 
             function raf(time) {
