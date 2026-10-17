@@ -5671,54 +5671,87 @@ img.discord-avatar {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
 }
 
-.pricing-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.15) !important;
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.5),
-        0 0 30px rgba(255, 255, 255, 0.04);
-}
-
-/* ---- Featured card — PURPLE GLASS ---- */
-.pricing-card.featured {
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.1), rgba(88, 28, 235, 0.04)) !important;
-    border-color: rgba(139, 92, 246, 0.35) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 30px rgba(139, 92, 246, 0.15);
-}
-
-.pricing-card.featured::before {
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
-}
-
-.pricing-card.featured::after {
+/* Pseudo element for inner glow layer on all cards */
+.pricing-card::after {
     content: '';
     position: absolute;
     inset: -1px;
     border-radius: 21px;
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.18), transparent 50%);
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.22), transparent 55%);
     z-index: -1;
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
 }
 
-.pricing-card.featured:hover {
+/* ====================================================================
+   PREMIUM HOVER: All cards are normal by default.
+   When cursor moves onto ANY project, premium purple glow appears!
+   ==================================================================== */
+.pricing-card:hover {
     transform: translateY(-10px);
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.12), rgba(88, 28, 235, 0.04)) !important;
     border-color: rgba(139, 92, 246, 0.55) !important;
     box-shadow:
-        0 30px 70px rgba(0, 0, 0, 0.5),
-        0 0 50px rgba(139, 92, 246, 0.2),
-        0 0 100px rgba(139, 92, 246, 0.08);
+        0 28px 70px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(139, 92, 246, 0.25),
+        0 0 100px rgba(139, 92, 246, 0.1) !important;
 }
 
-.pricing-card.featured:hover::before {
-    left: 5%;
-    right: 5%;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.8), transparent);
+.pricing-card:hover::before {
+    left: 5% !important;
+    right: 5% !important;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.85), transparent) !important;
 }
 
-.pricing-card.featured:hover::after {
-    opacity: 1;
+.pricing-card:hover::after {
+    opacity: 1 !important;
+}
+
+.pricing-card:hover .pricing-icon {
+    background: rgba(139, 92, 246, 0.22) !important;
+    border-color: rgba(139, 92, 246, 0.55) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 22px rgba(139, 92, 246, 0.35) !important;
+}
+
+.pricing-card:hover .pricing-name {
+    color: #c4b5fd !important;
+}
+
+.pricing-card:hover .pricing-price .amount {
+    background: linear-gradient(135deg, #ffffff, #c4b5fd, #8b5cf6) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.pricing-card:hover .pricing-period {
+    color: rgba(196, 181, 253, 0.85) !important;
+}
+
+.pricing-card:hover .pricing-divider {
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent) !important;
+}
+
+.pricing-card:hover .pricing-features li i.fa-check {
+    color: #a78bfa !important;
+}
+
+.pricing-card:hover .pricing-features li {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.pricing-card:hover .pricing-btn {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
+    color: #ffffff !important;
+    border-color: rgba(139, 92, 246, 0.7) !important;
+    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.45) !important;
+    transform: translateY(-2px) !important;
+}
+
+.pricing-card:hover .pricing-btn i {
+    transform: translateX(4px);
 }
 
 /* Badge — purple */
@@ -5769,23 +5802,16 @@ img.discord-avatar {
     transition: all 0.35s ease;
 }
 
-.pricing-card:hover .pricing-icon {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+.pricing-icon i {
+    font-size: 20px;
+    color: inherit;
+    display: inline-block;
+    transition: transform 0.35s ease, color 0.35s ease;
 }
 
-.pricing-card.featured .pricing-icon {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.35);
-    color: #c4b5fd;
-}
-
-.pricing-card.featured:hover .pricing-icon {
-    background: rgba(139, 92, 246, 0.25);
-    border-color: rgba(139, 92, 246, 0.5);
-    color: #ffffff;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+.pricing-card:hover .pricing-icon i {
+    transform: scale(1.12);
+    color: #ffffff !important;
 }
 
 .pricing-name {
@@ -5797,10 +5823,7 @@ img.discord-avatar {
     display: block;
     text-transform: uppercase;
     letter-spacing: 2.2px;
-}
-
-.pricing-card.featured .pricing-name {
-    color: #a78bfa;
+    transition: color 0.35s ease;
 }
 
 .pricing-price {
@@ -5818,13 +5841,7 @@ img.discord-avatar {
     letter-spacing: -0.5px;
     color: #fff;
     white-space: nowrap;
-}
-
-.pricing-card.featured .amount {
-    background: linear-gradient(135deg, #ffffff, #c4b5fd, #8b5cf6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    transition: all 0.35s ease;
 }
 
 .pricing-period {
@@ -5834,10 +5851,7 @@ img.discord-avatar {
     color: rgba(255, 255, 255, 0.35);
     margin-top: 8px;
     letter-spacing: 0.3px;
-}
-
-.pricing-card.featured .pricing-period {
-    color: rgba(196, 181, 253, 0.7);
+    transition: color 0.35s ease;
 }
 
 /* Divider */
@@ -5845,10 +5859,7 @@ img.discord-avatar {
     height: 1px;
     background: rgba(255, 255, 255, 0.06);
     margin: 22px 0 20px;
-}
-
-.pricing-card.featured .pricing-divider {
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.35), transparent);
+    transition: background 0.35s ease;
 }
 
 /* Features */
@@ -5868,6 +5879,7 @@ img.discord-avatar {
     font-size: 13px;
     color: rgba(255, 255, 255, 0.65);
     letter-spacing: 0.1px;
+    transition: color 0.35s ease;
 }
 
 .pricing-features li i {
@@ -5879,14 +5891,7 @@ img.discord-avatar {
 .pricing-features li i.fa-check {
     color: rgba(255, 255, 255, 0.4);
     font-size: 11px;
-}
-
-.pricing-card.featured .pricing-features li i.fa-check {
-    color: #a78bfa;
-}
-
-.pricing-card.featured .pricing-features li {
-    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.35s ease;
 }
 
 /* Buttons */
@@ -5946,14 +5951,6 @@ img.discord-avatar {
 }
 
 @media (max-width: 900px) {
-    .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 420px;
-        gap: 24px;
-    }
-    .pricing-card.featured {
-        order: -1;
-    }
     .pricing-card {
         min-height: auto;
     }
@@ -7976,394 +7973,7 @@ img.discord-avatar {
     /* darker purple on hover */
 }
 
-/* Premium Pricing Card — Glass + Glow */
-.pricing-card {
-    --plan-accent: rgba(160, 160, 160, 0.6);
-    position: relative;
-    padding: 40px 30px 30px;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    min-height: 520px;
-    overflow: visible;
-}
 
-.pricing-card:not(.featured) {
-    min-height: 520px;
-}
-
-/* Subtle top-edge glow line */
-.pricing-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 20%;
-    right: 20%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: all 0.4s ease;
-}
-
-.pricing-card:hover::before {
-    left: 10%;
-    right: 10%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-}
-
-.pricing-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.4),
-        0 0 30px rgba(255, 255, 255, 0.02);
-}
-
-/* ---- Featured card — PURPLE GLASS ---- */
-.pricing-card.featured {
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.08), rgba(88, 28, 235, 0.04));
-    border-color: rgba(139, 92, 246, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* Featured top glow — purple */
-.pricing-card.featured::before {
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
-}
-
-/* Featured ambient glow behind card */
-.pricing-card.featured::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 21px;
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.12), transparent 50%);
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-}
-
-.pricing-card.featured:hover {
-    transform: translateY(-10px);
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow:
-        0 30px 70px rgba(0, 0, 0, 0.4),
-        0 0 50px rgba(139, 92, 246, 0.08),
-        0 0 100px rgba(139, 92, 246, 0.04);
-}
-
-.pricing-card.featured:hover::before {
-    left: 5%;
-    right: 5%;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), transparent);
-}
-
-.pricing-card.featured:hover::after {
-    opacity: 1;
-}
-
-/* Badge — purple */
-.pricing-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 8px 20px;
-    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-    border-radius: 100px;
-    font-family: 'Inter', sans-serif;
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    color: #fff;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
-    border: none;
-    z-index: 3;
-}
-
-.pricing-badge i {
-    font-size: 9px;
-}
-
-/* Header */
-.pricing-header {
-    text-align: center;
-    margin-bottom: 0;
-}
-
-.pricing-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 18px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.5);
-    transition: all 0.35s ease;
-    box-shadow: none;
-}
-
-.pricing-card:hover .pricing-icon {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* Featured icon — purple */
-.pricing-card.featured .pricing-icon {
-    background: rgba(139, 92, 246, 0.12);
-    border-color: rgba(139, 92, 246, 0.25);
-    color: #a78bfa;
-}
-
-.pricing-card.featured:hover .pricing-icon {
-    background: rgba(139, 92, 246, 0.18);
-    border-color: rgba(139, 92, 246, 0.4);
-    color: #c4b5fd;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
-}
-
-.pricing-name {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.45);
-    margin-bottom: 12px;
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-}
-
-.pricing-card.featured .pricing-name {
-    color: rgba(167, 139, 250, 0.7);
-}
-
-.pricing-price {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 2px;
-}
-
-.pricing-price .currency {
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.3);
-    margin-top: 10px;
-}
-
-.pricing-price .amount {
-    font-family: 'Outfit', 'Inter', sans-serif;
-    font-size: clamp(22px, 2.2vw, 26px);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.5px;
-    color: #fff;
-    white-space: nowrap;
-}
-
-/* Featured price — purple gradient */
-.pricing-card.featured .amount {
-    background: linear-gradient(135deg, #c4b5fd, #8b5cf6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.pricing-card.featured .currency {
-    color: rgba(167, 139, 250, 0.5);
-}
-
-.pricing-period {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    color: rgba(255, 255, 255, 0.4);
-    margin-top: 8px;
-    letter-spacing: 0.3px;
-}
-
-.pricing-card.featured .pricing-period {
-    color: rgba(196, 181, 253, 0.7);
-}
-
-/* Divider */
-.pricing-divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.05);
-    margin: 24px 0 20px;
-}
-
-.pricing-card.featured .pricing-divider {
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
-}
-
-/* Features */
-.pricing-features {
-    margin-bottom: 24px;
-    flex: 1;
-}
-
-.pricing-features li {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 9px 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 13.5px;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.1px;
-}
-
-.pricing-features li i {
-    width: 18px;
-    text-align: center;
-    flex-shrink: 0;
-}
-
-.pricing-features li i.fa-check {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 11px;
-}
-
-/* Featured card checks — purple */
-.pricing-card.featured .pricing-features li i.fa-check {
-    color: #a78bfa;
-}
-
-.pricing-card.featured .pricing-features li {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.pricing-features li i.fa-times {
-    color: rgba(255, 255, 255, 0.08);
-    font-size: 11px;
-}
-
-.pricing-features li.muted {
-    color: rgba(255, 255, 255, 0.15);
-}
-
-/* Buttons */
-.pricing-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 14px 16px;
-    border-radius: 12px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13.5px;
-    font-weight: 600;
-    text-align: center;
-    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    letter-spacing: 0.3px;
-    margin-top: auto;
-}
-
-.pricing-btn i {
-    font-size: 11px;
-    transition: transform 0.3s;
-}
-
-.pricing-btn:hover i {
-    transform: translateX(4px);
-}
-
-/* Primary button — purple gradient */
-.pricing-btn.primary {
-    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);
-}
-
-.pricing-card:nth-child(1) {
-    --plan-accent: rgba(148, 163, 184, 0.55);
-}
-
-.pricing-card:nth-child(3) {
-    --plan-accent: rgba(148, 163, 184, 0.55);
-}
-
-.pricing-btn.primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
-}
-
-.pricing-btn.secondary {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.pricing-btn.secondary:hover {
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.04);
-    color: #fff;
-    transform: translateY(-2px);
-}
-
-/* Pricing Responsive */
-@media (max-width: 900px) {
-    .pricing-layout {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .pricing-copy {
-        padding: 20px;
-    }
-
-    .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 420px;
-        gap: 20px;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .pricing-card.featured {
-        order: -1;
-    }
-
-    .pricing-card {
-        min-height: auto;
-    }
-}
-
-@media (max-width: 520px) {
-    .pricing-card {
-        padding: 36px 28px 32px;
-        border-radius: 20px;
-    }
-
-    .pricing-price .amount {
-        font-size: 38px;
-    }
-
-    .pricing-heading {
-        font-size: 26px;
-    }
-
-    .pricing-subtitle {
-        font-size: 14px;
-    }
-}
 
 /* ============ COURSES SECTION ============ */
 .courses-section {
@@ -12829,15 +12439,7 @@ img.discord-avatar {
         grid-template-columns: 1fr;
     }
 
-    .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto;
-    }
 
-    .pricing-card.featured {
-        transform: none;
-    }
 
     .about-grid {
         grid-template-columns: 1fr;
