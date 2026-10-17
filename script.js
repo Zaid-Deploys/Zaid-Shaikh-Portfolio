@@ -797,9 +797,9 @@ void main() {
     vec2 uv = gl_FragCoord.xy / u_res;
 
     // Graceful continuous sinusoidal wave flowing all the way from edge to edge
-    float w = sin(uv.x * 2.8 + u_time * 0.85) * 0.16;
-    float d = 0.042;
-    float spread = 0.095;
+    float w = sin(uv.x * 2.8 + u_time * 0.85) * 0.15;
+    float d = 0.028;
+    float spread = 0.062;
 
     // True physical spectral dispersion: Red, Green, Blue channel peaks with optical overlap
     float r = smoothstep(spread, 0.0, abs(uv.y - 0.5 - w - d * 1.3));
@@ -812,8 +812,8 @@ void main() {
     c.g += g * 0.10;
     c.b += b * 0.20;
 
-    // Soft outer atmospheric bloom extending into deep space
-    float glow = smoothstep(spread * 2.4, 0.0, abs(uv.y - 0.5 - w)) * 0.22;
+    // Sleek outer atmospheric glow
+    float glow = smoothstep(spread * 2.0, 0.0, abs(uv.y - 0.5 - w)) * 0.20;
     c += vec3(glow * 0.85, glow * 0.55, glow * 1.0);
 
     // Alpha blending: completely touches the border at x=0 and x=1 without artificial edge fade
