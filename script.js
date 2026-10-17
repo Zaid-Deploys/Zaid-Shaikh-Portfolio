@@ -796,43 +796,30 @@ uniform vec2 u_res;
 void main() {
     vec2 uv = gl_FragCoord.xy / u_res;
 
-    // Diagonal slope (from lower-left to upper-right) plus undulating sine wave
-    float tilt = (uv.x - 0.5) * 0.38;
-    float wave = sin(uv.x * 3.2 + u_time * 1.1) * 0.09
-               + sin(uv.x * 6.0 - u_time * 0.6) * 0.025;
-    float centerY = 0.48 + tilt + wave;
+    // Graceful continuous sinusoidal wave flowing all the way from edge to edge
+    float w = sin(uv.x * 2.8 + u_time * 0.85) * 0.16;
+    float d = 0.042;
+    float spread = 0.095;
 
-    float dist = uv.y - centerY;
-    float d = 0.028;
-    float thickness = 0.055;
+    // True physical spectral dispersion: Red, Green, Blue channel peaks with optical overlap
+    float r = smoothstep(spread, 0.0, abs(uv.y - 0.5 - w - d * 1.3));
+    float g = smoothstep(spread, 0.0, abs(uv.y - 0.5 - w));
+    float b = smoothstep(spread, 0.0, abs(uv.y - 0.5 - w + d * 1.3));
 
-    // Spectral channel separation for full rainbow spectrum
-    // Red on upper edge, Green in center, Blue on lower edge
-    float r = smoothstep(thickness, 0.0, abs(dist - d * 1.2));
-    float g = smoothstep(thickness, 0.0, abs(dist));
-    float b = smoothstep(thickness, 0.0, abs(dist + d * 1.2));
+    // Natural spectral warmth and blending (overlap naturally produces golden amber, yellow, cyan, violet)
+    vec3 c = vec3(r, g, b);
+    c.r += r * 0.25;
+    c.g += g * 0.10;
+    c.b += b * 0.20;
 
-    // Rich intermediate blending (Orange, Yellow, Cyan, Violet)
-    float yellowBoost = smoothstep(thickness * 0.8, 0.0, abs(dist - d * 0.6)) * 0.35;
-    float cyanBoost   = smoothstep(thickness * 0.8, 0.0, abs(dist + d * 0.6)) * 0.3;
+    // Soft outer atmospheric bloom extending into deep space
+    float glow = smoothstep(spread * 2.4, 0.0, abs(uv.y - 0.5 - w)) * 0.22;
+    c += vec3(glow * 0.85, glow * 0.55, glow * 1.0);
 
-    vec3 col = vec3(
-        r + yellowBoost,
-        g + yellowBoost * 0.85 + cyanBoost * 0.55,
-        b + cyanBoost
-    );
+    // Alpha blending: completely touches the border at x=0 and x=1 without artificial edge fade
+    float alpha = clamp(max(max(c.r, c.g), c.b) * 1.15, 0.0, 1.0);
 
-    // Soft atmospheric bloom & outer glow
-    float glow = smoothstep(thickness * 3.0, 0.0, abs(dist)) * 0.28;
-    col += vec3(glow * 0.85, glow * 0.7, glow * 1.0);
-
-    // Subtle edge fade for smooth integration
-    float edgeFade = smoothstep(0.0, 0.06, uv.x) * smoothstep(1.0, 0.94, uv.x);
-    col *= edgeFade;
-
-    float alpha = clamp(max(max(col.r, col.g), col.b), 0.0, 1.0) * 0.9 * edgeFade;
-
-    gl_FragColor = vec4(col, alpha);
+    gl_FragColor = vec4(c, alpha);
 }
     `.trim();
 

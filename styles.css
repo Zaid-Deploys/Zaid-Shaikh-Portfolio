@@ -9103,10 +9103,10 @@ img.discord-avatar {
 
 /* ---- Skills Frosted Glass Cards ---- */
 .skill-card {
-    background: rgba(14, 14, 18, 0.72);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(14, 14, 18, 0.86);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 18px;
     padding: 32px 28px;
     position: relative;
@@ -9116,7 +9116,7 @@ img.discord-avatar {
 
 .skill-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.22);
     box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6), 0 0 24px rgba(220, 38, 38, 0.15);
 }
 
