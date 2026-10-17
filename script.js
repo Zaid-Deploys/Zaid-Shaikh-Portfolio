@@ -904,6 +904,360 @@ void main() {
     requestAnimationFrame(render);
 }
 
+// === 9.7 PARTICLE TEXT EFFECT (TECHNICAL SKILLS) ===
+function initParticleText() {
+    const canvas = document.getElementById('particle-text-canvas');
+    if (!canvas) return;
+
+    function resizeCanvas() {
+        canvas.width  = canvas.offsetWidth  || 1200;
+        canvas.height = canvas.offsetHeight || 360;
+    }
+    resizeCanvas();
+
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
+
+    let aliveCount = 0;
+    let wordIndex  = 0;
+    const MAX_PARTICLES = 2500;
+    const pixelStep  = 4;
+    let lastTime = 0;
+    const wordInterval = 2200;
+    let lastWordTime = 0;
+    let mouseX = -9999, mouseY = -9999;
+
+    const words = [
+        'PYTHON',
+        'AWS CLOUD',
+        'DOCKER',
+        'KUBERNETES',
+        'DEVOPS',
+        'LINUX',
+        'AGENTIC AI',
+        'FASTAPI',
+        'NETWORKS'
+    ];
+
+    const maxPool = MAX_PARTICLES + 500;
+    const px = new Float32Array(maxPool);
+    const py = new Float32Array(maxPool);
+    const vx = new Float32Array(maxPool);
+    const vy = new Float32Array(maxPool);
+    const tx = new Float32Array(maxPool);
+    const ty = new Float32Array(maxPool);
+    const maxSpd = new Float32Array(maxPool);
+    const maxFrc = new Float32Array(maxPool);
+    const pSize  = new Float32Array(maxPool);
+    const sr = new Uint8Array(maxPool);
+    const sg = new Uint8Array(maxPool);
+    const sb = new Uint8Array(maxPool);
+    const tr = new Uint8Array(maxPool);
+    const tg = new Uint8Array(maxPool);
+    const tb = new Uint8Array(maxPool);
+    const cw = new Float32Array(maxPool);
+    const cbr = new Float32Array(maxPool);
+    const killed = new Uint8Array(maxPool);
+
+    function initParticle(i) {
+        px[i] = Math.random() * canvas.width;
+        py[i] = Math.random() * canvas.height;
+        vx[i] = (Math.random() - 0.5) * 2;
+        vy[i] = (Math.random() - 0.5) * 2;
+        tx[i] = 0; ty[i] = 0;
+        maxSpd[i] = Math.random() * 8 + 10;
+        maxFrc[i] = maxSpd[i] * 0.15;
+        pSize[i]  = Math.random() * 2.0 + 1.8;
+        sr[i] = 220; sg[i] = 38; sb[i] = 38;
+        tr[i] = 255; tg[i] = 255; tb[i] = 255;
+        cw[i] = 0;
+        cbr[i] = Math.random() * 0.03 + 0.01;
+        killed[i] = 0;
+    }
+
+    const palette = [
+        [220,  38,  38],   // Crimson Red
+        [255, 255, 255],   // Pure White
+        [167, 139, 250],   // Neon Violet / Purple
+        [ 16, 185, 129],   // Emerald Green
+        [ 14, 165, 233],   // Sky Blue / Cyan
+        [245, 158,  11],   // Amber Gold
+        [255, 255, 255],   // Crisp White
+        [239,  68,  68],   // Coral Red
+        [129, 140, 248]    // Indigo
+    ];
+    let paletteIndex = 0;
+
+    const offscreen = document.createElement('canvas');
+    const oc = offscreen.getContext('2d');
+
+    function nextWord(word) {
+        offscreen.width  = canvas.width;
+        offscreen.height = canvas.height;
+
+        let fontSize = Math.min(
+            canvas.width  / (word.length * 0.62),
+            canvas.height * 0.60
+        );
+        fontSize = Math.max(fontSize, 40);
+
+        oc.fillStyle = 'white';
+        oc.font = 'bold ' + Math.round(fontSize) + 'px Cinzel, Georgia, serif';
+        oc.textAlign = 'center';
+        oc.textBaseline = 'middle';
+        oc.fillText(word, offscreen.width / 2, offscreen.height / 2);
+
+        const imageData = oc.getImageData(0, 0, offscreen.width, offscreen.height);
+        const pixels = imageData.data;
+        const w = offscreen.width;
+
+        const newColor = palette[paletteIndex % palette.length];
+        paletteIndex++;
+
+        let coords = [];
+        for (let i = 0, len = pixels.length; i < len; i += pixelStep * 4) {
+            if (pixels[i + 3] > 128) coords.push(i);
+        }
+
+        if (coords.length > MAX_PARTICLES) {
+            const step = coords.length / MAX_PARTICLES;
+            const thinned = [];
+            for (let t = 0; t < MAX_PARTICLES; t++) {
+                thinned.push(coords[Math.floor(t * step)]);
+            }
+            coords = thinned;
+        }
+
+        // Fisher-Yates shuffle
+        for (let j = coords.length - 1; j > 0; j--) {
+            const k = Math.floor(Math.random() * (j + 1));
+            const tmp = coords[j]; coords[j] = coords[k]; coords[k] = tmp;
+        }
+
+        let pIdx = 0;
+        const ncr = newColor[0], ncg = newColor[1], ncb = newColor[2];
+        for (let c = 0; c < coords.length; c++) {
+            const ci = coords[c];
+            const cpx = (ci / 4) % w;
+            const cpy = Math.floor(ci / 4 / w);
+
+            if (pIdx >= aliveCount) {
+                if (pIdx >= maxPool) break;
+                initParticle(pIdx);
+            }
+            killed[pIdx] = 0;
+
+            const weight = cw[pIdx];
+            sr[pIdx] = Math.round(sr[pIdx] + (tr[pIdx] - sr[pIdx]) * weight) | 0;
+            sg[pIdx] = Math.round(sg[pIdx] + (tg[pIdx] - sg[pIdx]) * weight) | 0;
+            sb[pIdx] = Math.round(sb[pIdx] + (tb[pIdx] - sb[pIdx]) * weight) | 0;
+            tr[pIdx] = ncr;
+            tg[pIdx] = ncg;
+            tb[pIdx] = ncb;
+            cw[pIdx] = 0;
+            tx[pIdx] = cpx;
+            ty[pIdx] = cpy;
+            pIdx++;
+        }
+
+        for (let i2 = pIdx; i2 < aliveCount; i2++) {
+            if (!killed[i2]) {
+                const angle = Math.random() * 6.2832;
+                const mag   = (canvas.width + canvas.height) * 0.5;
+                tx[i2] = canvas.width  * 0.5 + Math.cos(angle) * mag;
+                ty[i2] = canvas.height * 0.5 + Math.sin(angle) * mag;
+                const w2 = cw[i2];
+                sr[i2] = Math.round(sr[i2] + (tr[i2] - sr[i2]) * w2) | 0;
+                sg[i2] = Math.round(sg[i2] + (tg[i2] - sg[i2]) * w2) | 0;
+                sb[i2] = Math.round(sb[i2] + (tb[i2] - sb[i2]) * w2) | 0;
+                tr[i2] = 0; tg[i2] = 0; tb[i2] = 0;
+                cw[i2] = 0;
+                killed[i2] = 1;
+            }
+        }
+
+        if (pIdx > aliveCount) aliveCount = pIdx;
+    }
+
+    const colorBuckets = {};
+    const bucketKeys = [];
+
+    let ptAnimId = null;
+    let isVisible = true;
+
+    function ptAnimate(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const dt = Math.min(timestamp - lastTime, 33);
+        lastTime = timestamp;
+        const dtScale = dt / 16.667;
+
+        if (_pageVisible && isVisible) {
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let bi = 0; bi < bucketKeys.length; bi++) {
+                const bk = colorBuckets[bucketKeys[bi]];
+                bk.xs.length = 0; bk.ys.length = 0; bk.sizes.length = 0;
+            }
+            bucketKeys.length = 0;
+
+            const cw2 = canvas.width, ch2 = canvas.height;
+            let newAlive = aliveCount;
+
+            for (let i = 0; i < aliveCount; i++) {
+                const dx = tx[i] - px[i];
+                const dy = ty[i] - py[i];
+                const distSq = dx * dx + dy * dy;
+
+                if (killed[i]) {
+                    if (px[i] < -100 || px[i] > cw2 + 100 ||
+                        py[i] < -100 || py[i] > ch2 + 100) {
+                        newAlive--;
+                        if (i < newAlive) {
+                            px[i]=px[newAlive]; py[i]=py[newAlive];
+                            vx[i]=vx[newAlive]; vy[i]=vy[newAlive];
+                            tx[i]=tx[newAlive]; ty[i]=ty[newAlive];
+                            maxSpd[i]=maxSpd[newAlive]; maxFrc[i]=maxFrc[newAlive];
+                            pSize[i]=pSize[newAlive];
+                            sr[i]=sr[newAlive]; sg[i]=sg[newAlive]; sb[i]=sb[newAlive];
+                            tr[i]=tr[newAlive]; tg[i]=tg[newAlive]; tb[i]=tb[newAlive];
+                            cw[i]=cw[newAlive]; cbr[i]=cbr[newAlive];
+                            killed[i]=killed[newAlive];
+                            i--;
+                        }
+                        continue;
+                    }
+                }
+
+                const dist = Math.sqrt(distSq);
+                const prox = dist < 60 ? (dist / 60) * (dist / 60) : 1;
+
+                if (dist > 0.5) {
+                    const invDist = 1 / dist;
+                    const desX = dx * invDist * maxSpd[i] * prox;
+                    const desY = dy * invDist * maxSpd[i] * prox;
+                    const steerX = (desX - vx[i]) * 0.18 * dtScale;
+                    const steerY = (desY - vy[i]) * 0.18 * dtScale;
+                    vx[i] += steerX;
+                    vy[i] += steerY;
+                }
+
+                // Mouse & touch interactive repulsion
+                if (mouseX > -1000) {
+                    const mdx = px[i] - mouseX;
+                    const mdy = py[i] - mouseY;
+                    const mDistSq = mdx * mdx + mdy * mdy;
+                    if (mDistSq < 14400 && mDistSq > 1) { // 120px interactive radius
+                        const mDist = Math.sqrt(mDistSq);
+                        const mForce = (1 - mDist / 120) * 12;
+                        vx[i] += (mdx / mDist) * mForce * dtScale;
+                        vy[i] += (mdy / mDist) * mForce * dtScale;
+                    }
+                }
+
+                px[i] += vx[i] * dtScale;
+                py[i] += vy[i] * dtScale;
+                vx[i] *= 0.96;
+                vy[i] *= 0.96;
+
+                if (cw[i] < 1) {
+                    cw[i] = Math.min(cw[i] + cbr[i] * dtScale, 1);
+                }
+                const w = cw[i];
+                const cr = (sr[i] + (tr[i] - sr[i]) * w + 0.5) | 0;
+                const cg = (sg[i] + (tg[i] - sg[i]) * w + 0.5) | 0;
+                const cb = (sb[i] + (tb[i] - sb[i]) * w + 0.5) | 0;
+
+                const qr = cr >> 2, qg = cg >> 2, qb = cb >> 2;
+                const colorKey = (qr << 12) | (qg << 6) | qb;
+                if (!colorBuckets[colorKey]) {
+                    colorBuckets[colorKey] = {
+                        color: 'rgb(' + (qr << 2) + ',' + (qg << 2) + ',' + (qb << 2) + ')',
+                        xs: [], ys: [], sizes: []
+                    };
+                }
+                if (colorBuckets[colorKey].xs.length === 0) bucketKeys.push(colorKey);
+                const bucket = colorBuckets[colorKey];
+                bucket.xs.push(px[i]);
+                bucket.ys.push(py[i]);
+                bucket.sizes.push(pSize[i]);
+            }
+
+            aliveCount = newAlive;
+
+            for (let ki = 0; ki < bucketKeys.length; ki++) {
+                const b = colorBuckets[bucketKeys[ki]];
+                ctx.fillStyle = b.color;
+                const bxs = b.xs, bys = b.ys, bsz = b.sizes;
+                for (let j = 0, blen = bxs.length; j < blen; j++) {
+                    const s = bsz[j];
+                    ctx.fillRect(bxs[j] - s * 0.5, bys[j] - s * 0.5, s, s);
+                }
+            }
+
+            if (!lastWordTime) lastWordTime = timestamp;
+            if (timestamp - lastWordTime >= wordInterval) {
+                lastWordTime = timestamp;
+                wordIndex = (wordIndex + 1) % words.length;
+                nextWord(words[wordIndex]);
+            }
+        }
+
+        ptAnimId = requestAnimationFrame(ptAnimate);
+    }
+
+    const ptSection = canvas.closest('.particle-text-section') || canvas.parentElement;
+    if ('IntersectionObserver' in window && ptSection) {
+        const obs = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+        }, { threshold: 0.05 });
+        obs.observe(ptSection);
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            resizeCanvas();
+            nextWord(words[wordIndex]);
+        }, 150);
+    }, { passive: true });
+
+    // Interactive cursor & touch repulsion
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+        mouseY = (e.clientY - rect.top)  * (canvas.height / rect.height);
+    }, { passive: true });
+
+    canvas.addEventListener('mouseleave', () => {
+        mouseX = -9999;
+        mouseY = -9999;
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = (e.touches[0].clientX - rect.left) * (canvas.width / rect.width);
+            mouseY = (e.touches[0].clientY - rect.top)  * (canvas.height / rect.height);
+        }
+    }, { passive: true });
+
+    canvas.addEventListener('touchend', () => {
+        mouseX = -9999;
+        mouseY = -9999;
+    }, { passive: true });
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            nextWord(words[0]);
+        });
+    } else {
+        nextWord(words[0]);
+    }
+    ptAnimId = requestAnimationFrame(ptAnimate);
+}
+
 // === 10. BOOTSTRAP ===
 function boot() {
     initPreloader();
@@ -911,6 +1265,7 @@ function boot() {
     initPricingShader();
     initProjectSlider();
     initSkillsRainbow();
+    initParticleText();
     initCursor();
     initNavbar();
     initLenis();

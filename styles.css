@@ -11991,6 +11991,14 @@ img.discord-avatar {
     overflow: hidden;
     padding: 0;
     height: 380px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+@media (max-width: 768px) {
+    .particle-text-section {
+        height: 240px;
+    }
 }
 
 #particle-text-canvas {
