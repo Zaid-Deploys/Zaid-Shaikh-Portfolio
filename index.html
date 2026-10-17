@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=4.2">
+    <link rel="stylesheet" href="styles.css?v=5.0">
 
     <style>
         /* Exact 1:1 Pixel Match to Reference Screenshot at 1640x900 */
@@ -388,12 +388,12 @@
 
     <!-- Libraries: Lenis -->
     <script defer src="https://unpkg.com/lenis@1.1.1/dist/lenis.min.js"></script>
-    <script defer src="script.js?v=3.5"></script>
+    <script defer src="script.js?v=5.0"></script>
 </head>
 
 <body>
 
-    <!-- ═══ 1. SCRIPT KITTENS HERO TEAR PRELOADER (WITH ZAID SHAIKH LOGO) ═══ -->
+    <!-- ═══ 1. HERO TEAR PRELOADER (WITH ZAID SHAIKH LOGO) ═══ -->
     <div id="preloader">
         <div class="pl-curtain pl-curtain--left"></div>
         <div class="pl-curtain pl-curtain--right"></div>
@@ -403,7 +403,7 @@
         </div>
     </div>
 
-    <!-- ═══ 2. SCRIPT KITTENS SPARKLE STAR CURSOR ═══ -->
+    <!-- ═══ 2. SPARKLE STAR CURSOR ═══ -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -418,7 +418,7 @@
         <div class="orb orb-3"></div>
     </div>
 
-    <!-- ═══ 4. TOP FLOATING NAVBAR (SCRIPT-KITTENS LINEAR STYLE) ═══ -->
+    <!-- ═══ 4. TOP FLOATING NAVBAR ═══ -->
     <header class="top-navbar" id="topNavbar">
         <div class="nav-inner">
             <!-- Logo -->
@@ -432,7 +432,7 @@
                 <nav class="nav-links">
                     <a href="#about" class="nav-link active" data-section="about">Home</a>
                     <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-                    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                    <a href="#credentials-preview" class="nav-link" data-section="credentials-preview">Credentials</a>
                     <a href="#contact" class="nav-link" data-section="contact">Contact</a>
                 </nav>
 
@@ -456,7 +456,7 @@
         <div class="nav-mobile-menu" id="navMobileMenu">
             <a href="#about" class="nav-mobile-link active" data-section="about">Home</a>
             <a href="#projects" class="nav-mobile-link" data-section="projects">Projects</a>
-            <a href="#skills" class="nav-mobile-link" data-section="skills">Skills</a>
+            <a href="#credentials-preview" class="nav-mobile-link" data-section="credentials-preview">Credentials</a>
             <a href="#contact" class="nav-mobile-link" data-section="contact">Contact</a>
             <div class="nav-mobile-actions">
                 <a href="https://github.com/Zaid-Deploys" target="_blank" class="nav-mobile-login">
@@ -523,7 +523,7 @@
                 </div>
             </div>
 
-            <!-- Right: Giant Gothic Chrome Brand Emblem (Script-Kittens 1:1) -->
+            <!-- Right: Giant Gothic Chrome Brand Emblem -->
             <div class="hero-right hero-emblem-container" id="heroEmblemContainer">
                 <div class="hero-emblem-glow"></div>
                 <div class="hero-emblem-wrap" id="heroEmblemWrap">
@@ -597,7 +597,7 @@
         </div>
     </section>
 
-    <!-- ═══ 7. FEATURED PROJECTS (SCRIPT-KITTENS LUXURY CARD SYSTEM) ═══ -->
+    <!-- ═══ 7. FEATURED PROJECTS (LUXURY CARD SYSTEM) ═══ -->
     <section id="projects" class="pricing-section">
         <canvas id="pricing-shader-canvas" class="plasma-wave-canvas"></canvas>
         <div class="section-container">
@@ -610,106 +610,124 @@
                     </p>
                 </div>
 
-                <div class="pricing-grid">
-                    <!-- Card 1: Melody Music Streaming -->
-                    <div class="pricing-card">
-                        <div class="pricing-badge" style="background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.4); color: #60a5fa;"><i class="fas fa-music"></i> DISTRIBUTED AUDIO</div>
-                        <div class="pricing-header">
-                            <div class="pricing-icon"><i class="fas fa-headphones"></i></div>
-                            <span class="pricing-name">Cloud & Android</span>
-                            <div class="pricing-price">
-                                <span class="amount">Melody</span>
+                <div class="pricing-slider-wrap">
+                    <!-- Prev Arrow -->
+                    <button class="pricing-nav-btn prev" id="pricingPrevBtn" onclick="slideProjects(-1)" aria-label="Previous Projects">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <!-- Viewport -->
+                    <div class="pricing-slider-viewport" id="pricingViewport">
+                        <div class="pricing-grid" id="pricingGrid">
+                            <!-- Card 1: Restaurant AI Agent -->
+                            <div class="pricing-card">
+                                <div class="pricing-header">
+                                    <div class="pricing-icon"><i class="fas fa-robot"></i></div>
+                                    <span class="pricing-name">Agentic AI</span>
+                                    <div class="pricing-price">
+                                        <span class="amount">Restaurant AI</span>
+                                    </div>
+                                    <span class="pricing-period">Telegram Bot · Hermes 3 70B</span>
+                                </div>
+                                <div class="pricing-divider"></div>
+                                <ul class="pricing-features">
+                                    <li><i class="fas fa-check"></i> Multi-turn dialogues & order intake</li>
+                                    <li><i class="fas fa-check"></i> Real-time Google Sheets API sync</li>
+                                    <li><i class="fas fa-check"></i> Conversational context retention</li>
+                                    <li><i class="fas fa-check"></i> Automated webhook retry logic</li>
+                                    <li><i class="fas fa-check"></i> Serverless edge deployment</li>
+                                </ul>
+                                <a href="https://github.com/Zaid-Deploys/Restaurant-AI-Agent" target="_blank" class="pricing-btn secondary">
+                                    <span>View on GitHub</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
-                            <span class="pricing-period">Kotlin · Media3 · Node.js · AWS</span>
+
+                            <!-- Card 2: BlindAssist (Featured - MOST POPULAR) -->
+                            <div class="pricing-card featured">
+                                <div class="pricing-badge"><i class="fas fa-bolt"></i> MOST POPULAR</div>
+                                <div class="pricing-header">
+                                    <div class="pricing-icon"><i class="fas fa-crown"></i></div>
+                                    <span class="pricing-name">Assistive Tech</span>
+                                    <div class="pricing-price">
+                                        <span class="amount">BlindAssist</span>
+                                    </div>
+                                    <span class="pricing-period">Java · YOLOv8 · Android App</span>
+                                </div>
+                                <div class="pricing-divider"></div>
+                                <ul class="pricing-features">
+                                    <li><i class="fas fa-check"></i> 100% offline — zero cloud latency</li>
+                                    <li><i class="fas fa-check"></i> Real-time YOLOv8 obstacle alerts</li>
+                                    <li><i class="fas fa-check"></i> Tesseract OCR text-to-speech reader</li>
+                                    <li><i class="fas fa-check"></i> Instant Indian Rupee note recognition</li>
+                                    <li><i class="fas fa-check"></i> Spatial audio navigation guidance</li>
+                                </ul>
+                                <a href="https://github.com/Zaid-Deploys/BlindAssist" target="_blank" class="pricing-btn primary">
+                                    <span>View on GitHub</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+
+                            <!-- Card 3: Indian Currency Classifier -->
+                            <div class="pricing-card">
+                                <div class="pricing-header">
+                                    <div class="pricing-icon"><i class="fas fa-bolt"></i></div>
+                                    <span class="pricing-name">Computer Vision</span>
+                                    <div class="pricing-price">
+                                        <span class="amount">Currency AI</span>
+                                    </div>
+                                    <span class="pricing-period">PyTorch · OpenCV · MobileNetV3</span>
+                                </div>
+                                <div class="pricing-divider"></div>
+                                <ul class="pricing-features">
+                                    <li><i class="fas fa-check"></i> 99.2% classification accuracy</li>
+                                    <li><i class="fas fa-check"></i> Sub-15ms inference latency per frame</li>
+                                    <li><i class="fas fa-check"></i> MobileNet architecture for mobile</li>
+                                    <li><i class="fas fa-check"></i> Classifies all denominations (₹10–₹500)</li>
+                                    <li><i class="fas fa-check"></i> Invariant to folds, creases & shadows</li>
+                                </ul>
+                                <a href="https://github.com/Zaid-Deploys/Indian-Currency-Classifier" target="_blank" class="pricing-btn secondary">
+                                    <span>View on GitHub</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+
+                            <!-- Card 4: Melody Distributed Music Streaming -->
+                            <div class="pricing-card">
+                                <div class="pricing-header">
+                                    <div class="pricing-icon"><i class="fas fa-headphones"></i></div>
+                                    <span class="pricing-name">Distributed Audio</span>
+                                    <div class="pricing-price">
+                                        <span class="amount">Melody</span>
+                                    </div>
+                                    <span class="pricing-period">Kotlin · Media3 · Node.js · AWS</span>
+                                </div>
+                                <div class="pricing-divider"></div>
+                                <ul class="pricing-features">
+                                    <li><i class="fas fa-check"></i> Private multi-user Android streaming app</li>
+                                    <li><i class="fas fa-check"></i> Self-hosted Node.js / TypeScript REST API on AWS</li>
+                                    <li><i class="fas fa-check"></i> Weighted Smart Shuffle recommendation engine</li>
+                                    <li><i class="fas fa-check"></i> Encrypted offline-first downloads & caching</li>
+                                    <li><i class="fas fa-check"></i> Background audio playback with Media3</li>
+                                </ul>
+                                <a href="https://github.com/Zaid-Deploys" target="_blank" class="pricing-btn secondary">
+                                    <span>View on GitHub</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="pricing-divider"></div>
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> Private multi-user Android streaming app</li>
-                            <li><i class="fas fa-check"></i> Self-hosted Node.js / TypeScript REST API on AWS</li>
-                            <li><i class="fas fa-check"></i> Weighted Smart Shuffle recommendation engine</li>
-                            <li><i class="fas fa-check"></i> Encrypted offline-first downloads & caching</li>
-                            <li><i class="fas fa-check"></i> Background audio playback with Media3</li>
-                        </ul>
-                        <a href="https://github.com/Zaid-Deploys" target="_blank" class="pricing-btn secondary">
-                            <span>View on GitHub</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
                     </div>
 
-                    <!-- Card 2: BlindAssist (Featured - MOST POPULAR) -->
-                    <div class="pricing-card featured">
-                        <div class="pricing-badge"><i class="fas fa-bolt"></i> MOST POPULAR</div>
-                        <div class="pricing-header">
-                            <div class="pricing-icon"><i class="fas fa-crown"></i></div>
-                            <span class="pricing-name">Assistive Tech</span>
-                            <div class="pricing-price">
-                                <span class="amount">BlindAssist</span>
-                            </div>
-                            <span class="pricing-period">Kotlin/Java · TFLite · ML Kit</span>
-                        </div>
-                        <div class="pricing-divider"></div>
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> 100% offline edge AI — zero cloud latency</li>
-                            <li><i class="fas fa-check"></i> Real-time YOLOv8 obstacle & depth alerts</li>
-                            <li><i class="fas fa-check"></i> ML Kit OCR text-to-speech reading</li>
-                            <li><i class="fas fa-check"></i> 11-class Indian currency banknote identifier</li>
-                            <li><i class="fas fa-check"></i> Hands-free hardware volume rocker controls</li>
-                        </ul>
-                        <a href="https://github.com/Zaid-Deploys/BlindAssist" target="_blank" class="pricing-btn primary">
-                            <span>View on GitHub</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+                    <!-- Next Arrow -->
+                    <button class="pricing-nav-btn next" id="pricingNextBtn" onclick="slideProjects(1)" aria-label="Next Projects">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
 
-                    <!-- Card 3: Restaurant AI Agent -->
-                    <div class="pricing-card">
-                        <div class="pricing-badge" style="background: rgba(139, 92, 246, 0.15); border-color: rgba(139, 92, 246, 0.4); color: #c4b5fd;"><i class="fas fa-robot"></i> AGENTIC AI</div>
-                        <div class="pricing-header">
-                            <div class="pricing-icon"><i class="fas fa-robot"></i></div>
-                            <span class="pricing-name">Automation</span>
-                            <div class="pricing-price">
-                                <span class="amount">Restaurant AI</span>
-                            </div>
-                            <span class="pricing-period">Python · Hermes 3 70B · AWS EC2</span>
-                        </div>
-                        <div class="pricing-divider"></div>
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> Multi-turn WhatsApp conversational bookings</li>
-                            <li><i class="fas fa-check"></i> Real-time two-way Google Sheets API sync</li>
-                            <li><i class="fas fa-check"></i> Context retention with zero hallucinated slots</li>
-                            <li><i class="fas fa-check"></i> Automated webhook retry & recovery logic</li>
-                            <li><i class="fas fa-check"></i> Continuous Linux systemd daemon on AWS EC2</li>
-                        </ul>
-                        <a href="https://github.com/Zaid-Deploys/Restaurant-AI-Agent" target="_blank" class="pricing-btn secondary">
-                            <span>View on GitHub</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <!-- Card 4: Indian Currency Classifier -->
-                    <div class="pricing-card">
-                        <div class="pricing-badge" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;"><i class="fas fa-eye"></i> COMPUTER VISION</div>
-                        <div class="pricing-header">
-                            <div class="pricing-icon"><i class="fas fa-bolt"></i></div>
-                            <span class="pricing-name">Vision Classifier</span>
-                            <div class="pricing-price">
-                                <span class="amount">Currency AI</span>
-                            </div>
-                            <span class="pricing-period">PyTorch · OpenCV · MobileNetV2</span>
-                        </div>
-                        <div class="pricing-divider"></div>
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> 99.2% classification accuracy rate</li>
-                            <li><i class="fas fa-check"></i> Sub-15ms inference latency per frame</li>
-                            <li><i class="fas fa-check"></i> Transfer learning with MobileNetV2 backbone</li>
-                            <li><i class="fas fa-check"></i> Classifies all denominations (₹10–₹500)</li>
-                            <li><i class="fas fa-check"></i> Invariant to folds, lighting shifts & shadows</li>
-                        </ul>
-                        <a href="https://github.com/Zaid-Deploys/Indian-Currency-Classifier" target="_blank" class="pricing-btn secondary">
-                            <span>View on GitHub</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+                <!-- Slider Indicators / Dots -->
+                <div class="pricing-slider-dots" id="pricingDots">
+                    <button class="pricing-dot active" data-index="0" onclick="slideProjects(0)" aria-label="View Projects 1-3"></button>
+                    <button class="pricing-dot" data-index="1" onclick="slideProjects(1)" aria-label="View Projects 2-4 (Including Melody)"></button>
                 </div>
             </div>
         </div>
@@ -813,6 +831,78 @@
         </div>
     </section>
 
+    <!-- ═══ 8.5 CERTIFICATIONS & ACADEMIC CREDENTIALS PREVIEW ═══ -->
+    <section id="credentials-preview" class="pricing-section" style="padding: 70px 0 80px; background: #060609 !important; border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="section-container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+            <div class="section-header" style="text-align: center; margin-bottom: 48px;">
+                <p class="hero-label">VERIFIED QUALIFICATIONS</p>
+                <h2 style="font-family: 'Cinzel', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
+                    Accredited <span style="background: linear-gradient(135deg, #c4b5fd, #8b5cf6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Credentials</span>
+                </h2>
+                <p style="font-family: 'Inter', sans-serif; font-size: 15.5px; color: rgba(255, 255, 255, 0.5); max-width: 620px; margin: 14px auto 0;">
+                    Official certifications from Microsoft & Jio Institute, Mumbai University degree, and competitive LeetCode problem solving in C++.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px;">
+                <!-- Microsoft Cert Preview -->
+                <div class="cert-luxury-card microsoft-cert">
+                    <div class="cert-header">
+                        <div class="cert-logo-box ms"><i class="fab fa-microsoft"></i></div>
+                        <div class="cert-title-group">
+                            <h4>Microsoft Front-End Developer</h4>
+                            <span>Coursera Verified · June 2025</span>
+                        </div>
+                    </div>
+                    <div class="cert-id-badge">
+                        <span class="cert-id-label">VALIDATION NO:</span>
+                        <span class="cert-id-val">VCLNE3Y2RBBE1MG6</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+                        <span style="color: #60a5fa; font-weight: 700;">GRADE: A GRADE</span>
+                        <span style="color: #10b981;">● ID: SS5O0CPXDGQ3</span>
+                    </div>
+                </div>
+
+                <!-- Jio Institute AI Preview -->
+                <div class="cert-luxury-card jio-cert">
+                    <div class="cert-header">
+                        <div class="cert-logo-box jio"><i class="fas fa-brain"></i></div>
+                        <div class="cert-title-group">
+                            <h4>AI Classroom Foundation</h4>
+                            <span>Jio Institute (JioPC) · August 2026</span>
+                        </div>
+                    </div>
+                    <div class="cert-id-badge">
+                        <span class="cert-id-label">CERTIFICATE ID:</span>
+                        <span class="cert-id-val">t9TX6mk7QuZl</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+                        <span style="color: #c4b5fd; font-weight: 700;">AI FOUNDATION SEAL</span>
+                        <span style="color: #10b981;">● VERIFIED</span>
+                    </div>
+                </div>
+
+                <!-- Mumbai University Degree Preview -->
+                <div class="academic-card" style="margin: 0;">
+                    <span class="academic-year">2024 – 2026 // DEGREE</span>
+                    <h4 class="academic-degree">B.Sc. – Information Tech</h4>
+                    <p class="academic-institute" style="margin-bottom: 12px;">
+                        Rajiv Gandhi College · Mumbai University
+                    </p>
+                    <span class="academic-score">IN PROGRESS · TECH MAJOR</span>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="credentials.html" class="pfc-btn-secondary" style="padding: 14px 28px; font-size: 14.5px;">
+                    <span>View All Credentials, Academics & LeetCode Records</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- ═══ 9. LUXURY FOOTER & CONTACT ═══ -->
     <footer class="sk-footer" id="contact">
         <div class="sk-footer__inner" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px 40px;">
@@ -880,6 +970,67 @@
         </div>
     </footer>
 
+    <!-- Guaranteed Slide Functionality -->
+    <script>
+        (function() {
+            var currentSlide = 0;
+
+            window.slideProjects = function(direction) {
+                var grid = document.getElementById('pricingGrid');
+                var viewport = document.getElementById('pricingViewport');
+                var cards = document.querySelectorAll('#pricingGrid .pricing-card');
+                var dots = document.querySelectorAll('.pricing-dot');
+                if (!grid || !viewport || !cards.length) return;
+
+                var w = window.innerWidth;
+                var visible = 3;
+                if (w <= 680) visible = 1;
+                else if (w <= 1040) visible = 2;
+
+                var maxIdx = Math.max(0, cards.length - visible);
+
+                if (direction === 1) {
+                    currentSlide = (currentSlide < maxIdx) ? currentSlide + 1 : 0;
+                } else if (direction === -1) {
+                    currentSlide = (currentSlide > 0) ? currentSlide - 1 : maxIdx;
+                } else if (typeof direction === 'number') {
+                    currentSlide = Math.min(Math.max(0, direction), maxIdx);
+                }
+
+                var vpWidth = viewport.clientWidth;
+                var gap = 28;
+                var cardWidth = Math.floor((vpWidth - (visible - 1) * gap) / visible);
+                grid.style.setProperty('--card-width', cardWidth + 'px');
+
+                var offset = currentSlide * (cardWidth + gap);
+                grid.style.transition = 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
+                grid.style.transform = 'translateX(-' + offset + 'px)';
+
+                dots.forEach(function(dot, idx) {
+                    dot.classList.toggle('active', idx === currentSlide);
+                });
+            };
+
+            function syncWidths() {
+                var grid = document.getElementById('pricingGrid');
+                var viewport = document.getElementById('pricingViewport');
+                if (!grid || !viewport) return;
+                var w = window.innerWidth;
+                var visible = 3;
+                if (w <= 680) visible = 1;
+                else if (w <= 1040) visible = 2;
+                var gap = 28;
+                var cardWidth = Math.floor((viewport.clientWidth - (visible - 1) * gap) / visible);
+                grid.style.setProperty('--card-width', cardWidth + 'px');
+            }
+
+            window.addEventListener('resize', syncWidths);
+            window.addEventListener('DOMContentLoaded', syncWidths);
+            setTimeout(syncWidths, 100);
+            setTimeout(syncWidths, 600);
+            setTimeout(syncWidths, 1500);
+        })();
+    </script>
 </body>
 
 </html>

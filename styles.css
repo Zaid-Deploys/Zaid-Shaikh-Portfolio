@@ -1,6 +1,6 @@
 /* ================================================
-   SCRIPT KITTENS - Ultimate Premium Website v3.0
-   Created by Furqan | 2026 Elite Design
+   ZAID SHAIKH - Ultimate Premium Portfolio v4.2
+   DevOps & Software Engineering | 2026 Elite Design
 ================================================ */
 
 :root {
@@ -742,14 +742,18 @@ body.light-theme .control-btn:hover {
 }
 
 /* When hidden: curtains tear apart */
-#preloader.hidden .pl-curtain--left  { transform: translateX(-100%); }
-#preloader.hidden .pl-curtain--right { transform: translateX(100%); }
-#preloader.hidden { pointer-events: none; }
+#preloader.hidden .pl-curtain--left  { transform: translateX(-100%); pointer-events: none !important; }
+#preloader.hidden .pl-curtain--right { transform: translateX(100%); pointer-events: none !important; }
+#preloader.hidden,
+#preloader.hidden * {
+    pointer-events: none !important;
+}
 
 /* Seam line fades as curtains split */
 #preloader.hidden .pl-seam-line {
     opacity: 0;
     transition: opacity 0.8s ease;
+    pointer-events: none !important;
 }
 
 /* ============ END PRELOADER ============ */
@@ -3487,7 +3491,7 @@ img.discord-avatar {
     position: relative;
 }
 
-/* Smoke canvas — full background behind everything (Script-Kittens 1:1 WebGL2 Fluid) */
+/* Smoke canvas — full background behind everything (WebGL2 Fluid) */
 #hero-smoke-canvas {
     position: absolute;
     inset: 0;
@@ -3717,7 +3721,7 @@ img.discord-avatar {
 }
 .hero-proof-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.06); }
 
-/* Right: Image / Giant Gothic Chrome Brand Emblem (Script-Kittens 1:1) */
+/* Right: Image / Giant Gothic Chrome Brand Emblem */
 .hero-right,
 .hero-emblem-container {
     flex: 1.5;
@@ -3786,7 +3790,7 @@ img.discord-avatar {
 }
 
 /* ============================================================
-   WORLD-CLASS GAME TICKER  — Script Kittens
+   WORLD-CLASS TECH TICKER — Zaid Shaikh
    ============================================================ */
 
 .trusted-ticker,
@@ -5418,7 +5422,7 @@ img.discord-avatar {
 }
 
 /* ============ PRODUCTS SECTION ============ */
-/* ============ SCRIPT-KITTENS 1:1 PRICING / PROJECTS SECTION ============ */
+/* ============ LUXURY PROJECTS SECTION ============ */
 .pricing-section,
 .products-section {
     padding: 80px 0 90px;
@@ -5435,16 +5439,16 @@ img.discord-avatar {
     width: 100%;
     height: 600px;
     display: block;
-    z-index: 5; /* In above of the projects, not behind them */
+    z-index: 2;
     opacity: 0.95;
-    pointer-events: none;
+    pointer-events: none !important;
     mix-blend-mode: screen;
 }
 
 .pricing-section .section-container,
 .products-section .section-container {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
@@ -5503,15 +5507,129 @@ img.discord-avatar {
     line-height: 1.65;
 }
 
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 28px;
+/* ============ PROJECTS CAROUSEL SLIDER ============ */
+.pricing-slider-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 45px;
+    box-sizing: border-box;
+}
+
+.pricing-slider-viewport {
     width: 100%;
     max-width: 1100px;
-    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    padding: 24px 0 36px;
+    margin: -24px 0 -36px;
+}
+
+.pricing-grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 28px !important;
+    width: max-content !important;
+    max-width: none !important;
+    margin: 0 !important;
     position: relative;
     z-index: 2;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+/* Nav Arrow Buttons (Gothic Luxury Glass Floating Circles) */
+.pricing-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(18, 18, 26, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.55);
+    color: #ffffff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(139, 92, 246, 0.35);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.pricing-nav-btn * {
+    pointer-events: none !important;
+}
+
+.pricing-nav-btn.prev {
+    left: -14px;
+}
+
+.pricing-nav-btn.next {
+    right: -14px;
+}
+
+.pricing-nav-btn:hover {
+    background: rgba(139, 92, 246, 0.35);
+    border-color: rgba(139, 92, 246, 1);
+    color: #c4b5fd;
+    transform: translateY(-50%) scale(1.14);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 35px rgba(139, 92, 246, 0.7);
+}
+
+.pricing-nav-btn:active {
+    transform: translateY(-50%) scale(0.94);
+}
+
+@media (max-width: 1240px) {
+    .pricing-slider-wrap {
+        padding: 0 24px;
+    }
+    .pricing-nav-btn.prev { left: 4px; }
+    .pricing-nav-btn.next { right: 4px; }
+}
+
+/* Slider Indicators / Dots */
+.pricing-slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 36px;
+    position: relative;
+    z-index: 10;
+}
+
+.pricing-dot {
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.16);
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    padding: 0;
+}
+
+.pricing-dot:hover {
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.pricing-dot.active {
+    width: 44px;
+    background: linear-gradient(90deg, #c4b5fd, #8b5cf6);
+    box-shadow: 0 0 14px rgba(139, 92, 246, 0.7);
 }
 
 /* Premium Pricing Card — Glass + Glow */
@@ -5529,6 +5647,10 @@ img.discord-avatar {
     flex-direction: column;
     min-height: 520px;
     overflow: visible;
+    flex: 0 0 var(--card-width, 348px) !important;
+    width: var(--card-width, 348px) !important;
+    max-width: var(--card-width, 348px) !important;
+    box-sizing: border-box !important;
 }
 
 /* Subtle top-edge glow line */
@@ -11712,7 +11834,7 @@ img.discord-avatar {
     filter: drop-shadow(0 0 10px rgba(13, 107, 74, 0.5));
 }
 
-/* Dark Rose — Kitten */
+/* Dark Rose */
 .team-name--glow-pink {
     background: linear-gradient(90deg, #b8b8b8, #9b2d5e, #b8b8b8);
     background-size: 200% 100%;
@@ -12477,7 +12599,7 @@ img.discord-avatar {
     text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
 }
 
-/* KITTENS — red glowing */
+/* Brand Accent — red glowing */
 .sk-footer__marquee-track .mq-red {
     color: #dc2626;
     text-shadow:
@@ -12602,7 +12724,7 @@ img.discord-avatar {
     color: rgba(255, 255, 255, 0.3);
 }
 
-/* ---- KITTENS marquee — red hue cycling ---- */
+/* ---- Footer marquee — red hue cycling ---- */
 .sk-footer__marquee-track .mq-red {
     color: #dc2626;
     animation: footerRedShift 8s ease-in-out infinite;
@@ -13058,7 +13180,7 @@ img.discord-avatar {
     transform: rotate(10deg);
 }
 
-/* ============ KITTENS LETTER SPACING FIX ============ */
+/* ============ BRAND TITLE LETTER SPACING FIX ============ */
 .hero-title .text-gradient {
     letter-spacing: 2px;
 }
@@ -17441,7 +17563,7 @@ img.discord-avatar {
 }
 
 /* ==========================================================================
-   MULTI-PAGE SUBPAGE SYSTEM (SCRIPT-KITTENS LUXURY GLASS)
+   MULTI-PAGE SUBPAGE SYSTEM (LUXURY GLASS ARCHITECTURE)
    ========================================================================== */
 
 .subpage-hero {

@@ -1,6 +1,6 @@
 /* ============================================================
    ZAID SHAIKH — PORTFOLIO ENGINE (V3.0 LUXURY ARCHITECTURE)
-   Clean, authentic developer portfolio matching script-kittens.com
+   Clean, authentic developer portfolio with elite dark luxury aesthetic
    DevOps · Developer · Agentic AI — Mumbai, India · 2026
    ============================================================ */
 
@@ -60,13 +60,14 @@ function initPreloader() {
         // Brief pause at 100% so the user sees the charged seam line before tearing
         setTimeout(() => {
             preloader.classList.add('hidden');
+            preloader.style.pointerEvents = 'none';
             document.body.style.overflow = 'visible';
-            // Allow 1.5s door opening transition to complete before removing from DOM
+            // Allow door opening transition to complete before removing from DOM
             setTimeout(() => {
                 if (preloader.parentNode) {
                     preloader.remove();
                 }
-            }, 1600);
+            }, 1000);
         }, 200);
     }
 
@@ -90,7 +91,7 @@ function initPreloader() {
     setTimeout(dismiss, 2800);
 }
 
-// === 3. SCRIPT KITTENS GPU-ACCELERATED SPARKLE CURSOR ===
+// === 3. GPU-ACCELERATED SPARKLE CURSOR ===
 function initCursor() {
     if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
 
@@ -364,7 +365,7 @@ function initCardTilt() {
     });
 }
 
-// === 8. HERO SMOKE SHADER (SCRIPT KITTENS 1:1 WEBGL2 FLUID ENGINE) ===
+// === 8. HERO SMOKE SHADER (WEBGL2 FLUID ENGINE) ===
 function initHeroSmoke() {
     const canvas = document.getElementById('hero-smoke-canvas');
     if (!canvas) return;
@@ -477,7 +478,7 @@ void main() {
     const uTime = gl.getUniformLocation(prog, 'time');
     const uRes  = gl.getUniformLocation(prog, 'resolution');
     const uCol  = gl.getUniformLocation(prog, 'u_color');
-    const color = [0.863, 0.149, 0.149]; // Script-Kittens signature crimson
+    const color = [0.863, 0.149, 0.149]; // Signature crimson
 
     function resize() {
         const hero = canvas.parentElement || document.body;
@@ -513,7 +514,7 @@ void main() {
     requestAnimationFrame(render);
 }
 
-// === 9. MOVING PLASMA WAVE SHADER (SCRIPT KITTENS 1:1 HARMONIC THREADS) ===
+// === 9. MOVING PLASMA WAVE SHADER (HARMONIC THREADS) ===
 function initPricingShader() {
     const canvas = document.getElementById('pricing-shader-canvas');
     if (!canvas) return;
@@ -528,7 +529,7 @@ uniform float iTime;
 const float overallSpeed = 0.22;
 const float gridSmoothWidth = 0.015;
 const float scale = 5.0;
-const vec4 lineColor = vec4(0.52, 0.25, 0.96, 1.0); // Vibrant electric violet/purple from Script-Kittens
+const vec4 lineColor = vec4(0.52, 0.25, 0.96, 1.0); // Vibrant electric violet/purple
 const float minLineWidth = 0.01;
 const float maxLineWidth = 0.2;
 const float lineSpeed = 1.0 * overallSpeed;
@@ -654,11 +655,129 @@ void main(){
     requestAnimationFrame(render);
 }
 
+// === 9.5 PROJECT CAROUSEL SLIDER ===
+function initProjectSlider() {
+    const viewport = document.getElementById('pricingViewport');
+    const grid = document.getElementById('pricingGrid');
+    const prevBtn = document.getElementById('pricingPrevBtn');
+    const nextBtn = document.getElementById('pricingNextBtn');
+    const dots = document.querySelectorAll('.pricing-dot');
+    const cards = document.querySelectorAll('#pricingGrid .pricing-card');
+
+    if (!viewport || !grid || !cards.length) return;
+
+    let currentIndex = 0;
+
+    function getVisibleCount() {
+        const w = window.innerWidth;
+        if (w <= 680) return 1;
+        if (w <= 1040) return 2;
+        return 3;
+    }
+
+    function getMaxIndex() {
+        return Math.max(0, cards.length - getVisibleCount());
+    }
+
+    function updateCardWidths() {
+        const viewportWidth = viewport.clientWidth;
+        const visibleCount = getVisibleCount();
+        const gap = 28;
+        const cardWidth = Math.floor((viewportWidth - (visibleCount - 1) * gap) / visibleCount);
+        grid.style.setProperty('--card-width', `${cardWidth}px`);
+        return { cardWidth, gap };
+    }
+
+    function updateSlider(animate = true) {
+        const { cardWidth, gap } = updateCardWidths();
+        const maxIdx = getMaxIndex();
+
+        if (currentIndex > maxIdx) currentIndex = maxIdx;
+        if (currentIndex < 0) currentIndex = 0;
+
+        const offset = currentIndex * (cardWidth + gap);
+
+        grid.style.transition = animate ? 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        grid.style.transform = `translateX(-${offset}px)`;
+
+        // Update dots
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentIndex);
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            const maxIdx = getMaxIndex();
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = maxIdx;
+            }
+            updateSlider(true);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const maxIdx = getMaxIndex();
+            if (currentIndex < maxIdx) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateSlider(true);
+        });
+    }
+
+    dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            const target = parseInt(dot.getAttribute('data-index'), 10) || 0;
+            currentIndex = target;
+            updateSlider(true);
+        });
+    });
+
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 40) {
+            const maxIdx = getMaxIndex();
+            if (diff > 0) {
+                if (currentIndex < maxIdx) currentIndex++;
+                else currentIndex = 0;
+            } else {
+                if (currentIndex > 0) currentIndex--;
+                else currentIndex = maxIdx;
+            }
+            updateSlider(true);
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        updateSlider(false);
+    }, { passive: true });
+
+    // Initial setup
+    setTimeout(() => {
+        updateSlider(false);
+    }, 50);
+}
+
 // === 10. BOOTSTRAP ===
 function boot() {
     initPreloader();
     initHeroSmoke();
     initPricingShader();
+    initProjectSlider();
     initCursor();
     initNavbar();
     initLenis();
