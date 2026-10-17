@@ -171,7 +171,7 @@ function initCursor() {
     }, { passive: true });
 
     // Hover interactive scaling
-    const hoverElements = document.querySelectorAll('a, button, .product-card-new, .profile-luxury-card, .hero-proof-item');
+    const hoverElements = document.querySelectorAll('a, button, .product-card-new, .profile-luxury-card, .hero-proof-item, .hero-img');
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursorDot.classList.add('hover');
@@ -204,7 +204,7 @@ function initNavbar() {
     const mobileBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('navMobileMenu');
     const navLinks = document.querySelectorAll('.nav-link[data-section]');
-    const sections = document.querySelectorAll('section[id]');
+    const sections = document.querySelectorAll('section[id], footer[id]');
 
     // Navbar glass blur on scroll
     window.addEventListener('scroll', () => {
@@ -256,38 +256,56 @@ function initNavbar() {
     updateActiveNav();
 }
 
-// === 5. LENIS SMOOTH SCROLLING ===
+// === 5. LENIS SMOOTH SCROLLING & UNIVERSAL ANCHOR NAVIGATION ===
+let _lenisInstance = null;
+
 function initLenis() {
-    if (typeof Lenis === 'undefined' || window.innerWidth <= 768) return;
-
-    try {
-        const lenis = new Lenis({
-            duration: 1.15,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smooth: true,
-            smoothTouch: false,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href');
-                if (!targetId || targetId === '#') return;
-                const target = document.querySelector(targetId);
-                if (target) {
-                    e.preventDefault();
-                    lenis.scrollTo(target, { offset: -70, duration: 1.2 });
-                }
+    if (typeof Lenis !== 'undefined' && window.innerWidth > 768) {
+        try {
+            _lenisInstance = new Lenis({
+                duration: 1.15,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+                smoothTouch: false,
             });
-        });
-    } catch (e) {
-        console.warn('Lenis scroll fallback', e);
+
+            function raf(time) {
+                _lenisInstance.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        } catch (e) {
+            console.warn('Lenis scroll error', e);
+        }
     }
+
+    // Universal anchor navigation for all in-page links (Home, Projects, Skills, Contact)
+    document.addEventListener('click', (e) => {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        const targetId = anchor.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+            e.preventDefault();
+            const navOffset = 70;
+            const targetY = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+
+            if (_lenisInstance) {
+                _lenisInstance.scrollTo(targetY, { duration: 1.15 });
+            } else {
+                window.scrollTo({
+                    top: targetY,
+                    behavior: 'smooth'
+                });
+            }
+
+            const sectionName = targetId.replace('#', '');
+            document.querySelectorAll('.nav-link[data-section], .nav-mobile-link[data-section]').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('data-section') === sectionName);
+            });
+        }
+    });
 }
 
 // === 6. PROOF COUNTERS ANIMATION ===

@@ -34,11 +34,361 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=4.2">
+
+    <style>
+        /* Exact 1:1 Pixel Match to Reference Screenshot at 1640x900 */
+        .top-navbar {
+            padding: 24px 0 0 !important;
+            background: transparent !important;
+        }
+        .nav-inner {
+            max-width: 1440px !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 40px !important;
+            height: 60px !important;
+        }
+        .nav-logo {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+        }
+        .nav-logo-icon {
+            width: 52px !important;
+            height: 36px !important;
+            object-fit: contain !important;
+            filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.7)) !important;
+        }
+        .nav-logo-title {
+            font-family: 'Cinzel', serif !important;
+            font-size: 19px !important;
+            font-weight: 800 !important;
+            color: #ffffff !important;
+            letter-spacing: 0.12em !important;
+        }
+        .hero {
+            height: 100vh !important;
+            min-height: 100vh !important;
+            max-height: 100vh !important;
+            padding-top: 40px !important;
+            padding-bottom: 20px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            position: relative !important;
+            box-sizing: border-box !important;
+        }
+        .hero-inner {
+            max-width: 1440px !important;
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 clamp(28px, 3.5vw, 56px) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: clamp(36px, 4.5vw, 64px) !important;
+            box-sizing: border-box !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        .hero-left {
+            flex: 0 0 clamp(380px, 34vw, 440px) !important;
+            max-width: 440px !important;
+            min-width: 0 !important;
+            flex-shrink: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            position: relative !important;
+            left: -48px !important;
+            top: -18px !important;
+            z-index: 2 !important;
+        }
+        .hero-label {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 11.5px !important;
+            font-weight: 600 !important;
+            color: rgba(255, 255, 255, 0.4) !important;
+            letter-spacing: 0.15em !important;
+            text-transform: uppercase !important;
+            margin-bottom: clamp(8px, 1.4vh, 16px) !important;
+        }
+        .hero-title {
+            font-family: 'Inter', sans-serif !important;
+            font-size: clamp(34px, 3.4vw, 50px) !important;
+            font-weight: 800 !important;
+            line-height: 1.05 !important;
+            letter-spacing: -0.03em !important;
+            color: #ffffff !important;
+            margin-bottom: clamp(8px, 1.4vh, 16px) !important;
+        }
+        .hero-title-accent {
+            font-family: 'Playfair Display', Georgia, serif !important;
+            font-style: italic !important;
+            font-weight: 700 !important;
+            font-size: clamp(22px, 2.2vw, 32px) !important;
+            line-height: 1.15 !important;
+            color: #dc2626 !important;
+            display: block !important;
+            margin-top: 4px !important;
+        }
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif !important;
+            font-size: clamp(12.5px, 0.95vw, 14.5px) !important;
+            line-height: 1.55 !important;
+            color: rgba(255, 255, 255, 0.45) !important;
+            max-width: 450px !important;
+            margin-bottom: clamp(14px, 2vh, 24px) !important;
+        }
+        .hero-cta-group {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+            max-width: 460px !important;
+            margin-bottom: clamp(16px, 2.4vh, 32px) !important;
+        }
+        .hero-btn-primary::before, .hero-btn-primary::after { display: none !important; }
+        .hero-btn-primary {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 11px 16px !important;
+            background: #e5e7eb !important;
+            color: #0a0a0a !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 13.5px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            text-decoration: none !important;
+        }
+        .hero-btn-primary span, .hero-btn-primary i {
+            color: #0a0a0a !important;
+            padding: 0 !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        .hero-btn-primary svg {
+            stroke: #0a0a0a !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        .hero-btn-discord {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 11px 16px !important;
+            background: rgba(220, 38, 38, 0.05) !important;
+            color: #ffffff !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(220, 38, 38, 0.4) !important;
+            text-decoration: none !important;
+        }
+        .hero-btn-discord i {
+            color: #dc2626 !important;
+            font-size: 14px !important;
+        }
+        .hero-btn-ghost {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 9px 16px !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            color: rgba(255, 255, 255, 0.6) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            text-decoration: none !important;
+        }
+        .hero-proof {
+            display: flex !important;
+            align-items: center !important;
+            gap: 28px !important;
+        }
+        .hero-proof-value {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 26px !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+        }
+        .hero-proof-suffix {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 18px !important;
+            font-weight: 500 !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        .hero-proof-label {
+            display: block !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 10px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.12em !important;
+            color: rgba(255, 255, 255, 0.4) !important;
+            text-transform: uppercase !important;
+            margin-top: 4px !important;
+        }
+        .hero-proof-divider {
+            width: 1px !important;
+            height: 34px !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+        .hero-right,
+        .hero-emblem-container {
+            flex: 1.5 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            min-width: 0 !important;
+            margin-right: -100px !important;
+            position: relative !important;
+            right: -50px !important;
+            z-index: 2 !important;
+            isolation: isolate !important;
+        }
+        .hero-emblem-wrap {
+            position: relative !important;
+            z-index: 2 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            width: 100% !important;
+            cursor: pointer !important;
+        }
+        .hero-img,
+        .hero-brand-emblem-img {
+            width: 105% !important;
+            max-width: 1040px !important;
+            height: auto !important;
+            max-height: calc(100vh - 85px) !important;
+            object-fit: contain !important;
+            display: block !important;
+            position: relative !important;
+            z-index: 2 !important;
+            -webkit-transform: translateZ(0) !important;
+            transform: translateZ(0) !important;
+            filter: drop-shadow(0 0 16px rgba(220, 38, 38, 0.6)) !important;
+            transition: filter 0.4s ease, transform 0.4s ease !important;
+            cursor: pointer !important;
+        }
+        .hero-img:hover,
+        .hero-brand-emblem-img:hover,
+        .hero-emblem-container:hover .hero-brand-emblem-img,
+        .hero-emblem-wrap:hover .hero-brand-emblem-img {
+            filter: drop-shadow(0 0 24px rgba(220, 38, 38, 0.8)) drop-shadow(0 0 45px rgba(220, 38, 38, 0.35)) brightness(1.1) !important;
+            transform: scale(1.02) !important;
+        }
+        .hero-emblem-glow {
+            position: absolute !important;
+            inset: 5% !important;
+            border-radius: 50% !important;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.32) 0%, rgba(220, 38, 38, 0.08) 45%, transparent 65%) !important;
+            filter: blur(35px) !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.28 !important;
+        }
+        @media (max-width: 1400px) {
+            .hero-inner {
+                padding: 0 40px !important;
+                gap: 32px !important;
+            }
+            .hero-left {
+                flex: 0 0 clamp(350px, 34vw, 410px) !important;
+                max-width: 410px !important;
+                left: -32px !important;
+                top: -12px !important;
+            }
+            .hero-right, .hero-emblem-container {
+                margin-right: -110px !important;
+                right: -60px !important;
+            }
+            .hero-img, .hero-brand-emblem-img {
+                width: 102% !important;
+                max-width: 900px !important;
+                max-height: calc(100vh - 85px) !important;
+            }
+        }
+        @media (max-width: 1200px) {
+            .nav-inner, .hero-inner { max-width: 100% !important; padding: 0 32px !important; }
+            .hero {
+                height: 100vh !important;
+                min-height: 100vh !important;
+                max-height: 100vh !important;
+                padding-top: 40px !important;
+                padding-bottom: 20px !important;
+                overflow: hidden !important;
+            }
+            .hero-inner {
+                gap: 24px !important;
+            }
+            .hero-left {
+                flex: 0 0 clamp(330px, 36vw, 390px) !important;
+                max-width: 390px !important;
+                left: -20px !important;
+                top: 0 !important;
+            }
+            .hero-right, .hero-emblem-container {
+                flex: 1.3 !important;
+                margin-right: -50px !important;
+                right: -25px !important;
+            }
+            .hero-img, .hero-brand-emblem-img {
+                width: 100% !important;
+                max-width: 780px !important;
+                max-height: calc(100vh - 85px) !important;
+            }
+        }
+        @media (max-width: 900px) {
+            .hero {
+                height: auto !important;
+                min-height: 100vh !important;
+                max-height: none !important;
+                overflow: visible !important;
+                padding-top: 80px !important;
+                padding-bottom: 40px !important;
+            }
+            .hero-inner {
+                flex-direction: column-reverse !important;
+                text-align: center !important;
+                padding: 30px 20px !important;
+                gap: 28px !important;
+                height: auto !important;
+            }
+            .hero-left {
+                width: 100% !important;
+                max-width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            .hero-cta-group { justify-content: center !important; }
+            .hero-proof { justify-content: center !important; }
+            .hero-right, .hero-emblem-container {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                right: 0 !important;
+                top: 0 !important;
+                justify-content: center !important;
+                width: 100% !important;
+                height: auto !important;
+            }
+            .hero-img, .hero-brand-emblem-img {
+                max-width: min(88vw, 420px) !important;
+                max-height: 42vh !important;
+            }
+        }
+    </style>
 
     <!-- Libraries: Lenis -->
     <script defer src="https://unpkg.com/lenis@1.1.1/dist/lenis.min.js"></script>
-    <script defer src="script.js"></script>
+    <script defer src="script.js?v=3.5"></script>
 </head>
 
 <body>
@@ -72,7 +422,7 @@
     <header class="top-navbar" id="topNavbar">
         <div class="nav-inner">
             <!-- Logo -->
-            <a href="index.html" class="nav-logo">
+            <a href="#about" class="nav-logo">
                 <img src="zaid_shaikh_logo.png" alt="ZAID SHAIKH" class="nav-logo-icon" style="width: 56px; height: 38px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(220,38,38,0.7));">
                 <span class="nav-logo-title" style="letter-spacing: 0.12em; font-family: 'Cinzel', serif; font-weight: 800;">ZAID SHAIKH</span>
             </a>
@@ -80,18 +430,18 @@
             <!-- Nav Links (Centered with Tubelight Active Indicator) -->
             <div class="nav-right-group">
                 <nav class="nav-links">
-                    <a href="index.html" class="nav-link active">Home</a>
-                    <a href="projects.html" class="nav-link">Projects</a>
-                    <a href="credentials.html" class="nav-link">Credentials</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="#about" class="nav-link active" data-section="about">Home</a>
+                    <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
                 </nav>
 
                 <div class="nav-actions">
                     <a href="https://github.com/Zaid-Deploys" target="_blank" class="nav-btn-login" aria-label="GitHub">
-                        <i class="fab fa-github" style="font-size: 17px; margin-right: 6px;"></i> GitHub
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 6px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
                     </a>
-                    <a href="contact.html" class="nav-btn-cta">
-                        <i class="fas fa-paper-plane" style="font-size: 12px; margin-right: 6px;"></i> Get in Touch
+                    <a href="#contact" class="nav-btn-cta">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="#ffffff" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg> Get in Touch
                     </a>
                 </div>
 
@@ -104,15 +454,15 @@
 
         <!-- Mobile Nav Drawer -->
         <div class="nav-mobile-menu" id="navMobileMenu">
-            <a href="index.html" class="nav-mobile-link active">Home</a>
-            <a href="projects.html" class="nav-mobile-link">Projects</a>
-            <a href="credentials.html" class="nav-mobile-link">Credentials</a>
-            <a href="contact.html" class="nav-mobile-link">Contact</a>
+            <a href="#about" class="nav-mobile-link active" data-section="about">Home</a>
+            <a href="#projects" class="nav-mobile-link" data-section="projects">Projects</a>
+            <a href="#skills" class="nav-mobile-link" data-section="skills">Skills</a>
+            <a href="#contact" class="nav-mobile-link" data-section="contact">Contact</a>
             <div class="nav-mobile-actions">
                 <a href="https://github.com/Zaid-Deploys" target="_blank" class="nav-mobile-login">
                     <i class="fab fa-github"></i> GitHub Profile
                 </a>
-                <a href="contact.html" class="nav-mobile-cta">
+                <a href="#contact" class="nav-mobile-cta">
                     <i class="fas fa-paper-plane"></i> Get in Touch
                 </a>
             </div>
@@ -133,76 +483,51 @@
                 </h1>
 
                 <p class="hero-subtitle">
-                    I'm Zaid Shaikh, software developer and DevOps engineer based in Mumbai, India.
-                    Currently pursuing B.Sc. in Information Technology at Mumbai University with Microsoft and Jio Institute AI accreditations.
-                    I focus on building private distributed streaming backends, automating cloud infrastructure on AWS,
-                    and developing practical software with Python, Kotlin, and Agentic AI.
+                    I'm Zaid Shaikh, software developer and DevOps engineer based in Mumbai, India. Currently pursuing B.Sc. in Information Technology at Mumbai University with Microsoft and Jio Institute AI accreditations. I focus on building private distributed streaming backends, automating cloud infrastructure on AWS, and developing practical software with Python, Kotlin, and Agentic AI.
                 </p>
 
                 <div class="hero-cta-group">
-                    <a href="projects.html" class="hero-btn-primary">
-                        <span>View All Projects</span>
-                        <i class="fas fa-arrow-right"></i>
+                    <a href="#projects" class="hero-btn-primary">
+                        <span>View Projects</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
                     </a>
-                    <a href="credentials.html" class="hero-btn-discord">
-                        <i class="fas fa-certificate"></i>
-                        <span>Credentials</span>
+                    <a href="#skills" class="hero-btn-discord">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.9a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/></svg>
+                        <span>Skills</span>
                     </a>
-                    <a href="contact.html" class="hero-btn-discord">
-                        <i class="fas fa-paper-plane"></i>
+                    <a href="#contact" class="hero-btn-discord">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="#dc2626" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
                         <span>Get in Touch</span>
                     </a>
                     <a href="https://www.linkedin.com/in/zaid-shaikh-30201636a" target="_blank" class="hero-btn-ghost">
-                        <i class="fab fa-linkedin"></i>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                         <span>LinkedIn</span>
                     </a>
                 </div>
 
                 <div class="hero-proof">
                     <div class="hero-proof-item">
-                        <span class="hero-proof-value" data-count="3">0</span><span class="hero-proof-suffix"> Systems</span>
-                        <span class="hero-proof-label">Built & Deployed</span>
+                        <span class="hero-proof-value" data-count="3">3</span><span class="hero-proof-suffix"> Systems</span>
+                        <span class="hero-proof-label">BUILT & DEPLOYED</span>
                     </div>
                     <div class="hero-proof-divider"></div>
                     <div class="hero-proof-item">
-                        <span class="hero-proof-value" data-count="100">0</span><span class="hero-proof-suffix">%</span>
-                        <span class="hero-proof-label">Container Workflows</span>
+                        <span class="hero-proof-value" data-count="100">100</span><span class="hero-proof-suffix">%</span>
+                        <span class="hero-proof-label">CONTAINER WORKFLOWS</span>
                     </div>
                     <div class="hero-proof-divider"></div>
                     <div class="hero-proof-item">
-                        <span class="hero-proof-value" style="font-size: 24px; font-weight: 700; color: #fff;">Mumbai</span>
-                        <span class="hero-proof-label">Based in India</span>
+                        <span class="hero-proof-value" style="font-size: 26px; font-weight: 700; color: #fff;">Mumbai</span>
+                        <span class="hero-proof-label">BASED IN INDIA</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right: Real Profile Showcase Card -->
-            <div class="hero-right-card">
-                <div class="profile-luxury-card">
-                    <div class="plc-img-wrapper">
-                        <img src="avatar.jpg" alt="Zaid Shaikh" class="plc-img">
-                        <div class="plc-badge-status">
-                            <span class="status-dot-live"></span>
-                            <span>Available for Opportunities</span>
-                        </div>
-                    </div>
-                    <div class="plc-info">
-                        <div class="plc-name">
-                            <span>ZAID SHAIKH</span>
-                            <span style="font-size: 13px; font-family: 'JetBrains Mono', monospace; color: #dc2626;">2026</span>
-                        </div>
-                        <div class="plc-role">
-                            <i class="fas fa-user-check"></i>
-                            <span>Software Developer & DevOps · Mumbai, India</span>
-                        </div>
-                        <div class="plc-tags">
-                            <span class="plc-tag">AWS Cloud</span>
-                            <span class="plc-tag">Docker</span>
-                            <span class="plc-tag">Kubernetes</span>
-                            <span class="plc-tag">Python</span>
-                            <span class="plc-tag">Agentic AI</span>
-                        </div>
-                    </div>
+            <!-- Right: Giant Gothic Chrome Brand Emblem (Script-Kittens 1:1) -->
+            <div class="hero-right hero-emblem-container" id="heroEmblemContainer">
+                <div class="hero-emblem-glow"></div>
+                <div class="hero-emblem-wrap" id="heroEmblemWrap">
+                    <img src="zaid_shaikh_logo.png" alt="ZAID SHAIKH" class="hero-img hero-brand-emblem-img">
                 </div>
             </div>
         </div>
@@ -286,25 +611,26 @@
                 </div>
 
                 <div class="pricing-grid">
-                    <!-- Card 1: Restaurant AI Agent -->
+                    <!-- Card 1: Melody Music Streaming -->
                     <div class="pricing-card">
+                        <div class="pricing-badge" style="background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.4); color: #60a5fa;"><i class="fas fa-music"></i> DISTRIBUTED AUDIO</div>
                         <div class="pricing-header">
-                            <div class="pricing-icon"><i class="fas fa-robot"></i></div>
-                            <span class="pricing-name">Agentic AI</span>
+                            <div class="pricing-icon"><i class="fas fa-headphones"></i></div>
+                            <span class="pricing-name">Cloud & Android</span>
                             <div class="pricing-price">
-                                <span class="amount">Restaurant AI</span>
+                                <span class="amount">Melody</span>
                             </div>
-                            <span class="pricing-period">Telegram Bot · Hermes 3 70B</span>
+                            <span class="pricing-period">Kotlin · Media3 · Node.js · AWS</span>
                         </div>
                         <div class="pricing-divider"></div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> Multi-turn dialogues & order intake</li>
-                            <li><i class="fas fa-check"></i> Real-time Google Sheets API sync</li>
-                            <li><i class="fas fa-check"></i> Conversational context retention</li>
-                            <li><i class="fas fa-check"></i> Automated webhook retry logic</li>
-                            <li><i class="fas fa-check"></i> Serverless edge deployment</li>
+                            <li><i class="fas fa-check"></i> Private multi-user Android streaming app</li>
+                            <li><i class="fas fa-check"></i> Self-hosted Node.js / TypeScript REST API on AWS</li>
+                            <li><i class="fas fa-check"></i> Weighted Smart Shuffle recommendation engine</li>
+                            <li><i class="fas fa-check"></i> Encrypted offline-first downloads & caching</li>
+                            <li><i class="fas fa-check"></i> Background audio playback with Media3</li>
                         </ul>
-                        <a href="https://github.com/Zaid-Deploys/Restaurant-AI-Agent" target="_blank" class="pricing-btn secondary">
+                        <a href="https://github.com/Zaid-Deploys" target="_blank" class="pricing-btn secondary">
                             <span>View on GitHub</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
@@ -319,15 +645,15 @@
                             <div class="pricing-price">
                                 <span class="amount">BlindAssist</span>
                             </div>
-                            <span class="pricing-period">Java · YOLOv8 · Android App</span>
+                            <span class="pricing-period">Kotlin/Java · TFLite · ML Kit</span>
                         </div>
                         <div class="pricing-divider"></div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> 100% offline — zero cloud latency</li>
-                            <li><i class="fas fa-check"></i> Real-time YOLOv8 obstacle alerts</li>
-                            <li><i class="fas fa-check"></i> Tesseract OCR text-to-speech reader</li>
-                            <li><i class="fas fa-check"></i> Instant Indian Rupee note recognition</li>
-                            <li><i class="fas fa-check"></i> Spatial audio navigation guidance</li>
+                            <li><i class="fas fa-check"></i> 100% offline edge AI — zero cloud latency</li>
+                            <li><i class="fas fa-check"></i> Real-time YOLOv8 obstacle & depth alerts</li>
+                            <li><i class="fas fa-check"></i> ML Kit OCR text-to-speech reading</li>
+                            <li><i class="fas fa-check"></i> 11-class Indian currency banknote identifier</li>
+                            <li><i class="fas fa-check"></i> Hands-free hardware volume rocker controls</li>
                         </ul>
                         <a href="https://github.com/Zaid-Deploys/BlindAssist" target="_blank" class="pricing-btn primary">
                             <span>View on GitHub</span>
@@ -335,36 +661,55 @@
                         </a>
                     </div>
 
-                    <!-- Card 3: Indian Currency Classifier -->
+                    <!-- Card 3: Restaurant AI Agent -->
                     <div class="pricing-card">
+                        <div class="pricing-badge" style="background: rgba(139, 92, 246, 0.15); border-color: rgba(139, 92, 246, 0.4); color: #c4b5fd;"><i class="fas fa-robot"></i> AGENTIC AI</div>
                         <div class="pricing-header">
-                            <div class="pricing-icon"><i class="fas fa-bolt"></i></div>
-                            <span class="pricing-name">Computer Vision</span>
+                            <div class="pricing-icon"><i class="fas fa-robot"></i></div>
+                            <span class="pricing-name">Automation</span>
                             <div class="pricing-price">
-                                <span class="amount">Currency AI</span>
+                                <span class="amount">Restaurant AI</span>
                             </div>
-                            <span class="pricing-period">PyTorch · OpenCV · MobileNetV3</span>
+                            <span class="pricing-period">Python · Hermes 3 70B · AWS EC2</span>
                         </div>
                         <div class="pricing-divider"></div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> 99.2% classification accuracy</li>
+                            <li><i class="fas fa-check"></i> Multi-turn WhatsApp conversational bookings</li>
+                            <li><i class="fas fa-check"></i> Real-time two-way Google Sheets API sync</li>
+                            <li><i class="fas fa-check"></i> Context retention with zero hallucinated slots</li>
+                            <li><i class="fas fa-check"></i> Automated webhook retry & recovery logic</li>
+                            <li><i class="fas fa-check"></i> Continuous Linux systemd daemon on AWS EC2</li>
+                        </ul>
+                        <a href="https://github.com/Zaid-Deploys/Restaurant-AI-Agent" target="_blank" class="pricing-btn secondary">
+                            <span>View on GitHub</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <!-- Card 4: Indian Currency Classifier -->
+                    <div class="pricing-card">
+                        <div class="pricing-badge" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;"><i class="fas fa-eye"></i> COMPUTER VISION</div>
+                        <div class="pricing-header">
+                            <div class="pricing-icon"><i class="fas fa-bolt"></i></div>
+                            <span class="pricing-name">Vision Classifier</span>
+                            <div class="pricing-price">
+                                <span class="amount">Currency AI</span>
+                            </div>
+                            <span class="pricing-period">PyTorch · OpenCV · MobileNetV2</span>
+                        </div>
+                        <div class="pricing-divider"></div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> 99.2% classification accuracy rate</li>
                             <li><i class="fas fa-check"></i> Sub-15ms inference latency per frame</li>
-                            <li><i class="fas fa-check"></i> MobileNet architecture for mobile</li>
+                            <li><i class="fas fa-check"></i> Transfer learning with MobileNetV2 backbone</li>
                             <li><i class="fas fa-check"></i> Classifies all denominations (₹10–₹500)</li>
-                            <li><i class="fas fa-check"></i> Invariant to folds, creases & shadows</li>
+                            <li><i class="fas fa-check"></i> Invariant to folds, lighting shifts & shadows</li>
                         </ul>
                         <a href="https://github.com/Zaid-Deploys/Indian-Currency-Classifier" target="_blank" class="pricing-btn secondary">
                             <span>View on GitHub</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 48px; position: relative; z-index: 10;">
-                    <a href="projects.html" class="pfc-btn-primary" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; font-size: 14.5px;">
-                        <span>Explore All 4 Projects & Architectures (Including Melody)</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
                 </div>
             </div>
         </div>
@@ -468,78 +813,6 @@
         </div>
     </section>
 
-    <!-- ═══ 8.5 CERTIFICATIONS & ACADEMIC CREDENTIALS PREVIEW ═══ -->
-    <section id="credentials-preview" class="pricing-section" style="padding: 70px 0 80px; background: #060609 !important; border-top: 1px solid rgba(255,255,255,0.06);">
-        <div class="section-container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-            <div class="section-header" style="text-align: center; margin-bottom: 48px;">
-                <p class="hero-label">VERIFIED QUALIFICATIONS</p>
-                <h2 style="font-family: 'Cinzel', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
-                    Accredited <span style="background: linear-gradient(135deg, #c4b5fd, #8b5cf6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Credentials</span>
-                </h2>
-                <p style="font-family: 'Inter', sans-serif; font-size: 15.5px; color: rgba(255, 255, 255, 0.5); max-width: 620px; margin: 14px auto 0;">
-                    Official certifications from Microsoft & Jio Institute, Mumbai University degree, and competitive LeetCode problem solving in C++.
-                </p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px;">
-                <!-- Microsoft Cert Preview -->
-                <div class="cert-luxury-card microsoft-cert">
-                    <div class="cert-header">
-                        <div class="cert-logo-box ms"><i class="fab fa-microsoft"></i></div>
-                        <div class="cert-title-group">
-                            <h4>Microsoft Front-End Developer</h4>
-                            <span>Coursera Verified · June 2025</span>
-                        </div>
-                    </div>
-                    <div class="cert-id-badge">
-                        <span class="cert-id-label">VALIDATION NO:</span>
-                        <span class="cert-id-val">VCLNE3Y2RBBE1MG6</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
-                        <span style="color: #60a5fa; font-weight: 700;">GRADE: A GRADE</span>
-                        <span style="color: #10b981;">● ID: SS5O0CPXDGQ3</span>
-                    </div>
-                </div>
-
-                <!-- Jio Institute AI Preview -->
-                <div class="cert-luxury-card jio-cert">
-                    <div class="cert-header">
-                        <div class="cert-logo-box jio"><i class="fas fa-brain"></i></div>
-                        <div class="cert-title-group">
-                            <h4>AI Classroom Foundation</h4>
-                            <span>Jio Institute (JioPC) · August 2026</span>
-                        </div>
-                    </div>
-                    <div class="cert-id-badge">
-                        <span class="cert-id-label">CERTIFICATE ID:</span>
-                        <span class="cert-id-val">t9TX6mk7QuZl</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
-                        <span style="color: #c4b5fd; font-weight: 700;">AI FOUNDATION SEAL</span>
-                        <span style="color: #10b981;">● VERIFIED</span>
-                    </div>
-                </div>
-
-                <!-- Mumbai University Degree Preview -->
-                <div class="academic-card" style="margin: 0;">
-                    <span class="academic-year">2024 – 2026 // DEGREE</span>
-                    <h4 class="academic-degree">B.Sc. – Information Tech</h4>
-                    <p class="academic-institute" style="margin-bottom: 12px;">
-                        Rajiv Gandhi College · Mumbai University
-                    </p>
-                    <span class="academic-score">IN PROGRESS · TECH MAJOR</span>
-                </div>
-            </div>
-
-            <div style="text-align: center;">
-                <a href="credentials.html" class="pfc-btn-secondary" style="padding: 14px 28px; font-size: 14.5px;">
-                    <span>View All Credentials, Academics & LeetCode Records</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- ═══ 9. LUXURY FOOTER & CONTACT ═══ -->
     <footer class="sk-footer" id="contact">
         <div class="sk-footer__inner" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px 40px;">
@@ -552,13 +825,13 @@
                     DevOps & Software Engineering · Mumbai, India
                 </div>
                 <div style="margin-top: 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-                    <a href="contact.html" class="hero-btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <a href="mailto:zaidshaikh8726@gmail.com" class="hero-btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
                         <i class="fas fa-paper-plane"></i>
-                        <span>Get in Touch</span>
+                        <span>Send Email</span>
                     </a>
-                    <a href="mailto:zaidshaikh8726@gmail.com" class="hero-btn-discord" style="display: inline-flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-envelope"></i>
-                        <span>zaidshaikh8726@gmail.com</span>
+                    <a href="https://www.linkedin.com/in/zaid-shaikh-30201636a" target="_blank" class="hero-btn-discord" style="display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fab fa-linkedin"></i>
+                        <span>Connect on LinkedIn</span>
                     </a>
                 </div>
             </div>
