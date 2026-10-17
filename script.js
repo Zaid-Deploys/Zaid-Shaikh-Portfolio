@@ -1001,19 +1001,19 @@ function initParticleText() {
         killed[i] = 0;
     }
 
-    // Ambient falling snow/stars in particle text background
+    // Ambient falling snow/stars in particle text background (faster fall)
     const bgSnow = [];
-    const bgSnowCount = 80;
+    const bgSnowCount = 100;
     for (let s = 0; s < bgSnowCount; s++) {
         bgSnow.push({
             x: Math.random() * (canvas.width || 1200),
             y: Math.random() * (canvas.height || 380),
             size: Math.random() * 1.5 + 0.6,
-            speed: Math.random() * 0.45 + 0.35,
+            speed: Math.random() * 1.0 + 0.9, // faster fall
             baseAlpha: Math.random() * 0.4 + 0.25,
             twinkleSpeed: Math.random() * 2.2 + 0.8,
             swayAmp: Math.random() * 0.8 + 0.2,
-            swaySpeed: Math.random() * 1.2 + 0.6,
+            swaySpeed: Math.random() * 1.4 + 0.8,
             phase: Math.random() * 6.28
         });
     }
@@ -1345,11 +1345,11 @@ function initStarsSnow() {
                     x: Math.random() * w,
                     y: Math.random() * h,
                     size: Math.random() * 1.5 + 0.6,
-                    speed: Math.random() * 0.45 + 0.35,
+                    speed: Math.random() * 1.0 + 0.9, // faster fall
                     baseAlpha: Math.random() * 0.45 + 0.25,
                     twinkleSpeed: Math.random() * 2.2 + 0.8,
                     swayAmp: Math.random() * 0.8 + 0.2,
-                    swaySpeed: Math.random() * 1.2 + 0.6,
+                    swaySpeed: Math.random() * 1.4 + 0.8,
                     phase: Math.random() * 6.28
                 });
             }
