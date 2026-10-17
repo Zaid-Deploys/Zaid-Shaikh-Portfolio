@@ -1001,6 +1001,23 @@ function initParticleText() {
         killed[i] = 0;
     }
 
+    // Ambient falling snow/stars in particle text background
+    const bgSnow = [];
+    const bgSnowCount = 80;
+    for (let s = 0; s < bgSnowCount; s++) {
+        bgSnow.push({
+            x: Math.random() * (canvas.width || 1200),
+            y: Math.random() * (canvas.height || 380),
+            size: Math.random() * 1.5 + 0.6,
+            speed: Math.random() * 0.45 + 0.35,
+            baseAlpha: Math.random() * 0.4 + 0.25,
+            twinkleSpeed: Math.random() * 2.2 + 0.8,
+            swayAmp: Math.random() * 0.8 + 0.2,
+            swaySpeed: Math.random() * 1.2 + 0.6,
+            phase: Math.random() * 6.28
+        });
+    }
+
     const palette = [
         [220,  38,  38],   // Crimson Red
         [255, 255, 255],   // Pure White
@@ -1120,6 +1137,22 @@ function initParticleText() {
         if (_pageVisible && isVisible) {
             ctx.fillStyle = '#000000';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background ambient falling snow/stars
+            const nowSec = timestamp * 0.001;
+            const bgW = canvas.width, bgH = canvas.height;
+            for (let s = 0; s < bgSnowCount; s++) {
+                const sn = bgSnow[s];
+                sn.y += sn.speed * dtScale;
+                if (sn.y > bgH + 5) {
+                    sn.y = -5;
+                    sn.x = Math.random() * bgW;
+                }
+                const driftX = sn.x + Math.sin(nowSec * sn.swaySpeed + sn.phase) * sn.swayAmp * 12;
+                const alpha = Math.max(0.08, Math.min(0.9, sn.baseAlpha + Math.sin(nowSec * sn.twinkleSpeed + sn.phase) * 0.25));
+                ctx.fillStyle = 'rgba(255, 255, 255, ' + alpha + ')';
+                ctx.fillRect(driftX, sn.y, sn.size, sn.size);
+            }
 
             for (let bi = 0; bi < bucketKeys.length; bi++) {
                 const bk = colorBuckets[bucketKeys[bi]];
@@ -1284,6 +1317,95 @@ function initParticleText() {
     ptAnimId = requestAnimationFrame(ptAnimate);
 }
 
+// === 9.8 AMBIENT FALLING SNOW & TWINKLING STARS ===
+function initStarsSnow() {
+    const canvases = document.querySelectorAll('.stars-snow-canvas');
+    if (!canvases.length) return;
+
+    canvases.forEach((canvas) => {
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let w = 0, h = 0;
+        let particles = [];
+        let isVisible = true;
+        let animId = null;
+        let lastTime = 0;
+
+        function resize() {
+            const rect = canvas.getBoundingClientRect();
+            w = canvas.width  = rect.width  || canvas.parentElement?.offsetWidth  || window.innerWidth;
+            h = canvas.height = rect.height || canvas.parentElement?.offsetHeight || 600;
+
+            const density = 0.00010;
+            const count = Math.min(Math.floor(w * h * density), 180);
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    size: Math.random() * 1.5 + 0.6,
+                    speed: Math.random() * 0.45 + 0.35,
+                    baseAlpha: Math.random() * 0.45 + 0.25,
+                    twinkleSpeed: Math.random() * 2.2 + 0.8,
+                    swayAmp: Math.random() * 0.8 + 0.2,
+                    swaySpeed: Math.random() * 1.2 + 0.6,
+                    phase: Math.random() * 6.28
+                });
+            }
+        }
+        resize();
+
+        let roTimer;
+        const ro = new ResizeObserver(() => {
+            clearTimeout(roTimer);
+            roTimer = setTimeout(resize, 100);
+        });
+        ro.observe(canvas.parentElement || canvas);
+
+        function draw(timestamp) {
+            if (!_pageVisible || !isVisible) {
+                animId = requestAnimationFrame(draw);
+                return;
+            }
+            if (!lastTime) lastTime = timestamp;
+            const dt = Math.min(timestamp - lastTime, 33);
+            lastTime = timestamp;
+            const dtScale = dt / 16.667;
+            const nowSec = timestamp * 0.001;
+
+            ctx.clearRect(0, 0, w, h);
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.y += p.speed * dtScale;
+                if (p.y > h + 5) {
+                    p.y = -5;
+                    p.x = Math.random() * w;
+                }
+
+                const currentX = p.x + Math.sin(nowSec * p.swaySpeed + p.phase) * p.swayAmp * 12;
+                const alpha = Math.max(0.08, Math.min(0.9, p.baseAlpha + Math.sin(nowSec * p.twinkleSpeed + p.phase) * 0.25));
+
+                ctx.fillStyle = 'rgba(255, 255, 255, ' + alpha + ')';
+                ctx.fillRect(currentX, p.y, p.size, p.size);
+            }
+
+            animId = requestAnimationFrame(draw);
+        }
+
+        const parentSec = canvas.closest('section, footer') || canvas.parentElement;
+        if ('IntersectionObserver' in window && parentSec) {
+            const obs = new IntersectionObserver((entries) => {
+                isVisible = entries[0].isIntersecting;
+            }, { threshold: 0.02 });
+            obs.observe(parentSec);
+        }
+
+        animId = requestAnimationFrame(draw);
+    });
+}
+
 // === 10. BOOTSTRAP ===
 function boot() {
     initPreloader();
@@ -1292,6 +1414,7 @@ function boot() {
     initProjectSlider();
     initSkillsRainbow();
     initParticleText();
+    initStarsSnow();
     initCursor();
     initNavbar();
     initLenis();
