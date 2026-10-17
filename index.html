@@ -733,8 +733,9 @@
     </section>
 
     <!-- ═══ 8. SKILLS SECTION ═══ -->
-    <section id="skills" class="free-cheats-section">
-        <div class="section-container" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px;">
+    <section id="skills" class="free-cheats-section" style="position: relative; overflow: hidden;">
+        <canvas id="skills-rainbow-canvas" class="skills-rainbow-canvas"></canvas>
+        <div class="section-container" style="max-width: 1320px; margin: 0 auto; padding: 80px 48px; position: relative; z-index: 2;">
             <div class="section-header" style="text-align: center; margin-bottom: 56px;">
                 <p class="hero-label">SKILLS & TOOLS</p>
                 <h2 style="font-family: 'Cinzel', serif; font-size: clamp(34px, 4vw, 52px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
@@ -747,7 +748,7 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
                 <!-- Skill Card 1: Cloud & DevOps -->
-                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                <div class="skill-card">
                     <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(220,38,38,0.12); border: 1px solid rgba(220,38,38,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
                         <i class="fas fa-cloud" style="color: #dc2626; font-size: 20px;"></i>
                     </div>
@@ -767,7 +768,7 @@
                 </div>
 
                 <!-- Skill Card 2: Software Engineering -->
-                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                <div class="skill-card">
                     <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
                         <i class="fas fa-code" style="color: #10b981; font-size: 20px;"></i>
                     </div>
@@ -787,7 +788,7 @@
                 </div>
 
                 <!-- Skill Card 3: AI & Computer Vision -->
-                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                <div class="skill-card">
                     <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
                         <i class="fas fa-brain" style="color: #a78bfa; font-size: 20px;"></i>
                     </div>
@@ -807,7 +808,7 @@
                 </div>
 
                 <!-- Skill Card 4: Networking & Protocols -->
-                <div style="background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                <div class="skill-card">
                     <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
                         <i class="fas fa-network-wired" style="color: #f59e0b; font-size: 20px;"></i>
                     </div>

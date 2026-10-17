@@ -772,12 +772,158 @@ function initProjectSlider() {
     }, 50);
 }
 
+// === 9.6 SKILLS SECTION MOVING RAINBOW SHADER ===
+function initSkillsRainbow() {
+    const canvas = document.getElementById('skills-rainbow-canvas');
+    if (!canvas) return;
+
+    const gl = canvas.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'high-performance' }) ||
+               canvas.getContext('experimental-webgl', { alpha: true, antialias: false });
+    if (!gl) return;
+
+    const vSrc = `
+attribute vec2 a_pos;
+void main() {
+    gl_Position = vec4(a_pos, 0.0, 1.0);
+}
+    `.trim();
+
+    const fSrc = `
+precision highp float;
+uniform float u_time;
+uniform vec2 u_res;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / u_res;
+
+    // Diagonal slope (from lower-left to upper-right) plus undulating sine wave
+    float tilt = (uv.x - 0.5) * 0.38;
+    float wave = sin(uv.x * 3.2 + u_time * 1.1) * 0.09
+               + sin(uv.x * 6.0 - u_time * 0.6) * 0.025;
+    float centerY = 0.48 + tilt + wave;
+
+    float dist = uv.y - centerY;
+    float d = 0.028;
+    float thickness = 0.055;
+
+    // Spectral channel separation for full rainbow spectrum
+    // Red on upper edge, Green in center, Blue on lower edge
+    float r = smoothstep(thickness, 0.0, abs(dist - d * 1.2));
+    float g = smoothstep(thickness, 0.0, abs(dist));
+    float b = smoothstep(thickness, 0.0, abs(dist + d * 1.2));
+
+    // Rich intermediate blending (Orange, Yellow, Cyan, Violet)
+    float yellowBoost = smoothstep(thickness * 0.8, 0.0, abs(dist - d * 0.6)) * 0.35;
+    float cyanBoost   = smoothstep(thickness * 0.8, 0.0, abs(dist + d * 0.6)) * 0.3;
+
+    vec3 col = vec3(
+        r + yellowBoost,
+        g + yellowBoost * 0.85 + cyanBoost * 0.55,
+        b + cyanBoost
+    );
+
+    // Soft atmospheric bloom & outer glow
+    float glow = smoothstep(thickness * 3.0, 0.0, abs(dist)) * 0.28;
+    col += vec3(glow * 0.85, glow * 0.7, glow * 1.0);
+
+    // Subtle edge fade for smooth integration
+    float edgeFade = smoothstep(0.0, 0.06, uv.x) * smoothstep(1.0, 0.94, uv.x);
+    col *= edgeFade;
+
+    float alpha = clamp(max(max(col.r, col.g), col.b), 0.0, 1.0) * 0.9 * edgeFade;
+
+    gl_FragColor = vec4(col, alpha);
+}
+    `.trim();
+
+    function mkShader(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+            console.warn('Skills rainbow shader compile error:', gl.getShaderInfoLog(s));
+            return null;
+        }
+        return s;
+    }
+
+    const vs = mkShader(gl.VERTEX_SHADER, vSrc);
+    const fs = mkShader(gl.FRAGMENT_SHADER, fSrc);
+    if (!vs || !fs) return;
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.warn('Skills rainbow program link error:', gl.getProgramInfoLog(prog));
+        return;
+    }
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        -1, -1,
+         1, -1,
+        -1,  1,
+         1,  1
+    ]), gl.STATIC_DRAW);
+
+    const aPos = gl.getAttribLocation(prog, 'a_pos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+    const uTime = gl.getUniformLocation(prog, 'u_time');
+    const uRes = gl.getUniformLocation(prog, 'u_res');
+    const startTime = Date.now();
+
+    function resize() {
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.max(320, Math.floor(rect.width || canvas.parentElement.offsetWidth || window.innerWidth));
+        const height = Math.max(200, Math.floor(rect.height || canvas.parentElement.offsetHeight || 600));
+        if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    let isVisible = true;
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+        }, { threshold: 0.05 });
+        obs.observe(canvas.parentElement || canvas);
+    }
+
+    function render() {
+        if (_pageVisible && isVisible) {
+            const t = (Date.now() - startTime) / 1000;
+            gl.clearColor(0, 0, 0, 0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.useProgram(prog);
+            gl.uniform1f(uTime, t);
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        }
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+}
+
 // === 10. BOOTSTRAP ===
 function boot() {
     initPreloader();
     initHeroSmoke();
     initPricingShader();
     initProjectSlider();
+    initSkillsRainbow();
     initCursor();
     initNavbar();
     initLenis();
