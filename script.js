@@ -240,11 +240,13 @@ function initNavbar() {
         const aboutSec = document.getElementById('about');
         const projectsSec = document.getElementById('projects');
         const skillsSec = document.getElementById('skills');
+        const servicesSec = document.getElementById('services');
         const contactSec = document.getElementById('contact');
 
-        const projectsTop = projectsSec ? projectsSec.offsetTop : 1150;
-        const skillsTop = skillsSec ? skillsSec.offsetTop : 2250;
-        const contactTop = contactSec ? contactSec.offsetTop : 3630;
+        const projectsTop = projectsSec ? (projectsSec.getBoundingClientRect().top + scrollY) : 1200;
+        const skillsTop = skillsSec ? (skillsSec.getBoundingClientRect().top + scrollY) : 2300;
+        const servicesTop = servicesSec ? (servicesSec.getBoundingClientRect().top + scrollY) : 3300;
+        const contactTop = contactSec ? (contactSec.getBoundingClientRect().top + scrollY) : 7500;
 
         let currentId = 'about';
 
@@ -255,7 +257,9 @@ function initNavbar() {
             // Viewport focus line ~ 38% down the screen
             const focusY = scrollY + windowHeight * 0.38;
 
-            if (focusY >= skillsTop) {
+            if (focusY >= servicesTop) {
+                currentId = 'services';
+            } else if (focusY >= skillsTop) {
                 currentId = 'skills';
             } else if (focusY >= projectsTop) {
                 currentId = 'projects';
@@ -327,7 +331,10 @@ function initLenis() {
                 });
             }
 
-            const sectionName = targetId.replace('#', '');
+            let sectionName = targetId.replace('#', '');
+            if (sectionName === 'inquiry' || sectionName === 'faq') {
+                sectionName = 'services';
+            }
             document.querySelectorAll('.nav-link[data-section], .nav-mobile-link[data-section]').forEach(link => {
                 link.classList.toggle('active', link.getAttribute('data-section') === sectionName);
             });
@@ -1420,6 +1427,1221 @@ function initStarsSnow() {
     });
 }
 
+// === 9.8 FREELANCE PROJECT INQUIRY ===
+function initFreelanceInquiry() {
+    const form = document.getElementById('flInquiryForm');
+    const copyBtn = document.getElementById('flCopyBtn');
+    const toast = document.getElementById('flToast');
+    const toastMsg = document.getElementById('flToastMsg');
+    const submitBtn = document.getElementById('flSubmitBtn');
+    const btnSpinner = document.getElementById('flBtnSpinner');
+    const btnIcon = document.getElementById('flBtnIcon');
+    const btnText = document.getElementById('flBtnText');
+
+    // Progress Elements
+    const progressBar = document.getElementById('flProgressBar');
+    const progressPercent = document.getElementById('flProgressPercent');
+    const stepContact = document.getElementById('step-contact');
+    const stepProject = document.getElementById('step-project');
+    const stepBudget = document.getElementById('step-budget');
+    const stepDesc = document.getElementById('step-desc');
+
+    // Field Elements
+    const nameInput = document.getElementById('flClientName');
+    const emailInput = document.getElementById('flClientEmail');
+    const businessInput = document.getElementById('flClientBusiness');
+    const projectTypeInput = document.getElementById('flProjectType');
+    const budgetInput = document.getElementById('flBudget');
+    const descInput = document.getElementById('flProjectDesc');
+
+    // Error Elements
+    const nameError = document.getElementById('flClientNameError');
+    const emailError = document.getElementById('flClientEmailError');
+    const projectTypeError = document.getElementById('flProjectTypeError');
+    const descError = document.getElementById('flProjectDescError');
+
+    // Success State Elements
+    const successState = document.getElementById('flSuccessState');
+    const successRefCode = document.getElementById('flSuccessRefCode');
+    const resetFormBtn = document.getElementById('flResetFormBtn');
+    const copyRefBtn = document.getElementById('flCopyRefBtn');
+
+    if (!form) return;
+
+    let isSubmitting = false;
+    let currentRefId = '';
+
+    // Standard RFC-compliant Email Regex
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+    function validateField(field, isLiveCheck = false) {
+        let isValid = true;
+        let msg = '';
+
+        if (field === 'name' || !field) {
+            const val = (nameInput?.value || '').trim();
+            if (!val) {
+                isValid = false;
+                msg = 'Please enter your name.';
+            } else if (val.length < 2) {
+                isValid = false;
+                msg = 'Name must be at least 2 characters.';
+            }
+            if (!isLiveCheck || !isValid) {
+                setFieldError(nameInput, nameError, isValid ? '' : msg);
+            } else {
+                setFieldError(nameInput, nameError, '');
+            }
+        }
+
+        if (field === 'email' || !field) {
+            const val = (emailInput?.value || '').trim();
+            if (!val) {
+                isValid = false;
+                msg = 'Please enter your email address.';
+            } else if (!emailRegex.test(val)) {
+                isValid = false;
+                msg = 'Please provide a valid email address (e.g. name@domain.com).';
+            }
+            if (!isLiveCheck || !isValid) {
+                setFieldError(emailInput, emailError, isValid ? '' : msg);
+            } else {
+                setFieldError(emailInput, emailError, '');
+            }
+        }
+
+        if (field === 'projectType' || !field) {
+            const val = (projectTypeInput?.value || '').trim();
+            if (!val) {
+                isValid = false;
+                msg = 'Please select a project category.';
+            }
+            if (!isLiveCheck || !isValid) {
+                setFieldError(projectTypeInput, projectTypeError, isValid ? '' : msg);
+            } else {
+                setFieldError(projectTypeInput, projectTypeError, '');
+            }
+        }
+
+        if (field === 'desc' || !field) {
+            const val = (descInput?.value || '').trim();
+            if (!val) {
+                isValid = false;
+                msg = 'Please describe your project scope & objectives.';
+            } else if (val.length < 15) {
+                isValid = false;
+                msg = 'Please provide at least 15 characters of project context.';
+            }
+            if (!isLiveCheck || !isValid) {
+                setFieldError(descInput, descError, isValid ? '' : msg);
+            } else {
+                setFieldError(descInput, descError, '');
+            }
+        }
+
+        return isValid;
+    }
+
+    function setFieldError(inputEl, errorEl, msg) {
+        if (!inputEl) return;
+        if (msg) {
+            inputEl.classList.add('has-error');
+            inputEl.setAttribute('aria-invalid', 'true');
+            if (errorEl) {
+                errorEl.innerHTML = `<i class="fas fa-exclamation-circle" style="color: #ef4444;"></i> <span>${msg}</span>`;
+                errorEl.classList.add('is-visible');
+            }
+        } else {
+            inputEl.classList.remove('has-error');
+            inputEl.setAttribute('aria-invalid', 'false');
+            if (errorEl) {
+                errorEl.textContent = '';
+                errorEl.classList.remove('is-visible');
+            }
+        }
+    }
+
+    // Dynamic 4-Step Progress Calculation
+    function updateProgress() {
+        const nameVal = (nameInput?.value || '').trim();
+        const emailVal = (emailInput?.value || '').trim();
+        const projectVal = (projectTypeInput?.value || '').trim();
+        const budgetVal = (budgetInput?.value || '').trim();
+        const descVal = (descInput?.value || '').trim();
+
+        // 1. Contact Details: Name >= 2 chars & valid email
+        const isContactValid = nameVal.length >= 2 && emailRegex.test(emailVal);
+        updateStepUI(stepContact, isContactValid, nameVal.length > 0 || emailVal.length > 0);
+
+        // 2. Project Selection: Category picked
+        const isProjectValid = projectVal.length > 0;
+        updateStepUI(stepProject, isProjectValid, projectVal.length > 0);
+
+        // 3. Budget Range: Valid selection (default is valid)
+        const isBudgetValid = budgetVal.length > 0;
+        updateStepUI(stepBudget, isBudgetValid, budgetVal.length > 0);
+
+        // 4. Project Description: At least 15 chars
+        const isDescValid = descVal.length >= 15;
+        updateStepUI(stepDesc, isDescValid, descVal.length > 0);
+
+        let completedCount = 0;
+        if (isContactValid) completedCount++;
+        if (isProjectValid) completedCount++;
+        if (isBudgetValid) completedCount++;
+        if (isDescValid) completedCount++;
+
+        const percentage = Math.round((completedCount / 4) * 100);
+
+        if (progressBar) {
+            progressBar.style.width = percentage + '%';
+            progressBar.parentElement?.setAttribute('aria-valuenow', percentage);
+        }
+        if (progressPercent) {
+            progressPercent.textContent = percentage + '%';
+            if (percentage === 100) {
+                progressPercent.style.color = '#10b981';
+                progressPercent.style.textShadow = '0 0 10px rgba(16, 185, 129, 0.6)';
+            } else {
+                progressPercent.style.color = '#ef4444';
+                progressPercent.style.textShadow = '0 0 10px rgba(239, 68, 68, 0.55)';
+            }
+        }
+    }
+
+    function updateStepUI(stepEl, isCompleted, isActive) {
+        if (!stepEl) return;
+        const bullet = stepEl.querySelector('.fl-step-bullet');
+        if (isCompleted) {
+            stepEl.classList.add('is-completed');
+            stepEl.classList.remove('is-active');
+            if (bullet) bullet.innerHTML = '<i class="fas fa-check-circle"></i>';
+        } else if (isActive) {
+            stepEl.classList.add('is-active');
+            stepEl.classList.remove('is-completed');
+            if (bullet) bullet.innerHTML = '<i class="fas fa-dot-circle"></i>';
+        } else {
+            stepEl.classList.remove('is-completed', 'is-active');
+            if (bullet) bullet.innerHTML = '<i class="fas fa-circle"></i>';
+        }
+    }
+
+    // Attach real-time listeners for instant feedback, focus lighting, and progress updates
+    const allFormInputs = [nameInput, emailInput, businessInput, projectTypeInput, budgetInput, descInput];
+    allFormInputs.forEach(inp => {
+        if (!inp) return;
+        inp.addEventListener('focus', () => {
+            inp.classList.add('is-focused');
+            inp.closest('.fl-field')?.classList.add('is-focused');
+        });
+        inp.addEventListener('blur', () => {
+            inp.classList.remove('is-focused');
+            inp.closest('.fl-field')?.classList.remove('is-focused');
+        });
+    });
+
+    [nameInput, emailInput, descInput].forEach(input => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            if (input.classList.contains('has-error')) {
+                if (input === nameInput) validateField('name', true);
+                if (input === emailInput) validateField('email', true);
+                if (input === descInput) validateField('desc', true);
+            }
+            updateProgress();
+        });
+        input.addEventListener('blur', () => {
+            if (input.value.trim().length > 0) {
+                if (input === nameInput) validateField('name');
+                if (input === emailInput) validateField('email');
+                if (input === descInput) validateField('desc');
+            }
+        });
+    });
+
+    [projectTypeInput, budgetInput].forEach(select => {
+        if (!select) return;
+        select.addEventListener('change', () => {
+            if (select === projectTypeInput) validateField('projectType', true);
+            updateProgress();
+        });
+    });
+
+    function getInquirySummary() {
+        const name = (nameInput?.value || '').trim();
+        const email = (emailInput?.value || '').trim();
+        const business = (businessInput?.value || '').trim() || 'N/A';
+        const projectType = projectTypeInput?.value || 'General Project';
+        const budget = budgetInput?.value || 'Flexible / Need Guidance';
+        const desc = (descInput?.value || '').trim();
+        const refId = currentRefId || ('INQ-2026-' + Math.random().toString(36).substring(2, 7).toUpperCase());
+
+        return {
+            refId,
+            name,
+            email,
+            business,
+            projectType,
+            budget,
+            desc,
+            formattedText: `PROJECT INQUIRY FOR ZAID SHAIKH\nReference ID: ${refId}\nOfficial Contact: business@zaiddev.me\n-----------------------------------\nClient Name: ${name}\nClient Email: ${email}\nBusiness / Brand: ${business}\nProject Category: ${projectType}\nEstimated Budget: ${budget}\n\nProject Scope & Description:\n${desc}\n-----------------------------------\nSubmitted via https://www.zaiddev.me/`
+        };
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // 1. Comprehensive field validation
+        const isNameOk = validateField('name');
+        const isEmailOk = validateField('email');
+        const isProjectOk = validateField('projectType');
+        const isDescOk = validateField('desc');
+
+        if (!isNameOk || !isEmailOk || !isProjectOk || !isDescOk) {
+            // Focus the first invalid element without clearing any input data
+            if (!isNameOk) nameInput?.focus();
+            else if (!isEmailOk) emailInput?.focus();
+            else if (!isProjectOk) projectTypeInput?.focus();
+            else if (!isDescOk) descInput?.focus();
+
+            showToast('Please review the highlighted fields before submitting.');
+            return;
+        }
+
+        if (isSubmitting) return;
+        isSubmitting = true;
+
+        // 2. Submit Button Loading State
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.classList.add('is-loading');
+        }
+        if (btnSpinner) btnSpinner.style.display = 'inline-flex';
+        if (btnIcon) btnIcon.style.display = 'none';
+        if (btnText) btnText.textContent = 'Transmitting Inquiry...';
+
+        // 3. Generate Genuine Reference ID
+        currentRefId = 'INQ-2026-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+        const data = getInquirySummary();
+
+        // 4. Dispatch Email Client & Clipboard Backup
+        const subject = encodeURIComponent(`[Project Inquiry - ${data.refId}] ${data.projectType} - ${data.name}`);
+        const body = encodeURIComponent(data.formattedText);
+        const mailtoDestination = `mailto:business@zaiddev.me?subject=${subject}&body=${body}`;
+
+        // Attempt automatic clipboard copy for seamless fallback
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(data.formattedText).catch(() => {});
+        }
+
+        // Open user's default email client addressed to official business email
+        window.location.href = mailtoDestination;
+
+        // 5. Transition to Animated Success State
+        setTimeout(() => {
+            if (form) form.style.display = 'none';
+            if (successState) {
+                successState.style.display = 'block';
+                if (successRefCode) successRefCode.textContent = data.refId;
+                successState.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Reset submit button state
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('is-loading');
+            }
+            if (btnSpinner) btnSpinner.style.display = 'none';
+            if (btnIcon) btnIcon.style.display = 'inline-block';
+            if (btnText) btnText.textContent = 'Send Project Inquiry';
+            isSubmitting = false;
+
+            showToast('Inquiry drafted! Your email client has opened.');
+        }, 600);
+    });
+
+    // Reset Form button in success state
+    if (resetFormBtn) {
+        resetFormBtn.addEventListener('click', () => {
+            if (form) {
+                form.reset();
+                form.style.display = 'block';
+                // Reset all error states
+                [nameInput, emailInput, projectTypeInput, descInput].forEach(inp => {
+                    setFieldError(inp, null, '');
+                });
+            }
+            if (successState) successState.style.display = 'none';
+            currentRefId = '';
+            updateProgress();
+            form?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    }
+
+    // Copy Reference ID button in success state
+    if (copyRefBtn) {
+        copyRefBtn.addEventListener('click', () => {
+            if (!currentRefId) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(currentRefId).then(() => {
+                    showToast(`Reference ID ${currentRefId} copied to clipboard!`);
+                }).catch(() => {
+                    showToast(`Reference ID: ${currentRefId}`);
+                });
+            } else {
+                showToast(`Reference ID: ${currentRefId}`);
+            }
+        });
+    }
+
+    // Manual Copy Inquiry Details button
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            const data = getInquirySummary();
+            if (!data.name && !data.desc) {
+                showToast('Please enter your project details first.');
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(data.formattedText).then(() => {
+                    showToast('Inquiry details copied to clipboard!');
+                }).catch(() => {
+                    showToast('Copy failed. Please copy manually.');
+                });
+            } else {
+                showToast('Inquiry details ready to copy.');
+            }
+        });
+    }
+
+    function showToast(msg) {
+        if (!toast) return;
+        if (toastMsg) toastMsg.textContent = msg;
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 4000);
+    }
+
+    // Initialize progress on page load
+    updateProgress();
+}
+
+// === 9.9 CINEMATIC FREELANCE MOTION ENGINE ===
+function initFreelanceMotion() {
+    const servicesSection = document.getElementById('services');
+    if (!servicesSection) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchOrMobile = window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches;
+
+    // 1. Intersection Observer for Cinematic Viewport Scroll Reveals
+    const revealElements = servicesSection.querySelectorAll('.fl-reveal-item, .fl-process-wrapper');
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        revealElements.forEach(el => el.classList.add('fl-revealed'));
+    } else {
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fl-revealed');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // 2. Interactive 3D Perspective Tilt & Full-Card Crimson Glow on Service Cards
+    const tiltCards = servicesSection.querySelectorAll('.fl-tilt-card');
+    tiltCards.forEach(card => {
+        let ticking = false;
+
+        card.addEventListener('mouseenter', () => {
+            if (!isTouchOrMobile) {
+                card.classList.add('is-hovered');
+            }
+            card.style.transition = 'transform 0.12s ease-out, background 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+        });
+
+        card.addEventListener('mousemove', (e) => {
+            if (isTouchOrMobile || prefersReducedMotion || _perfTier === 'low') return;
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+
+                card.style.setProperty('--mouse-x', `${mx}px`);
+                card.style.setProperty('--mouse-y', `${my}px`);
+
+                const normX = (mx / rect.width - 0.5);
+                const normY = (my / rect.height - 0.5);
+                card.style.transform = `perspective(1000px) rotateY(${normX * 8}deg) rotateX(${-normY * 6}deg) translateY(-8px) scale3d(1.015, 1.015, 1)`;
+                ticking = false;
+            });
+        }, { passive: true });
+
+        card.addEventListener('mouseleave', () => {
+            card.classList.remove('is-hovered');
+            card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0) scale3d(1, 1, 1)';
+            card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), background 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+        });
+
+        card.addEventListener('touchstart', () => {
+            card.classList.remove('is-hovered');
+        }, { passive: true });
+    });
+
+    // 3. Magnetic Hover Physics for Interactive Action Buttons
+    if (!isTouchOrMobile && !prefersReducedMotion) {
+        const magneticElements = servicesSection.querySelectorAll('.fl-magnetic');
+        magneticElements.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dx = (e.clientX - cx) * 0.28;
+                const dy = (e.clientY - cy) * 0.28;
+                btn.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+            }, { passive: true });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+                btn.style.transform = 'translate3d(0, 0, 0)';
+            });
+
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transition = 'none';
+            });
+        });
+    }
+}
+
+// === 9.10 REALISTIC PROCEDURAL WATER & CINEMATIC RAINFALL SIMULATION ===
+function initFreelanceRainfall() {
+    const servicesSection = document.getElementById('services');
+    const rainCanvas = document.getElementById('fl-rain-canvas');
+    const waterCanvas = document.getElementById('fl-water-canvas');
+    if (!servicesSection || !rainCanvas) return;
+
+    const rCtx = rainCanvas.getContext('2d', { alpha: true });
+    const wCtx = waterCanvas ? waterCanvas.getContext('2d', { alpha: true }) : null;
+    if (!rCtx) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth <= 768;
+    const isLowPerf = typeof _perfTier !== 'undefined' && _perfTier === 'low';
+
+    // Particle capacity limits: Dense Heavy Monsoon downpour
+    const MAX_DROPS = isMobile ? 180 : (isLowPerf ? 260 : 500);
+    const MAX_CROWNS = isMobile ? 24 : 52;
+    const MAX_SPLASHES = isMobile ? 70 : 180;
+    const MAX_RIPPLES = isMobile ? 45 : 110;
+    const MAX_GLASS_DROPS = isMobile ? 4 : 10;
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let dpr = 1;
+
+    // Simulation states
+    let rainIntensity = 0.0;
+    let targetIntensity = 0.0;
+    let puddleGrowth = 0.0;
+    let isSectionVisible = false;
+    let animId = null;
+    let mistPhase = 0;
+
+    // Viewport-pinned canvas sizing
+    function resize() {
+        width = Math.max(320, window.innerWidth);
+        height = Math.max(480, window.innerHeight);
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        rainCanvas.width = Math.floor(width * dpr);
+        rainCanvas.height = Math.floor(height * dpr);
+        rainCanvas.style.width = width + 'px';
+        rainCanvas.style.height = height + 'px';
+        rCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        if (waterCanvas && wCtx) {
+            waterCanvas.width = Math.floor(width * dpr);
+            waterCanvas.height = Math.floor(height * dpr);
+            waterCanvas.style.width = width + 'px';
+            waterCanvas.style.height = height + 'px';
+            wCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+    }
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    // ── 1. PROCEDURAL MONSOON RAINDROPS (TEARDROP MORPHOLOGY) ──
+    const drops = [];
+    for (let i = 0; i < MAX_DROPS; i++) {
+        // Layer 0: Back (40%), Layer 1: Mid (38%), Layer 2: Front (22%)
+        const rand = Math.random();
+        const layer = rand < 0.40 ? 0 : (rand < 0.78 ? 1 : 2);
+        drops.push({
+            x: Math.random() * (width + 320) - 160,
+            y: Math.random() * height,
+            vy: layer === 0 ? (50 + Math.random() * 18) : (layer === 1 ? (42 + Math.random() * 15) : (36 + Math.random() * 14)),
+            vx: layer === 0 ? (-3.0 - Math.random() * 1.2) : (layer === 1 ? (-2.4 - Math.random() * 1.0) : (-1.8 - Math.random() * 0.9)),
+            length: layer === 0 ? (35 + Math.random() * 20) : (layer === 1 ? (28 + Math.random() * 20) : (35 + Math.random() * 30)),
+            headRadius: layer === 0 ? 0.9 : (layer === 1 ? 1.5 : 2.5),
+            layer: layer,
+            alpha: layer === 0 ? (0.22 + Math.random() * 0.12) : (layer === 1 ? (0.45 + Math.random() * 0.20) : (0.78 + Math.random() * 0.22))
+        });
+    }
+
+    // ── 2. CROWN SPLASH POOL ──
+    const crowns = [];
+    for (let i = 0; i < MAX_CROWNS; i++) {
+        crowns.push({
+            active: false,
+            x: 0,
+            y: 0,
+            r: 2,
+            maxR: 12,
+            growth: 0.9,
+            spikes: 6,
+            height: 10,
+            alpha: 0,
+            fade: 0.05
+        });
+    }
+
+    function spawnCrown(x, y, layer) {
+        for (let i = 0; i < MAX_CROWNS; i++) {
+            const c = crowns[i];
+            if (!c.active) {
+                c.active = true;
+                c.x = x;
+                c.y = y;
+                c.r = 2;
+                c.maxR = layer === 2 ? (11 + Math.random() * 7) : (7 + Math.random() * 5);
+                c.growth = 1.1 + Math.random() * 0.45;
+                c.spikes = Math.floor(Math.random() * 3) + 5;
+                c.height = layer === 2 ? (13 + Math.random() * 7) : (8 + Math.random() * 5);
+                c.alpha = layer === 2 ? 0.90 : 0.65;
+                c.fade = 0.048 + Math.random() * 0.02;
+                break;
+            }
+        }
+    }
+
+    // ── 3. SECONDARY PROJECTILE DROPLETS ──
+    const splashes = [];
+    for (let i = 0; i < MAX_SPLASHES; i++) {
+        splashes.push({
+            active: false,
+            x: 0,
+            y: 0,
+            vx: 0,
+            vy: 0,
+            radius: 1,
+            alpha: 0,
+            decay: 0.04
+        });
+    }
+
+    function spawnSecondaryDroplets(x, y, layer) {
+        let count = layer === 2 ? 5 : (layer === 1 ? 3 : 2);
+        for (let i = 0; i < MAX_SPLASHES && count > 0; i++) {
+            const s = splashes[i];
+            if (!s.active) {
+                s.active = true;
+                s.x = x;
+                s.y = y;
+                const angle = (Math.random() * Math.PI) - Math.PI; // Eject upward
+                const speed = (Math.random() * 4.2 + 1.5) * (layer === 2 ? 1.3 : 0.95);
+                s.vx = Math.cos(angle) * speed - 0.6;
+                s.vy = Math.sin(angle) * speed;
+                s.radius = layer === 2 ? (1.5 + Math.random() * 1.1) : (1.0 + Math.random() * 0.7);
+                s.alpha = layer === 2 ? 0.85 : 0.60;
+                s.decay = 0.035 + Math.random() * 0.022;
+                count--;
+            }
+        }
+    }
+
+    // ── 4. EXPANDING SURFACE RIPPLES ──
+    const ripples = [];
+    for (let i = 0; i < MAX_RIPPLES; i++) {
+        ripples.push({
+            active: false,
+            x: 0,
+            y: 0,
+            rx: 1,
+            ry: 0.32,
+            growth: 0.8,
+            maxRx: 26,
+            alpha: 0,
+            fade: 0.018,
+            inPuddle: false
+        });
+    }
+
+    function spawnRipple(x, y, layer, inPuddle) {
+        for (let i = 0; i < MAX_RIPPLES; i++) {
+            const r = ripples[i];
+            if (!r.active) {
+                r.active = true;
+                r.x = x;
+                r.y = y;
+                r.rx = 1.0;
+                r.ry = 0.32; // Perspective flattening
+                r.growth = layer === 2 ? (1.1 + Math.random() * 0.6) : (0.75 + Math.random() * 0.4);
+                r.maxRx = layer === 2 ? (30 + Math.random() * 20) : (18 + Math.random() * 10);
+                r.alpha = layer === 2 ? 0.75 : 0.48;
+                r.fade = 0.015 + Math.random() * 0.008;
+                r.inPuddle = inPuddle;
+                break;
+            }
+        }
+    }
+
+    // ── 5. FOREGROUND LENS CONDENSATION DROPLETS ──
+    const glassDrops = [];
+    for (let i = 0; i < MAX_GLASS_DROPS; i++) {
+        glassDrops.push({
+            x: Math.random() * width,
+            y: Math.random() * height * 0.8 + 40,
+            r: 2.2 + Math.random() * 2.8,
+            slipCountdown: Math.floor(Math.random() * 160) + 40,
+            slipSpeed: 0,
+            alpha: 0.45 + Math.random() * 0.35
+        });
+    }
+
+    // ── 6. DISTRIBUTED SHALLOW PUDDLE SEEDS (THROUGHOUT FREELANCE SECTION) ──
+    // Puddles span across all 6 horizontal ground tiers of the Freelance section
+    const puddleSeeds = [
+        // ── Tier 1: Hero Ground Shelf (yRatio ~ 0.055 - 0.09) ──
+        { xRatio: 0.20, yRatio: 0.065, maxR: 170, aspect: 0.32, seed: 1.1 },
+        { xRatio: 0.37, yRatio: 0.075, maxR: 220, aspect: 0.30, seed: 2.3 }, // merges with 1st
+        { xRatio: 0.68, yRatio: 0.070, maxR: 190, aspect: 0.34, seed: 3.7 },
+        { xRatio: 0.84, yRatio: 0.082, maxR: 150, aspect: 0.31, seed: 4.9 }, // merges with 3rd
+
+        // ── Tier 2: Services Shelf & Margins (yRatio ~ 0.22 - 0.37) ──
+        { xRatio: 0.12, yRatio: 0.230, maxR: 160, aspect: 0.32, seed: 1.8 },
+        { xRatio: 0.88, yRatio: 0.250, maxR: 180, aspect: 0.30, seed: 3.2 },
+        { xRatio: 0.50, yRatio: 0.310, maxR: 240, aspect: 0.33, seed: 5.1 }, // center ground pool
+        { xRatio: 0.22, yRatio: 0.355, maxR: 170, aspect: 0.29, seed: 6.4 },
+        { xRatio: 0.78, yRatio: 0.365, maxR: 200, aspect: 0.31, seed: 7.8 },
+
+        // ── Tier 3: Transition to Process (yRatio ~ 0.43 - 0.48) ──
+        { xRatio: 0.22, yRatio: 0.445, maxR: 230, aspect: 0.33, seed: 2.5 },
+        { xRatio: 0.45, yRatio: 0.455, maxR: 270, aspect: 0.31, seed: 4.2 }, // merges with left
+        { xRatio: 0.68, yRatio: 0.450, maxR: 250, aspect: 0.32, seed: 5.9 }, // merges with center
+        { xRatio: 0.86, yRatio: 0.468, maxR: 180, aspect: 0.28, seed: 8.1 },
+
+        // ── Tier 4: Process to Inquiry Ground Band (yRatio ~ 0.57 - 0.63) ──
+        { xRatio: 0.18, yRatio: 0.585, maxR: 190, aspect: 0.32, seed: 3.4 },
+        { xRatio: 0.36, yRatio: 0.595, maxR: 250, aspect: 0.30, seed: 4.8 }, // merges
+        { xRatio: 0.65, yRatio: 0.590, maxR: 230, aspect: 0.33, seed: 6.2 },
+        { xRatio: 0.82, yRatio: 0.605, maxR: 170, aspect: 0.29, seed: 7.7 }, // merges
+
+        // ── Tier 5: Inquiry Margins & FAQ Ground (yRatio ~ 0.72 - 0.78) ──
+        { xRatio: 0.14, yRatio: 0.735, maxR: 200, aspect: 0.32, seed: 2.9 },
+        { xRatio: 0.86, yRatio: 0.745, maxR: 210, aspect: 0.31, seed: 5.3 },
+        { xRatio: 0.50, yRatio: 0.770, maxR: 270, aspect: 0.34, seed: 8.4 }, // wide center pool
+
+        // ── Tier 6: Base Ground Plane & CTA Banner (yRatio ~ 0.88 - 0.98) ──
+        { xRatio: 0.18, yRatio: 0.895, maxR: 260, aspect: 0.32, seed: 1.4 },
+        { xRatio: 0.40, yRatio: 0.915, maxR: 310, aspect: 0.30, seed: 3.8 }, // grand merged
+        { xRatio: 0.64, yRatio: 0.910, maxR: 300, aspect: 0.31, seed: 6.5 }, // grand merged
+        { xRatio: 0.84, yRatio: 0.925, maxR: 240, aspect: 0.29, seed: 7.9 }, // grand merged
+        { xRatio: 0.50, yRatio: 0.965, maxR: 400, aspect: 0.35, seed: 9.2 }  // bottom mega pool
+    ];
+
+    // Helper: Draw organic irregular puddle perimeter using harmonic perturbations
+    function drawOrganicPuddle(ctx, cx, cy, rx, ry, seed) {
+        ctx.beginPath();
+        const steps = 18;
+        for (let i = 0; i <= steps; i++) {
+            const theta = (i / steps) * Math.PI * 2;
+            const noise = 1.0 + 0.12 * Math.sin(3 * theta + seed) + 0.08 * Math.cos(5 * theta + seed * 1.3);
+            const px = cx + Math.cos(theta) * rx * noise;
+            const py = cy + Math.sin(theta) * ry * noise;
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+    }
+
+    // Scroll Observer: Smoothly activate rain & track exact clipping boundaries
+    function checkScrollTransition() {
+        if (!servicesSection) return;
+        const rect = servicesSection.getBoundingClientRect();
+        const winH = window.innerHeight;
+
+        // In view whenever section overlaps viewport
+        if (rect.bottom > 0 && rect.top < winH) {
+            isSectionVisible = true;
+            // Ramp in intensity at top edge of services
+            const progress = Math.min(1.0, Math.max(0.0, (winH - rect.top) / (winH * 0.45)));
+            targetIntensity = Math.max(0.3, progress);
+            servicesSection.classList.add('fl-rain-active', 'fl-in-view');
+        } else {
+            targetIntensity = 0.0;
+            isSectionVisible = false;
+            servicesSection.classList.remove('fl-in-view');
+            if (rect.top >= winH) {
+                servicesSection.classList.remove('fl-rain-active');
+            }
+        }
+    }
+
+    window.addEventListener('scroll', checkScrollTransition, { passive: true });
+    checkScrollTransition();
+
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            isSectionVisible = entries[0].isIntersecting;
+            if (isSectionVisible && !animId) {
+                animId = requestAnimationFrame(loop);
+            }
+        }, { threshold: 0.01 });
+        obs.observe(servicesSection);
+    }
+
+    // Active collision surfaces cache (updated dynamically in loop)
+    let visibleSurfaces = [];
+    let visiblePuddles = [];
+
+    // ── RENDER LOOP ──
+    function loop() {
+        if (!_pageVisible || !isSectionVisible) {
+            animId = null;
+            return;
+        }
+
+        const secRect = servicesSection.getBoundingClientRect();
+        const winH = window.innerHeight;
+
+        // Ensure visibility and precise clipping within #services boundary
+        if (secRect.bottom <= 0 || secRect.top >= winH) {
+            rainCanvas.style.visibility = 'hidden';
+            if (waterCanvas) waterCanvas.style.visibility = 'hidden';
+            animId = requestAnimationFrame(loop);
+            return;
+        }
+
+        rainCanvas.style.visibility = 'visible';
+        if (waterCanvas) waterCanvas.style.visibility = 'visible';
+
+        const topClip = Math.max(0, Math.floor(secRect.top));
+        const bottomClip = Math.max(0, Math.floor(winH - secRect.bottom));
+        const clipStyle = `inset(${topClip}px 0px ${bottomClip}px 0px)`;
+        rainCanvas.style.clipPath = clipStyle;
+        rainCanvas.style.webkitClipPath = clipStyle;
+        if (waterCanvas) {
+            waterCanvas.style.clipPath = clipStyle;
+            waterCanvas.style.webkitClipPath = clipStyle;
+        }
+
+        // Smooth intensity ramp
+        rainIntensity += (targetIntensity - rainIntensity) * 0.055;
+        if (targetIntensity > 0.05 && rainIntensity < 0.35) {
+            rainIntensity += 0.02;
+        }
+
+        // Gradual puddle accumulation over time
+        if (rainIntensity > 0.15) {
+            puddleGrowth = Math.min(1.0, puddleGrowth + 0.0018);
+        }
+
+        rCtx.clearRect(0, 0, width, height);
+        if (wCtx) wCtx.clearRect(0, 0, width, height);
+
+        // Reduced motion fallback: static subtle wet sheen
+        if (prefersReducedMotion) {
+            if (wCtx) {
+                wCtx.fillStyle = 'rgba(18, 5, 14, 0.45)';
+                wCtx.fillRect(0, 0, width, height);
+            }
+            animId = requestAnimationFrame(loop);
+            return;
+        }
+
+        if (rainIntensity > 0.02) {
+            const secH = secRect.height;
+            const secW = secRect.width;
+            const pLvl = puddleGrowth * rainIntensity;
+
+            // ══════════════════════════════════════════════════════════════════
+            // 1. GROUND WATER ACCUMULATION & PUDDLES (fl-water-canvas)
+            // ══════════════════════════════════════════════════════════════════
+            visiblePuddles = [];
+            visibleSurfaces = [];
+
+            if (wCtx && pLvl > 0.02) {
+                wCtx.save();
+                for (let i = 0; i < puddleSeeds.length; i++) {
+                    const p = puddleSeeds[i];
+                    // Compute puddle coordinates in active viewport space
+                    const screenY = secRect.top + p.yRatio * secH;
+                    const screenX = secRect.left + p.xRatio * secW;
+
+                    // Frustum culling: only draw puddles currently inside visible screen
+                    const maxR = p.maxR * (0.32 + 0.68 * pLvl);
+                    const rx = maxR;
+                    const ry = maxR * p.aspect;
+
+                    if (screenY + ry < -50 || screenY - ry > winH + 50) continue;
+
+                    visiblePuddles.push({
+                        cx: screenX,
+                        cy: screenY,
+                        rx: rx,
+                        ry: ry,
+                        puddle: p
+                    });
+
+                    // Register puddle as active rain collision plane
+                    visibleSurfaces.push({
+                        x1: screenX - rx * 0.92,
+                        x2: screenX + rx * 0.92,
+                        y: screenY,
+                        type: 'puddle'
+                    });
+
+                    // A: Wet Ground Absorption Perimeter
+                    drawOrganicPuddle(wCtx, screenX, screenY, rx * 1.15, ry * 1.15, p.seed);
+                    wCtx.fillStyle = `rgba(28, 8, 18, ${0.42 * pLvl})`;
+                    wCtx.fill();
+
+                    // B: Deep Obsidian Water Pool Body
+                    drawOrganicPuddle(wCtx, screenX, screenY, rx, ry, p.seed);
+                    wCtx.fillStyle = `rgba(4, 2, 6, ${0.84 * pLvl})`;
+                    wCtx.fill();
+
+                    // C: Ambient Dark Crimson Reflection Sheen
+                    const refGrad = wCtx.createRadialGradient(screenX, screenY - ry * 0.2, 0, screenX, screenY, rx);
+                    refGrad.addColorStop(0, `rgba(220, 38, 38, ${0.22 * pLvl})`);
+                    refGrad.addColorStop(0.55, `rgba(220, 38, 38, ${0.06 * pLvl})`);
+                    refGrad.addColorStop(1, 'rgba(220, 38, 38, 0)');
+                    wCtx.fillStyle = refGrad;
+                    drawOrganicPuddle(wCtx, screenX, screenY, rx * 0.94, ry * 0.94, p.seed);
+                    wCtx.fill();
+
+                    // D: Specular Edge Tension Highlight
+                    wCtx.strokeStyle = `rgba(240, 248, 255, ${0.16 * pLvl})`;
+                    wCtx.lineWidth = 1.1;
+                    wCtx.stroke();
+                }
+                wCtx.restore();
+
+                // Surface ripples inside puddle water (on fl-water-canvas)
+                wCtx.save();
+                for (let i = 0; i < MAX_RIPPLES; i++) {
+                    const r = ripples[i];
+                    if (!r.active || !r.inPuddle) continue;
+                    if (r.y < -30 || r.y > winH + 30) continue;
+
+                    wCtx.beginPath();
+                    wCtx.ellipse(r.x, r.y, r.rx, r.ry, 0, 0, Math.PI * 2);
+                    wCtx.strokeStyle = `rgba(225, 238, 255, ${r.alpha * 0.75 * pLvl})`;
+                    wCtx.lineWidth = Math.max(0.6, 1.4 * (1 - r.rx / r.maxRx));
+                    wCtx.stroke();
+
+                    // Concentric Crimson Secondary Wave Ring
+                    if (r.rx > 8) {
+                        wCtx.beginPath();
+                        wCtx.ellipse(r.x, r.y, r.rx * 0.68, r.ry * 0.68, 0, 0, Math.PI * 2);
+                        wCtx.strokeStyle = `rgba(220, 38, 38, ${r.alpha * 0.50 * pLvl})`;
+                        wCtx.lineWidth = 0.8;
+                        wCtx.stroke();
+                    }
+                }
+                wCtx.restore();
+            }
+
+            // ══════════════════════════════════════════════════════════════════
+            // 2. CARD TOPS COLLISION PLANES IN VIEWPORT SPACE
+            // ══════════════════════════════════════════════════════════════════
+            const cards = servicesSection.querySelectorAll('.fl-service-card, .fl-process-card, .fl-inquiry-wrap, .fl-cta-banner');
+            for (let i = 0; i < cards.length; i++) {
+                const cRect = cards[i].getBoundingClientRect();
+                if (cRect.top > -40 && cRect.top < winH + 40) {
+                    visibleSurfaces.push({
+                        x1: cRect.left,
+                        x2: cRect.right,
+                        y: cRect.top,
+                        type: 'card'
+                    });
+                }
+            }
+
+            // Bottom ground plane fallback
+            if (secRect.bottom <= winH + 120) {
+                visibleSurfaces.push({
+                    x1: -100,
+                    x2: width + 100,
+                    y: Math.min(winH - 12, secRect.bottom - 18),
+                    type: 'ground'
+                });
+            }
+
+            // ══════════════════════════════════════════════════════════════════
+            // 3. AIR RIPPLES & IMPACTS (fl-rain-canvas)
+            // ══════════════════════════════════════════════════════════════════
+            rCtx.save();
+            for (let i = 0; i < MAX_RIPPLES; i++) {
+                const r = ripples[i];
+                if (!r.active) continue;
+
+                r.rx += r.growth;
+                r.ry = r.rx * 0.32;
+                r.alpha -= r.fade;
+
+                if (r.alpha <= 0 || r.rx >= r.maxRx) {
+                    r.active = false;
+                    continue;
+                }
+
+                // Air ripples on card tops / dry ground
+                if (!r.inPuddle) {
+                    rCtx.beginPath();
+                    rCtx.ellipse(r.x, r.y, r.rx, r.ry, 0, 0, Math.PI * 2);
+                    rCtx.strokeStyle = `rgba(225, 238, 255, ${r.alpha * 0.65})`;
+                    rCtx.lineWidth = Math.max(0.6, 1.2 * (1 - r.rx / r.maxRx));
+                    rCtx.stroke();
+                }
+            }
+            rCtx.restore();
+
+            // Crown Splashes
+            rCtx.save();
+            for (let i = 0; i < MAX_CROWNS; i++) {
+                const c = crowns[i];
+                if (!c.active) continue;
+
+                c.r += c.growth;
+                c.alpha -= c.fade;
+                if (c.alpha <= 0 || c.r >= c.maxR) {
+                    c.active = false;
+                    continue;
+                }
+
+                const progress = c.r / c.maxR;
+                const spikeLift = c.height * (1 - Math.pow(progress - 0.4, 2));
+
+                // Crown base ring
+                rCtx.beginPath();
+                rCtx.ellipse(c.x, c.y, c.r, c.r * 0.35, 0, 0, Math.PI * 2);
+                rCtx.strokeStyle = `rgba(240, 248, 255, ${c.alpha * 0.70})`;
+                rCtx.lineWidth = 1.0;
+                rCtx.stroke();
+
+                // Upward crown droplet spikes
+                rCtx.fillStyle = `rgba(255, 255, 255, ${c.alpha * 0.90})`;
+                for (let k = 0; k < c.spikes; k++) {
+                    const angle = (k / c.spikes) * Math.PI * 2;
+                    const sx = c.x + Math.cos(angle) * c.r;
+                    const sy = c.y + Math.sin(angle) * (c.r * 0.35) - spikeLift;
+
+                    rCtx.beginPath();
+                    rCtx.arc(sx, sy, 1.3, 0, Math.PI * 2);
+                    rCtx.fill();
+
+                    // Connecting droplet stem
+                    rCtx.beginPath();
+                    rCtx.strokeStyle = `rgba(225, 238, 255, ${c.alpha * 0.42})`;
+                    rCtx.lineWidth = 0.8;
+                    rCtx.moveTo(sx, sy);
+                    rCtx.lineTo(c.x + Math.cos(angle) * (c.r * 0.8), c.y + Math.sin(angle) * (c.r * 0.28));
+                    rCtx.stroke();
+                }
+            }
+            rCtx.restore();
+
+            // Secondary Projectile Droplets
+            rCtx.save();
+            for (let i = 0; i < MAX_SPLASHES; i++) {
+                const s = splashes[i];
+                if (!s.active) continue;
+
+                s.x += s.vx;
+                s.y += s.vy;
+                s.vy += 0.28; // Gravity
+                s.alpha -= s.decay;
+
+                if (s.alpha <= 0 || s.y > winH + 20) {
+                    s.active = false;
+                    continue;
+                }
+
+                // Secondary water bead
+                rCtx.fillStyle = `rgba(255, 255, 255, ${s.alpha * 0.92})`;
+                rCtx.beginPath();
+                rCtx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                rCtx.fill();
+
+                // Directional motion tail
+                rCtx.strokeStyle = `rgba(235, 242, 255, ${s.alpha * 0.55})`;
+                rCtx.lineWidth = s.radius * 0.8;
+                rCtx.beginPath();
+                rCtx.moveTo(s.x, s.y);
+                rCtx.lineTo(s.x - s.vx * 1.5, s.y - s.vy * 1.5);
+                rCtx.stroke();
+            }
+            rCtx.restore();
+
+            // ══════════════════════════════════════════════════════════════════
+            // 4. HEAVY MONSOON DROPLET SIMULATION (3-TIER OPTICAL DEPTH)
+            // ══════════════════════════════════════════════════════════════════
+            const activeLimit = Math.floor(MAX_DROPS * rainIntensity);
+
+            for (let i = 0; i < activeLimit; i++) {
+                const d = drops[i];
+
+                d.x += d.vx;
+                d.y += d.vy;
+
+                // Collision detection against visible surfaces (cards & puddles)
+                let collided = false;
+                for (let sIdx = 0; sIdx < visibleSurfaces.length; sIdx++) {
+                    const s = visibleSurfaces[sIdx];
+                    if (d.x >= s.x1 && d.x <= s.x2 && d.y >= s.y - 12 && d.y <= s.y + d.vy + 4) {
+                        const hitPuddle = s.type === 'puddle';
+                        // Probability of triggering visible impact
+                        if (d.layer === 2 || Math.random() < (hitPuddle ? 0.70 : 0.40)) {
+                            spawnCrown(d.x, s.y, d.layer);
+                            spawnSecondaryDroplets(d.x, s.y, d.layer);
+                            spawnRipple(d.x, s.y, d.layer, hitPuddle);
+                        }
+
+                        // Reset drop to sky above viewport
+                        d.x = Math.random() * (width + 320) - 100;
+                        d.y = -d.length - Math.random() * 90;
+                        collided = true;
+                        break;
+                    }
+                }
+
+                if (collided) continue;
+
+                // Off-screen boundary recycle
+                if (d.y > winH + d.length) {
+                    d.x = Math.random() * (width + 320) - 100;
+                    d.y = -d.length - Math.random() * 90;
+                    continue;
+                }
+                if (d.x < -140) {
+                    d.x = width + 80;
+                }
+
+                // ── RENDER INDIVIDUAL DROPLET ──
+                const headX = d.x;
+                const headY = d.y;
+                const tailX = d.x - d.vx * (d.length / d.vy);
+                const tailY = d.y - d.length;
+
+                // Optical refraction gradient along droplet body
+                const grad = rCtx.createLinearGradient(tailX, tailY, headX, headY);
+                grad.addColorStop(0, 'rgba(215, 230, 255, 0)');
+                grad.addColorStop(0.65, `rgba(220, 235, 255, ${d.alpha * 0.50 * rainIntensity})`);
+                grad.addColorStop(0.9, `rgba(255, 255, 255, ${d.alpha * 0.90 * rainIntensity})`);
+                grad.addColorStop(1, `rgba(255, 248, 250, ${d.alpha * rainIntensity})`);
+
+                rCtx.beginPath();
+                rCtx.strokeStyle = grad;
+                rCtx.lineWidth = d.headRadius * (d.layer === 2 ? 1.6 : (d.layer === 1 ? 1.2 : 0.9));
+                rCtx.lineCap = 'round';
+                rCtx.moveTo(tailX, tailY);
+                rCtx.lineTo(headX, headY);
+                rCtx.stroke();
+
+                // Rounded bulbous droplet head with specular apex
+                if (d.layer >= 1) {
+                    rCtx.fillStyle = `rgba(255, 255, 255, ${d.alpha * rainIntensity})`;
+                    rCtx.beginPath();
+                    rCtx.arc(headX, headY, d.headRadius * 0.85, 0, Math.PI * 2);
+                    rCtx.fill();
+
+                    // Ambient crimson light refraction glint
+                    if (d.layer === 2) {
+                        rCtx.fillStyle = `rgba(220, 38, 38, ${0.50 * d.alpha * rainIntensity})`;
+                        rCtx.beginPath();
+                        rCtx.arc(headX + 0.6, headY - 0.4, d.headRadius * 0.45, 0, Math.PI * 2);
+                        rCtx.fill();
+                    }
+                }
+            }
+
+            // ══════════════════════════════════════════════════════════════════
+            // 5. ATMOSPHERIC RAIN MIST (DRIFTING VOLUMETRIC HAZE)
+            // ══════════════════════════════════════════════════════════════════
+            mistPhase += 0.008;
+            rCtx.save();
+            const mistX1 = (Math.sin(mistPhase) * 120) + (width * 0.3);
+            const mistY1 = height * 0.35;
+            const mistGrad1 = rCtx.createRadialGradient(mistX1, mistY1, 40, mistX1, mistY1, width * 0.65);
+            mistGrad1.addColorStop(0, `rgba(215, 230, 255, ${0.038 * rainIntensity})`);
+            mistGrad1.addColorStop(0.6, `rgba(220, 38, 38, ${0.022 * rainIntensity})`);
+            mistGrad1.addColorStop(1, 'transparent');
+            rCtx.fillStyle = mistGrad1;
+            rCtx.fillRect(0, 0, width, height);
+            rCtx.restore();
+
+            // ══════════════════════════════════════════════════════════════════
+            // 6. FOREGROUND LENS CONDENSATION DROPLETS
+            // ══════════════════════════════════════════════════════════════════
+            if (!isMobile && rainIntensity > 0.30) {
+                rCtx.save();
+                for (let i = 0; i < MAX_GLASS_DROPS; i++) {
+                    const g = glassDrops[i];
+                    g.slipCountdown--;
+
+                    if (g.slipCountdown <= 0) {
+                        g.slipSpeed = Math.min(5.2, g.slipSpeed + 0.42);
+                        g.y += g.slipSpeed;
+
+                        // Temporary water streak trail
+                        rCtx.strokeStyle = `rgba(255, 255, 255, ${0.15 * rainIntensity})`;
+                        rCtx.lineWidth = g.r * 0.75;
+                        rCtx.beginPath();
+                        rCtx.moveTo(g.x, g.y - 20);
+                        rCtx.lineTo(g.x, g.y);
+                        rCtx.stroke();
+
+                        if (g.y > height - 60) {
+                            g.y = Math.random() * 260 + 40;
+                            g.x = Math.random() * width;
+                            g.slipCountdown = Math.floor(Math.random() * 240) + 120;
+                            g.slipSpeed = 0;
+                        } else if (Math.random() < 0.04) {
+                            g.slipCountdown = Math.floor(Math.random() * 180) + 90;
+                            g.slipSpeed = 0;
+                        }
+                    }
+
+                    // Glass droplet bead
+                    rCtx.fillStyle = `rgba(255, 255, 255, ${g.alpha * rainIntensity * 0.85})`;
+                    rCtx.beginPath();
+                    rCtx.arc(g.x, g.y, g.r, 0, Math.PI * 2);
+                    rCtx.fill();
+
+                    // Micro ambient crimson glint
+                    rCtx.fillStyle = `rgba(220, 38, 38, ${0.35 * rainIntensity})`;
+                    rCtx.beginPath();
+                    rCtx.arc(g.x + 0.6, g.y + 0.6, g.r * 0.45, 0, Math.PI * 2);
+                    rCtx.fill();
+                }
+                rCtx.restore();
+            }
+        }
+
+        animId = requestAnimationFrame(loop);
+    }
+
+    animId = requestAnimationFrame(loop);
+}
+
 // === 10. BOOTSTRAP ===
 function boot() {
     initPreloader();
@@ -1434,6 +2656,9 @@ function boot() {
     initLenis();
     initCounters();
     initCardTilt();
+    initFreelanceInquiry();
+    initFreelanceMotion();
+    initFreelanceRainfall();
 }
 
 if (document.readyState === 'loading') {
